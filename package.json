@@ -2,12 +2,14 @@
   "name": "simplemindmaps",
   "version": "0.1.0",
   "description": "\"Simple mindmapping tool using HTML5 canvas\"",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "express": "4.13.3",
+    "express-handlebars": "2.0.1",
+    "handlebars": "4.0.5",
     "underscore": "1.8.3"
   },
   "devDependencies": {

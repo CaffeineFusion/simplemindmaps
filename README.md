@@ -5,5 +5,7 @@ Most of the mind mapping tools around seem significantly bloated.
 The aim of this project is to create a simple, portable and extensible mind mapping tool.
 I want to use this as the backbone for a large mind mapping project.
 
+Added Handlebars and Express to build a minimal web interface for initial testing, demo and template for use. My intention is for the underlying library to be entirely independent of these.
+
 # note
 This is in the very earliest stages of development and is not yet functional.
