@@ -1,0 +1,32 @@
+{
+  "name": "simplemindmaps",
+  "version": "0.1.0",
+  "description": "\"Simple mindmapping tool using HTML5 canvas\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "4.13.3",
+    "underscore": "1.8.3"
+  },
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "mocha": "^2.3.4",
+    "sinon": "^1.17.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CaffeineFusion/simplemindmaps.git"
+  },
+  "keywords": [
+    "mindmaps",
+    "simplemindmaps"
+  ],
+  "author": "CaffeineFusion <owensmith@live.com.au> (https://au.linkedin.com/in/oclsmith)",
+  "license": "SEE LICENSE IN LICENSE FILE",
+  "bugs": {
+    "url": "https://github.com/CaffeineFusion/simplemindmaps/issues"
+  },
+  "homepage": "https://github.com/CaffeineFusion/simplemindmaps#readme"
+}
