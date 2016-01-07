@@ -1,5 +1,10 @@
+global.rootRequire = function(name) {
+    return require(__dirname + '/' + name);
+}
+
 var express = require('express');
 var hbs = require('express-handlebars');
+
 
 var app = express();
 

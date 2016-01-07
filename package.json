@@ -4,7 +4,7 @@
   "description": "\"Simple mindmapping tool using HTML5 canvas\"",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha && node tests/test-model-idea.js && node tests/test-model-map.js && node tests/test-model-user.js"
   },
   "dependencies": {
     "express": "4.13.3",
@@ -15,6 +15,7 @@
   "devDependencies": {
     "chai": "^3.4.1",
     "mocha": "^2.3.4",
+    "nodemon": "^1.8.1",
     "sinon": "^1.17.2"
   },
   "repository": {
