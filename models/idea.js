@@ -1,8 +1,8 @@
 var _ = require('underscore');
 
 var Idea = function(title) {
-    this.body = null;
-    this.tags = [];
+    body = null;
+    tags = [];
 }
 
 Object.defineProperty(Idea, 'title', {
