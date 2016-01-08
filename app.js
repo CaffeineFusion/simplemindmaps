@@ -1,3 +1,2 @@
-global.rootRequire = function(name) {
-    return require(__dirname + '/' + name);
-}
+var canvasHelper = require('helpers/canvas.js');
+
