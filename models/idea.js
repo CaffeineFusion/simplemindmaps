@@ -1,8 +1,10 @@
 var _ = require('underscore');
 
-var Idea = function() {
+var Idea = function Idea(title, id) {
     this.body = null;
     this.tags = [];
+    this.title = title;
+    this.id = id;
 }
 
 Object.defineProperty(Idea, 'title', {
@@ -10,10 +12,10 @@ Object.defineProperty(Idea, 'title', {
         return this.title;
     },
     set: function(str) {
-        if(_.isString(str))
+        if (_.isString(str))
             this.title = str;
         else
-            throw("Title " + str.toString() + " is not a valid string!"); 
+            throw ("Title " + str.toString() + " is not a valid string!");
     }
 });
 
@@ -22,10 +24,29 @@ Object.defineProperty(Idea, 'colour', {
         return this.colour;
     },
     set: function(str) {
-        if(_.isString(str))
-            this.colour = colour;
+        if (_.isString(str))
+            this.colour = str;
         else
-            throw("Colour " + str.toString() + " is not a valid string!");
+            throw ("Colour " + str.toString() + " is not a valid string!");
+    }
+});
+
+Object.defineProperty(Idea, 'body', {
+    get: function() {
+        return this.body;
+    },
+    set: function(str) {
+        if (_.isString(str))
+            this.body = str;
+        else
+            throw ("Colour " + str.toString() + " is not a valid string!");
+    }
+});
+
+
+Object.defineProperty(Idea, 'id', {
+    get: function() {
+        return this.index;
     }
 });
 
