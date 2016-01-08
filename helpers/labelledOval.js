@@ -4,19 +4,24 @@ var LabelledOval = function LabelledOval() {
 	//object {x, y, l, w}
 	var dimensions;
 	return {
+		//initialize(str, hex, {x,y,l,w})
 		initialize : function (lbl, clr, dim) {
 			this.label = lbl;
 			this.colour = clr;
 			this.dimensions = dim;
 		},
 
+		setStyle: function(style) {
+			Error("setStyle() has not been developed yet");
+		}
+
 		//todo: seperate style into loadable format
-		applyStyle(context) {
+		applyStyle: function(context) {
 		    context.fillStyle = '#8ED6FF';
 		    context.fill();
 		    context.lineWidth = 5;
 		    context.strokeStyle = 'black';
-		}
+		},
 
 		draw: function(context) {
 			context.save();
