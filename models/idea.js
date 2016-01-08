@@ -1,6 +1,6 @@
 var _ = require('underscore');
 
-var Idea = function(title) {
+var Idea = function() {
     this.body = null;
     this.tags = [];
 }
