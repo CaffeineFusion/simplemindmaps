@@ -1,3 +1,11 @@
+"use strict"
+
+/*	object transparency
+	highlight function for mouse over
+	greyed out for 
+	transparent mode for dragging
+*/
+
 var LabelledOval = function LabelledOval() {
 	var label;
 	var colour;
@@ -27,9 +35,18 @@ var LabelledOval = function LabelledOval() {
 			context.save();
 			context.beginPath();
 			context.arc(dimensions.x, dimensions.y, 0 , 2 * Math.PI, false);
+			//border for oval
 			context.restore();
 			this.applyStyle(context);
 			context.stroke();
+		}
+		
+		greyOut: function() {
+			Error("grey out has not yet been implemented");
+		}
+
+		setTransparency: function() {
+			Error("transparency has not yet been implemented");
 		}
 	}
 }
