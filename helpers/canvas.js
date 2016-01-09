@@ -16,12 +16,24 @@ var Canvas = function Canvas() {
 		addDrawObject: function(obj) {
 			this.activeObjects.push(obj);
 		},
-		draw: function() {
+		draw: function() { 
+			//Clear canvas
 			for(var o of activeObjects) {
 				o.draw(context);
 			}
+		},
+		removeDrawObject: function() {
+			Error("removeDrawObject not yet implemented");
 		}
-		
+		//how to track whether a redraw is necessary:
+		// opt1: force  all updates to pass through the canvas draw object, have a simple flag.
+		//	upside - keeps drawing logic segregated from business logic. Simple flag to update and check
+		//	downside - passes all updates through this function. Has the potential to inhibit more complex update functions. 
+		//		seperates view logic too far from controlling entity.
+		// opt2: tie drawing objects to their appropriate
+		updateDrawObject: function() {
+			Error("updateDrawObject not yet implemented");
+		}
 
 
 
