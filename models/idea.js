@@ -1,10 +1,23 @@
 var _ = require('underscore');
 
 var Idea = function Idea(title, id) {
-    this.body = null;
-    this.tags = [];
-    this.title = title;
-    this.id = id;
+    
+    var body, tags, title, id;   
+
+    /*get title () {
+        return this.title;
+    }*/
+
+    return {
+        initialize : function(title, id) {
+            this.body = null;
+            this.tags = [];
+            this.title = title;
+            this.id = id;
+        }
+        //title : title;  will this work?
+
+    }
 }
 
 Object.defineProperty(Idea, 'title', {
