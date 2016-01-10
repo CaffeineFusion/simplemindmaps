@@ -1,32 +1,35 @@
-"use strict"
-var _ = require('underscore');
-var drawingObject = require('../helpers/drawingObject.js');
-
-//Create drawingObject parent class
-
-var Canvas = function Canvas() {
+module.exports = function Canvas() { 
+	'use strict';
 
 	var context;
 	var activeObjects;
 	var height, width;
+	var needRedraw;
 
 	return {
-		initialize : function(ctx, height, width) {
+		initialize : function(ctx, width, height) {
 			this.context = ctx;
 			this.activeObjects = [];
+			this.needRedraw = true;
+			this.width = width;
+			this.height = height;
 		},
 		addDrawObject: function(obj) {
 			this.activeObjects.push(obj);
 		},
 		draw: function() { 
-			//Clear canvas
+			if(!needRedraw) { return; }
+
+			//This seems like an ugly implementation, hunt down alt.
+			this.context.clearRect(0, 0, this.width, this. height);
 			for(var o of activeObjects) {
 				o.draw(context);
 			}
+			needRedraw = false;
 		},
 		removeDrawObject: function(drawObject) {
 			var ix = this.activeObjects.indexOf(drawObject);
-			if(index > -1) {
+			if(ix > -1) {
 				this.activeObjects.splice(ix, 1);
 			}
 		},
@@ -45,6 +48,3 @@ var Canvas = function Canvas() {
 		}
 	}
 }
-
-
-module.exports = new Canvas(); 

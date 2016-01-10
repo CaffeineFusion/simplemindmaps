@@ -1,41 +1,43 @@
-"use strict"
-
 /*	object transparency
 	highlight function for mouse over
 	greyed out for 
 	transparent mode for dragging
 */
 
-var LabelledOval = function LabelledOval() {
+module.exports = function LabelledOval() {
+	'use strict';
+
 	var label;
 	var colour;
 	//object {x, y, l, w}
 	var dimensions;
+	var style;
+
 	return {
 		//initialize(str, hex, {x,y,l,w})
-		initialize : function (lbl, clr, dim) {
+		initialize : function (lbl, clr, dimensions) {
 			this.label = lbl;
 			this.colour = clr;
-			this.dimensions = dim;
+			this.dimensions = dimensions;
+			this.setStyle({fillStyle:'#8ED6FF', lineWidth:5, strokeStyle:'black'});
 		},
 
 		setStyle: function(style) {
-			Error("setStyle() has not been developed yet");
+			this.style = style;
 		}
 
 		//todo: seperate style into loadable format
 		applyStyle: function(context) {
-		    context.fillStyle = '#8ED6FF';
+		    context.fillStyle = this.style['fillStyle'];
 		    context.fill();
-		    context.lineWidth = 5;
-		    context.strokeStyle = 'black';
+		    context.lineWidth = this.style['lineWidth'];
+		    context.strokeStyle = this.style['strokeStyle'];
 		},
 
 		draw: function(context) {
 			context.save();
 			context.beginPath();
 			context.arc(dimensions.x, dimensions.y, 0 , 2 * Math.PI, false);
-			//border for oval
 			context.restore();
 			this.applyStyle(context);
 			context.stroke();
@@ -51,4 +53,4 @@ var LabelledOval = function LabelledOval() {
 	}
 }
 
-module.exports = new LabelledOval();
+//module.exports = new LabelledOval();
