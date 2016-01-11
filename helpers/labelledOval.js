@@ -5,7 +5,7 @@
 */
 
 module.exports = function LabelledOval() {
-	'use strict';
+	"use strict";
 
 	var label;
 	var colour;
@@ -15,23 +15,27 @@ module.exports = function LabelledOval() {
 
 	return {
 		//initialize(str, hex, {x,y,l,w})
-		initialize : function (lbl, clr, dimensions) {
+		initialize: function (lbl, clr, dimensions) {
 			this.label = lbl;
 			this.colour = clr;
 			this.dimensions = dimensions;
-			this.setStyle({fillStyle:'#8ED6FF', lineWidth:5, strokeStyle:'black'});
+			this.setStyle({fillStyle:"#8ED6FF", lineWidth:5, strokeStyle:"black"});
 		},
 
 		setStyle: function(style) {
 			this.style = style;
-		}
+		},
+
+		getStyle: function() {
+			return this.style;
+		},
 
 		//todo: seperate style into loadable format
 		applyStyle: function(context) {
-		    context.fillStyle = this.style['fillStyle'];
+		    context.fillStyle = this.style.fillStyle;
 		    context.fill();
-		    context.lineWidth = this.style['lineWidth'];
-		    context.strokeStyle = this.style['strokeStyle'];
+		    context.lineWidth = this.style.lineWidth;
+		    context.strokeStyle = this.style.strokeStyle;
 		},
 
 		draw: function(context) {
@@ -41,16 +45,16 @@ module.exports = function LabelledOval() {
 			context.restore();
 			this.applyStyle(context);
 			context.stroke();
-		}
+		},
 		
 		greyOut: function() {
-			Error("grey out has not yet been implemented");
-		}
+			throw("grey out has not yet been implemented");
+		},
 
 		setTransparency: function() {
-			Error("transparency has not yet been implemented");
+			throw("transparency has not yet been implemented");
 		}
-	}
-}
+	};
+};
 
 //module.exports = new LabelledOval();

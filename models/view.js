@@ -1,5 +1,7 @@
-var _ = require('underscore');
-var idea = require('../models/idea.js');
+/*jshint node: true */
+"use strict";
+var idea = require("../models/idea.js");
+
 
 var View = function View(viewName){
     this.ideas = [];
@@ -27,7 +29,7 @@ var View = function View(viewName){
 
     //get name() { return this.name; };
 
-}
+};
 
 
 /*Object.defineProperty(View, 'name', {

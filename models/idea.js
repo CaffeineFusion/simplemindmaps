@@ -1,4 +1,5 @@
-var _ = require('underscore');
+"use strict";
+var _ = require("underscore");
 
 var Idea = function Idea(title, id) {
     
@@ -17,10 +18,10 @@ var Idea = function Idea(title, id) {
         }
         //title : title;  will this work?
 
-    }
-}
+    };
+};
 
-Object.defineProperty(Idea, 'title', {
+Object.defineProperty(Idea, "title", {
     get: function() {
         return this.title;
     },
@@ -32,7 +33,7 @@ Object.defineProperty(Idea, 'title', {
     }
 });
 
-Object.defineProperty(Idea, 'colour', {
+Object.defineProperty(Idea, "colour", {
     get: function() {
         return this.colour;
     },
@@ -44,7 +45,7 @@ Object.defineProperty(Idea, 'colour', {
     }
 });
 
-Object.defineProperty(Idea, 'body', {
+Object.defineProperty(Idea, "body", {
     get: function() {
         return this.body;
     },
@@ -57,7 +58,7 @@ Object.defineProperty(Idea, 'body', {
 });
 
 
-Object.defineProperty(Idea, 'id', {
+Object.defineProperty(Idea, "id", {
     get: function() {
         return this.index;
     }

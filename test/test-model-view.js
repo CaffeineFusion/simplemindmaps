@@ -1,9 +1,9 @@
 
 
 var assert = require('chai').assert;
-var view = require('../models/view.js');
+//var view = require('../models/view.js');
 
-console.log(view.toString());
+//console.log(view.toString());
 
 //v = new view('newView');
 //console.log(v.getIdea());
@@ -17,5 +17,5 @@ describe('Array', function() {
   });
 });
 
-assert.equal(view.addIdea('testIdea1'), 0, 'first idea created with id = 0');
+//assert.equal(view.addIdea('testIdea1'), 0, 'first idea created with id = 0');
 
