@@ -12,11 +12,11 @@ var Connector = require("../helpers/connector.js");
 var connector = new Connector();
 
 
-//describe("LabelledOval", function() { 
-//    describe("#initialize()", function () {
+describe("LabelledOval", function() { 
+    describe("#initialize()", function () {
         expect(connector).to.be.a.connector();
-//    });
-//});
+    });
+});
 
 console.log(connector.getColour());
 connector.initialize("rainbow",{a:{x:1, y:1}, b:{x:1,y:10}});
