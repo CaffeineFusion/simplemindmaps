@@ -19,7 +19,7 @@ module.exports = function LabelledOval() {
 			this.label = lbl;
 			this.colour = clr;
 			this.dimensions = dimensions;
-			this.setStyle({fillStyle:"#8ED6FF", lineWidth:5, strokeStyle:"black"});
+			this.style({fillStyle:"#8ED6FF", lineWidth:5, strokeStyle:"black"});
 		},
 
 		set style(style) {
