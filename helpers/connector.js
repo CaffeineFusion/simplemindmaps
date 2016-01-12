@@ -1,14 +1,14 @@
 module.exports = function Connector() {
 	"use strict";
 
-	//var colour = "Blue";
-	//var points = {a:{x:0, y:0}, b:{x:10, y:10}};
-	//var style = {lineWidth:5, strokeStyle:"black"};
+	this.colour = "Blue";
+	this.points = {a:{x:0, y:0}, b:{x:10, y:10}};
+	this.style = {lineWidth:5, strokeStyle:"black"};
 
 	this.initialize = function (clr, points) {
 		this.colour = clr;
 		this.points = points;
-		this.setStyle({flineWidth:5, strokeStyle:"black"});
+		this.setStyle({lineWidth:5, strokeStyle:"black"});
 	};
 
 	this.getColour = function() {
