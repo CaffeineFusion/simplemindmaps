@@ -1,31 +1,66 @@
-var _ = require('underscore');
+"use strict";
+var _ = require("underscore");
 
-var Idea = function(title) {
-    body = null;
-    tags = [];
-}
+var Idea = function Idea(title, id) {
+    
+    var body, tags, title, id;   
 
-Object.defineProperty(Idea, 'title', {
+    /*get title () {
+        return this.title;
+    }*/
+
+    return {
+        initialize : function(title, id) {
+            this.body = null;
+            this.tags = [];
+            this.title = title;
+            this.id = id;
+        }
+        //title : title;  will this work?
+
+    };
+};
+
+Object.defineProperty(Idea, "title", {
     get: function() {
         return this.title;
     },
     set: function(str) {
-        if(_.isString(str))
+        if (_.isString(str))
             this.title = str;
         else
-            throw("Title " + str.toString() + " is not a valid string!"); 
+            throw ("Title " + str.toString() + " is not a valid string!");
     }
 });
 
-Object.defineProperty(Idea, 'colour', {
+Object.defineProperty(Idea, "colour", {
     get: function() {
         return this.colour;
     },
     set: function(str) {
-        if(_.isString(str))
-            this.colour = colour;
+        if (_.isString(str))
+            this.colour = str;
         else
-            throw("Colour " + str.toString() + " is not a valid string!");
+            throw ("Colour " + str.toString() + " is not a valid string!");
+    }
+});
+
+Object.defineProperty(Idea, "body", {
+    get: function() {
+        return this.body;
+    },
+    set: function(str) {
+        if (_.isString(str))
+            this.body = str;
+        else
+            throw ("Colour " + str.toString() + " is not a valid string!");
+    }
+});
+
+
+Object.defineProperty(Idea, "id", {
+    get: function() {
+        return this.index;
     }
 });
 
