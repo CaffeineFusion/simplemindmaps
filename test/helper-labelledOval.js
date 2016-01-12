@@ -2,14 +2,16 @@
 
 //init chai
 var chai = require("chai"), 
-	chaiModel = require("./helpers/model"),
+	chaiModel = require("./helpers/labelledOval"),
 	assert = require("chai").assert,
 	expect = require("chai").expect;
 chai.use(chaiModel);
 
 
-var labelledOval = require("../helpers/labelledOval.js");
-var oval = new labelledOval();
+var LabelledOval = require("../helpers/labelledOval.js");
+var oval = new LabelledOval();
+
+/*expect(oval).to.be.a.labelledOval();
 
 //console.log(labelledOval.toString());
 
@@ -39,5 +41,6 @@ describe("LabelledOval", function() {
     });
   });
 });
+*/
 
 //assert.equal(view.addIdea('testIdea1'), 0, 'first idea created with id = 0');

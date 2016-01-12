@@ -7,14 +7,14 @@
 module.exports = function LabelledOval() {
 	"use strict";
 
-	var label;
-	var colour;
-	//object {x, y, l, w}
-	var dimensions;
-	var style;
+	//var label = "New Idea";
+	//var colour = "Blue";
+	//object {x, y, h, w}
+	//var dimensions = {x:0, y:0, h:10, w:10};
+	//var style = {fillStyle:"#8ED6FF", lineWidth:5, strokeStyle:"black"};
 
 	return {
-		//initialize(str, hex, {x,y,l,w})
+		//initialize(str, hex, {x,y,h,w})
 		initialize: function (lbl, clr, dimensions) {
 			this.label = lbl;
 			this.colour = clr;
