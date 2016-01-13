@@ -1,5 +1,5 @@
 'use strict';
-var LabelledOval = require('../../helpers/labelledOval.js');
+var Canvas = require('../../helpers/canvas.js');
 
 module.exports = function (chai, utils) {
 	var Assertion = chai.Assertion;
@@ -13,10 +13,10 @@ module.exports = function (chai, utils) {
 			);
 	}); */
 
-	Assertion.addMethod('labelledOval', function(type) {
+	Assertion.addMethod('canvas', function(type) {
 		var obj = this._obj;
 
-		new Assertion(this._obj).to.be.instanceof(LabelledOval);
+		new Assertion(this._obj).to.be.instanceof(Canvas);
 
 		this.assert(
 			obj._type === type,
@@ -29,11 +29,3 @@ module.exports = function (chai, utils) {
 	
 
 };
-
-/*
-
-    #{this}: the _obj of the assertion
-    #{exp}: the expected value, if it was provided in assert
-    #{act}: the actual value, defaults to _obj but can be overwritten by value provided in assert
-
- */

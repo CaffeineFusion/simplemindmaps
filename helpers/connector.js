@@ -1,14 +1,14 @@
 module.exports = function Connector() {
-	"use strict";
+	'use strict';
 
-	this.colour = "Blue";
+	this.colour = 'Blue';
 	this.points = {a:{x:0, y:0}, b:{x:10, y:10}};
-	this.style = {lineWidth:5, strokeStyle:"black"};
+	this.style = {lineWidth:5, strokeStyle:'black'};
 
 	this.initialize = function (clr, points) {
 		this.colour = clr;
 		this.points = points;
-		this.setStyle({lineWidth:5, strokeStyle:"black"});
+		this.setStyle({lineWidth:5, strokeStyle:'black'});
 	};
 
 	this.getColour = function() {
@@ -43,10 +43,10 @@ module.exports = function Connector() {
 	};
 		
 	this.greyOut = function() {
-		throw("grey out has not yet been implemented");
+		throw('grey out has not yet been implemented');
 	};
 
 	this.setTransparency = function() {
-		throw("transparency has not yet been implemented");
+		throw('transparency has not yet been implemented');
 	};
 };
