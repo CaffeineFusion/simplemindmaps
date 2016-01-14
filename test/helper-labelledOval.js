@@ -2,9 +2,9 @@
 
 //init chai
 var chai = require('chai'), 
-	chaiModel = require('./helpers/labelledOval'),
-	assert = require('chai').assert,
-	expect = require('chai').expect;
+    chaiModel = require('./helpers/labelledOval'),
+    assert = require('chai').assert,
+    expect = require('chai').expect;
 chai.use(chaiModel);
 
 
