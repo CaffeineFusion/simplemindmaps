@@ -9,7 +9,7 @@ chai.use(chaiModel);
 
 
 var LabelledOval = require('../canvas/labelledOval.js');
-console.log(new LabelledOval());
+//console.log(new LabelledOval());
 
 //var oval = new LabelledOval();
 

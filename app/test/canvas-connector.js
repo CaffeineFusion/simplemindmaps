@@ -1,6 +1,8 @@
 'use strict';
 
-//init chai
+//Initial few tests, need to expand.
+
+//Init chai
 var chai = require('chai'), 
 	chaiModel = require('./helpers/connector'),
 	assert = require('chai').assert,
@@ -10,6 +12,9 @@ chai.use(chaiModel);
 var Connector = require('../canvas/connector.js');
 
 describe('Connector', function() { 
+
+
+    //Test Connector Creation
     describe('#new Connector()', function () {
         var connector = new Connector();
         it('new connector should be of the Connector class', function (){
@@ -35,6 +40,7 @@ describe('Connector', function() {
     });
 
 
+    //Test Connector Initialization
     describe('#initialize()', function () {
 
         var connector = new Connector();

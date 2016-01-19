@@ -1,29 +1,26 @@
-module.exports = function Connector() {
+var _ = require('underscore');
+var ParseJSON = require('../helpers/parseJSON');
+
+var Connector = function Connector() {
+
 	'use strict';
 
-	this.colour = 'Blue';
+	//this.colour = 'Blue';
 	this.points = {a:{x:0, y:0}, b:{x:10, y:10}};
-	this.style = {lineWidth:5, strokeStyle:'black'};
+	//this.style = {lineWidth:5, strokeStyle:'black'};
 
 	this.initialize = function (clr, points) {
 		this.colour = clr;
 		this.points = points;
-		this.setStyle({lineWidth:5, strokeStyle:'black'});
+		//this.setStyle({lineWidth:5, strokeStyle:'black'});
 	};
 
-	this.getColour = function() {
-		return this.colour;
-	};
 
-	this.setStyle = function(style) {
-		this.style = style;
-	};
+	//applyStyle is part of the drawing logic.
+	//  It takes the current style and applies it to the drawing that has just been made onto the context.
+	
+	//todo : make apply Style a private function.
 
-	this.getStyle = function() {
-		return this.style;
-	};
-
-	//todo: seperate style into loadable format
 	this.applyStyle = function(context) {
 	    context.fillStyle = this.style.fillStyle;
 	    context.fill();
@@ -31,6 +28,8 @@ module.exports = function Connector() {
 	    context.strokeStyle = this.style.strokeStyle;
 	};
 
+
+	//How will the context passing function when async?
 	this.draw = function(context) {
 
 		/*context.save();
@@ -50,3 +49,40 @@ module.exports = function Connector() {
 		throw('transparency has not yet been implemented');
 	};
 };
+
+//todo : add error handling and proper logging
+//		 default is currently hardbaked for colour and style. Seperate to external style doc
+
+Object.defineProperty(Connector, 'colour', {
+    get: function() {
+    	if(!this.colour)
+    		return 'Blue';
+        return this.colour;
+    },
+    set: function(str) {
+        if (_.isString(str))
+            this.colour = str;
+        else
+            console.log('Colour ' + str.toString() + ' is not a valid string!');
+    }
+});
+
+
+
+Object.defineProperty(Connector, 'style', {
+    get: function() {
+    	if(!this.style)
+    		return {lineWidth:5, strokeStyle:'black'};
+        return this.style;
+    },
+    set: function(jsonString) {
+    	j = ParseJSON(jsonString);
+    	//ParseJSON returns false if the string is not valid JSON
+        if (!j)
+            console.log('Style ' + jsonString.toString() + ' is not valid JSON!');
+        else
+            this.style = jsonString;
+    }
+});
+
+module.exports = Connector;

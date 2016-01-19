@@ -13,7 +13,7 @@ module.exports = function (chai, utils) {
 			);
 	}); */
 
-	/*Assertion.addMethod('canvas', function(type) {
+	Assertion.addMethod('canvas', function(type) {
 		var obj = this._obj;
 
 		new Assertion(this._obj).to.be.instanceof(Canvas);
@@ -25,7 +25,7 @@ module.exports = function (chai, utils) {
 			type, obj._type
 		);
 
-	});*/
+	});
 	
 
 };

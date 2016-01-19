@@ -1,8 +1,16 @@
-"use strict";
-var _ = require("underscore");
+var _ = require('underscore');
 
+
+/*
+The idea is a basic concept in this app. 
+When it is placed onto to the screen it is added to the current 'view'.
+This is then mapped to a labelledOval on a canvas.
+An idea can be on multiple views.
+*/
 var Idea = function Idea(title, id) {
     
+    'use strict';
+
     var body, tags, title, id;   
 
     /*get title () {
@@ -21,7 +29,10 @@ var Idea = function Idea(title, id) {
     };
 };
 
-Object.defineProperty(Idea, "title", {
+
+//todo : add error handling and proper logging
+
+Object.defineProperty(Idea, 'title', {
     get: function() {
         return this.title;
     },
@@ -29,11 +40,11 @@ Object.defineProperty(Idea, "title", {
         if (_.isString(str))
             this.title = str;
         else
-            throw ("Title " + str.toString() + " is not a valid string!");
+            throw ('Title ' + str.toString() + ' is not a valid string!');
     }
 });
 
-Object.defineProperty(Idea, "colour", {
+Object.defineProperty(Idea, 'colour', {
     get: function() {
         return this.colour;
     },
@@ -41,11 +52,11 @@ Object.defineProperty(Idea, "colour", {
         if (_.isString(str))
             this.colour = str;
         else
-            throw ("Colour " + str.toString() + " is not a valid string!");
+            throw ('Colour ' + str.toString() + ' is not a valid string!');
     }
 });
 
-Object.defineProperty(Idea, "body", {
+Object.defineProperty(Idea, 'body', {
     get: function() {
         return this.body;
     },
@@ -53,12 +64,12 @@ Object.defineProperty(Idea, "body", {
         if (_.isString(str))
             this.body = str;
         else
-            throw ("Colour " + str.toString() + " is not a valid string!");
+            throw ('Colour ' + str.toString() + ' is not a valid string!');
     }
 });
 
 
-Object.defineProperty(Idea, "id", {
+Object.defineProperty(Idea, 'id', {
     get: function() {
         return this.index;
     }
