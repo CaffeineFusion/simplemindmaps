@@ -1,0 +1,1 @@
+console.log("Tests for user.js are not yet implemented!")
