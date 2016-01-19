@@ -1,2 +1,2 @@
-var canvasHelper = require('helpers/canvas.js');
+var canvas = require('app/canvas/canvas.js');
 

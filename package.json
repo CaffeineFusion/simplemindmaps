@@ -4,7 +4,7 @@
   "description": "\"Simple mindmapping tool using HTML5 canvas\"",
   "main": "server.js",
   "scripts": {
-    "test": "mocha && mocha test/model-idea.js && mocha test/model-view.js && mocha test/model-user.js && mocha test/helper-canvas.js && mocha test/helper-connector.js && mocha test/helper-labelledOval.js"
+    "test": "mocha app/test && mocha app/test/model-idea.js && mocha app/test/model-view.js && mocha app/test/model-user.js && mocha app/test/canvas-canvas.js && mocha app/test/canvas-connector.js && mocha app/test/canvas-labelledOval.js"
   },
   "dependencies": {
     "express": "4.13.3",
