@@ -62,9 +62,15 @@ module.exports = function Canvas() {
 
 		//clearRect seems like an ugly implementation, hunt down alt.
 		this.context.clearRect(0, 0, this.width, this.height);
-		this.activeObjects.forEach(function (o, index) {
-			o.draw(this.context);  //need to bind context
-		});
+
+		for (var o in this.activeObjects) {
+			o.draw(this.context); 
+	    }
+
+
+		/*this.activeObjects.forEach(function (o, index) {
+			o.draw(this.context);  
+		});*/
 
 		/*
 		//"of" not functioning for some reason.
