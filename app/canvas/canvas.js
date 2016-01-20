@@ -1,8 +1,8 @@
 'use strict';
 
-var Label = require('label');
-var LabelledOval = require('labelledOval');
-var Connector = require('connector');
+var Label = require('./label');
+var LabelledOval = require('./labelledOval');
+var Connector = require('./connector');
 
 /**
  * Canvas The canvas object holds all of the drawing objects which are to be 
@@ -18,7 +18,7 @@ module.exports = function Canvas() {
 	this.width = 1200;
 	this.needRedraw = true;
 	this.state = 'stop';
-	//this.label = 
+	var label = new Label();
 
 	/**
 	 * initialize 	Configures the canvas representation using the html canvas element.
@@ -30,13 +30,14 @@ module.exports = function Canvas() {
 	 *
 	 * Todo: implement error handling on canvas load.
 	 */
-	this.initialize = function(canvas) {
+	this.initialize = function(canvas, viewName) {
 		this.canvas = canvas;
 		this.context = canvas.getContext('2d');
 		this.activeObjects = [];
 		this.needRedraw = true;
 		this.width = canvas.width;
 		this.height = canvas.height;
+		label.initialize('Black', viewName, {x:0, y:0});
 	};
 
 	this.addDrawObject = function(obj) {

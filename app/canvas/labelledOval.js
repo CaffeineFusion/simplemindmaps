@@ -8,7 +8,7 @@
 
 'use strict';
 
-var Label = require('label');
+var Label = require('./label');
 
 /**
  * LabelledOval The LabelledOval is the basic drawing object which visually represents 
@@ -20,7 +20,7 @@ var Label = require('label');
 module.exports = function LabelledOval() {
 	var LabelledOval = {
 
-		label:'New Idea',
+		//label:'New Idea',
 		colour:'Blue',
 		//object {x, y, h, w}
 		dimensions:{x:0, y:0, h:10, w:10},
@@ -44,13 +44,7 @@ module.exports = function LabelledOval() {
 		},
 
 		set label(title) {
-			this.style = style;
-		},
-
-		get style() {
-			if(!this.style)
-				return {fillStyle:'#8ED6FF', lineWidth:5, strokeStyle:'black'};
-			return this.style;
+			this.label = title;
 		},
 
 		//todo: seperate style into loadable format
