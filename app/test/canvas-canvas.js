@@ -16,6 +16,7 @@ console.log('canvas tests yet to be fully implemented');
 
 describe('Canvas', function() { 
 
+	//var canvas=document.getElementById("canvas");
 
 	//Test Canvas Creation
     describe('#new Canvas()', function () {
@@ -33,4 +34,22 @@ describe('Canvas', function() {
 		*/
 
     });
+
+    describe('#initialized Canvas()', function () {
+        var canvas = new Canvas();
+        var context = null;  // need to mock the context element
+        canvas.initialize(context, 'new canvas');
+
+        it('initialized canvas should be of the Canvas class', function (){
+            expect(canvas).to.be.a.canvas(Canvas.type);
+        });
+
+        it('initialized canvas should start in the stopped state', function (){
+            assert.equal(canvas.getState == 'stop');
+            //expect(connector).to.be.a.connector(Connector.type);
+        });
+		
+	
+    });
+
 });
