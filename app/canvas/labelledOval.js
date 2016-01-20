@@ -50,10 +50,10 @@ module.exports = function LabelledOval() {
 		},
 
 		draw: function(context) {
-			context.save();
+			//context.save(); //place current context onto stack
 			context.beginPath();
 			context.arc(this.dimensions.x, this.dimensions.y, 0 , 2 * Math.PI, false);
-			context.restore();
+			//context.restore();  //retrieve context from stack
 			this.applyStyle(context);
 			context.stroke();
 		},
@@ -64,6 +64,11 @@ module.exports = function LabelledOval() {
 
 		setTransparency: function() {
 			throw('transparency has not yet been implemented');
+		},
+
+		//Because everyone *loves* Radians
+		degreesToRadians: function(degrees) {
+			return degrees * (Math.PI / 180);
 		}
 	};
 	return LabelledOval;

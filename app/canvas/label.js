@@ -66,7 +66,7 @@ Object.defineProperty(Label, 'text', {
 //todo : add error handling and proper logging
 //		 default is currently hardbaked for colour and style. Seperate to external style doc
 
-Object.defineProperty(Connector, 'colour', {
+Object.defineProperty(Label, 'colour', {
     get: function() {
     	if(!this.colour)
     		return 'Blue';
@@ -82,7 +82,7 @@ Object.defineProperty(Connector, 'colour', {
 
 
 
-Object.defineProperty(Connector, 'style', {
+Object.defineProperty(Label, 'style', {
     get: function() {
     	if(!this.style)
     		return {lineWidth:5, strokeStyle:'black'};
@@ -98,4 +98,4 @@ Object.defineProperty(Connector, 'style', {
     }
 });
 
-module.exports = Connector;
+module.exports = Label;
