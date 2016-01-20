@@ -8,6 +8,8 @@
 
 'use strict';
 
+var Label = require('label');
+
 /**
  * LabelledOval The LabelledOval is the basic drawing object which visually represents 
  * 		an idea model and renders it on the canvas object
@@ -41,6 +43,16 @@ module.exports = function LabelledOval() {
 			return this.style;
 		},
 
+		set label(title) {
+			this.style = style;
+		},
+
+		get style() {
+			if(!this.style)
+				return {fillStyle:'#8ED6FF', lineWidth:5, strokeStyle:'black'};
+			return this.style;
+		},
+
 		//todo: seperate style into loadable format
 		applyStyle: function(context) {
 		    context.fillStyle = this.style.fillStyle;
@@ -52,7 +64,7 @@ module.exports = function LabelledOval() {
 		draw: function(context) {
 			//context.save(); //place current context onto stack
 			context.beginPath();
-			context.arc(this.dimensions.x, this.dimensions.y, 0 , 2 * Math.PI, false);
+			context.arc(this.dimensions.x, this.dimensions.y, 0 , degreesToRadians(360), false);
 			//context.restore();  //retrieve context from stack
 			this.applyStyle(context);
 			context.stroke();
@@ -67,6 +79,7 @@ module.exports = function LabelledOval() {
 		},
 
 		//Because everyone *loves* Radians
+		//note: how does the return value handle the decimal?
 		degreesToRadians: function(degrees) {
 			return degrees * (Math.PI / 180);
 		}

@@ -80,7 +80,7 @@ Object.defineProperty(Connector, 'style', {
         return this.style;
     },
     set: function(jsonString) {
-    	j = ParseJSON(jsonString);
+    	var j = ParseJSON(jsonString);
     	//ParseJSON returns false if the string is not valid JSON
         if (!j)
             console.log('Style ' + jsonString.toString() + ' is not valid JSON!');

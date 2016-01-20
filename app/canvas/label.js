@@ -1,14 +1,18 @@
-
 'use strict';
+var _ = require('underscore');
+var ParseJSON = require('../helpers/parseJSON');
 
 var Label = function Label() {
-
 
 	//this.colour = 'Blue';
 	//this.style = {lineWidth:5, strokeStyle:'black'};
 
-	this.initialize = function (clr) {
+	//Todo : What should the initial params be for Label?
+	//		Need to include boundary
+	this.initialize = function (clr, text, point) {
 		this.colour = clr;
+		this.text = text;
+		this.point = point;
 		//this.points = points;
 		//this.setStyle({lineWidth:5, strokeStyle:'black'});
 	};
@@ -18,22 +22,17 @@ var Label = function Label() {
 	//  It takes the current style and applies it to the drawing that has just been made onto the context.
 	
 	//todo : make apply Style a private function.
-
 	this.applyStyle = function(context) {
-
+		context.font = this.font;
+		context.align = this.align;
 	};
 
 
 	//How will the context passing function when async?
-	//Todo:
 	this.draw = function(context) {
 
-		/*context.save();
-		context.beginPath();
-		context.arc(dimensions.x, dimensions.y, 0 , 2 * Math.PI, false);
-		context.restore();
 		this.applyStyle(context);
-		context.stroke();*/
+		context.fillText = (this.text, this.point.x, this.point.y);
 
 	};
 		
@@ -47,11 +46,15 @@ var Label = function Label() {
 };
 
 
+//Todo: Make Label module into basic object declaration so that getter and setter 
+//		objects	can be more simply defined?
+
 //Todo: cleaning text input
+//		move out default text type - currently hardbaked
 Object.defineProperty(Label, 'text', {
     get: function() {
     	if(!this.text)
-    		return '';
+    		return '30px Arial';
         return this.text;
     },
     set: function(str) {
@@ -62,10 +65,23 @@ Object.defineProperty(Label, 'text', {
     }
 });
 
+Object.defineProperty(Label, 'font', {
+    get: function() {
+    	if(!this.font)
+    		return '';
+        return this.font;
+    },
+    set: function(str) {
+        if (_.isString(str))
+            this.font = str;
+        else
+            console.log('Label ' + str.toString() + ' is not a valid string!');
+    }
+});
+
 
 //todo : add error handling and proper logging
 //		 default is currently hardbaked for colour and style. Seperate to external style doc
-
 Object.defineProperty(Label, 'colour', {
     get: function() {
     	if(!this.colour)
@@ -89,7 +105,7 @@ Object.defineProperty(Label, 'style', {
         return this.style;
     },
     set: function(jsonString) {
-    	j = ParseJSON(jsonString);
+    	var j = ParseJSON(jsonString);
     	//ParseJSON returns false if the string is not valid JSON
         if (!j)
             console.log('Style ' + jsonString.toString() + ' is not valid JSON!');
@@ -97,5 +113,34 @@ Object.defineProperty(Label, 'style', {
             this.style = jsonString;
     }
 });
+
+
+
+Object.defineProperty(Label, 'point', {
+    get: function() {
+    	if(!this.point)
+    		return {x:0, y:0};
+        return this.point;
+    },
+    //No error handling!
+    set: function(position) {
+    	this.point = position;
+    }
+});
+
+
+
+Object.defineProperty(Label, 'align', {
+    get: function() {
+    	if(!this.align)
+    		return "center";
+        return this.align;
+    },
+    //No error handling!
+    set: function(alignment) {
+    	this.align = alignment;
+    }
+});
+
 
 module.exports = Label;
