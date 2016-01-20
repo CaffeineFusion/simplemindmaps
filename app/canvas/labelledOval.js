@@ -44,7 +44,10 @@ module.exports = function LabelledOval() {
 		},
 
 		set label(title) {
-			this.label = title;
+			if(!this.label) {
+				this.label = new Label();
+			}
+			this.label.text = title;
 		},
 
 		//todo: seperate style into loadable format
@@ -58,7 +61,7 @@ module.exports = function LabelledOval() {
 		draw: function(context) {
 			//context.save(); //place current context onto stack
 			context.beginPath();
-			context.arc(this.dimensions.x, this.dimensions.y, 0 , degreesToRadians(360), false);
+			context.arc(this.dimensions.x, this.dimensions.y, 0 , this.degreesToRadians(360), false);
 			//context.restore();  //retrieve context from stack
 			this.applyStyle(context);
 			context.stroke();

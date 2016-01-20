@@ -8,12 +8,12 @@ var ParseJSON = require('../helpers/parseJSON');
  */
 var Connector = function Connector() {
 
-
 	//this.colour = 'Blue';
 	this.points = {a:{x:0, y:0}, b:{x:10, y:10}};
 	//this.style = {lineWidth:5, strokeStyle:'black'};
 
 	this.initialize = function (clr, points) {
+
 		this.colour = clr;
 		this.points = points;
 		//this.setStyle({lineWidth:5, strokeStyle:'black'});
@@ -26,8 +26,7 @@ var Connector = function Connector() {
 	//todo : make apply Style a private function.
 
 	this.applyStyle = function(context) {
-	    context.fillStyle = this.style.fillStyle;
-	    context.fill();
+
 	    context.lineWidth = this.style.lineWidth;
 	    context.strokeStyle = this.style.strokeStyle;
 	};
@@ -36,12 +35,11 @@ var Connector = function Connector() {
 	//How will the context passing function when async?
 	this.draw = function(context) {
 
-		/*context.save();
 		context.beginPath();
-		context.arc(dimensions.x, dimensions.y, 0 , 2 * Math.PI, false);
-		context.restore();
+		context.moveTo(this.points.a.x, this.points.a.y);
+		context.lineTo(this.points.b.x, this.points.b.y);
 		this.applyStyle(context);
-		context.stroke();*/
+		context.stroke();
 
 	};
 		
@@ -58,6 +56,7 @@ var Connector = function Connector() {
 //		 default is currently hardbaked for colour and style. Seperate to external style doc
 
 Object.defineProperty(Connector, 'colour', {
+
     get: function() {
     	if(!this.colour)
     		return 'Blue';
@@ -74,6 +73,7 @@ Object.defineProperty(Connector, 'colour', {
 
 
 Object.defineProperty(Connector, 'style', {
+	
     get: function() {
     	if(!this.style)
     		return {lineWidth:5, strokeStyle:'black'};
