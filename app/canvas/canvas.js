@@ -1,5 +1,9 @@
 'use strict';
 
+var Label = require('label');
+var LabelledOval = require('labelledOval');
+var Connector = require('connector');
+
 /**
  * Canvas The canvas object holds all of the drawing objects which are to be 
  * 		rendered to the HTML5 Canvas. The Canvas correlates to the active "View" model.
@@ -14,6 +18,7 @@ module.exports = function Canvas() {
 	this.width = 1200;
 	this.needRedraw = true;
 	this.state = 'stop';
+	//this.label = 
 
 	/**
 	 * initialize 	Configures the canvas representation using the html canvas element.
@@ -48,7 +53,7 @@ module.exports = function Canvas() {
 	 * @param  {Function} 		callback 
 	 * @return {null}           no return at this stage.
 	 */
-	this.draw = function(callback) { 
+	var draw = function(callback) { 
 
 		if(this.state == 'stop') {
 			callback(null, 'Stop request passed to canvas - draw cycle terminated');
@@ -86,7 +91,7 @@ module.exports = function Canvas() {
 	this.run = function() {
 		this.state = 'run';	//Need to create an async implementation of this
 		
-		window.requestAnimationFrame(this.draw.bind(this));   //recode to pass in callback
+		window.requestAnimationFrame(draw.bind(this));   //recode to pass in callback
 	};
 
 	this.stop = function() {
