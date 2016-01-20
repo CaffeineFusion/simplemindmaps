@@ -5,7 +5,7 @@ var _ = require('underscore');
 
 /**
  * [Idea The idea is a basic concept in this app. 
- *     When it is placed onto to the screen it is added to the current 'view'.
+ *     When it is placed onto the screen it is added to the current 'view'.
  *     This is then mapped to a labelledOval on a canvas.
  *     An idea can be on multiple views.]
  * @param {[string]} title [The title (label) for the Idea]
