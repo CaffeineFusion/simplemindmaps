@@ -3,6 +3,7 @@
 /**
  * Canvas The canvas object holds all of the drawing objects which are to be 
  * 		rendered to the HTML5 Canvas. The Canvas correlates to the active "View" model.
+ *
  */
 module.exports = function Canvas() { 
 
