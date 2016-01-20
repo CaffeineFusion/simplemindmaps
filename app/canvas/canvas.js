@@ -1,3 +1,7 @@
+/**
+ * [Canvas The canvas object holds all of the drawing objects which are to be 
+ * 		rendered to the HTML5 Canvas. The Canvas correlates to the active "View" model.]
+ */
 module.exports = function Canvas() { 
 
 	'use strict';
@@ -21,6 +25,7 @@ module.exports = function Canvas() {
 		this.activeObjects.push(obj);
 	};
 
+	//Add callback
 	this.draw = function() { 
 		if(!this.needRedraw) { return; }
 
@@ -44,7 +49,7 @@ module.exports = function Canvas() {
 			this.activeObjects.splice(ix, 1);
 		}
 	};
-	
+
 	//how to track whether a redraw is necessary:
 	// opt1: force  all updates to pass through the canvas draw object, have a simple flag.
 	//	upside - keeps drawing logic segregated from business logic. Simple flag to update and check

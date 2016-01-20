@@ -1,9 +1,13 @@
+'use strict';
 var _ = require('underscore');
 var ParseJSON = require('../helpers/parseJSON');
 
+/**
+ * [Connector The Connector object is the basic drawing element to connect two 
+ * 		labelled Ovals together]
+ */
 var Connector = function Connector() {
 
-	'use strict';
 
 	//this.colour = 'Blue';
 	this.points = {a:{x:0, y:0}, b:{x:10, y:10}};

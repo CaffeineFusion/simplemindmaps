@@ -8,7 +8,14 @@
 
 'use strict';
 
-module.exports = function() {
+/**
+ * [LabelledOval The LabelledOval is the basic drawing object which visually represents 
+ * 		an idea model and renders it on the canvas object]
+ * @return {[object]} [LabelledOval returns a new LabelledOval object. The
+ *      implementation is slightly different to the connector object and one needs
+ *      to be updated to align with the other.]
+ */
+module.exports = function LabelledOval() {
 	var LabelledOval = {
 
 		label:'New Idea',

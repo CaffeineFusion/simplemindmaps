@@ -1,37 +1,28 @@
+'use strict';
 var _ = require('underscore');
 
+//Todo: Add proper input checking
 
-/*
-The idea is a basic concept in this app. 
-When it is placed onto to the screen it is added to the current 'view'.
-This is then mapped to a labelledOval on a canvas.
-An idea can be on multiple views.
-*/
+/**
+ * [Idea The idea is a basic concept in this app. 
+ *     When it is placed onto to the screen it is added to the current 'view'.
+ *     This is then mapped to a labelledOval on a canvas.
+ *     An idea can be on multiple views.]
+ * @param {[string]} title [The title (label) for the Idea]
+ * @param {[string]} id    [The unique identified for the Idea]
+ * @return {[object]} [Idea returns a new Idea object. ]
+ */
 var Idea = function Idea(title, id) {
     
-    'use strict';
-
-    var body, tags, title, id;   
-
-    /*get title () {
-        return this.title;
-    }*/
-
-    return {
-        initialize : function(title, id) {
-            this.body = null;
-            this.tags = [];
-            this.title = title;
-            this.id = id;
-        }
-        //title : title;  will this work?
-
-    };
+    this.body = null;
+    this.tags = [];
+    this.title = title;
+    this.id = id;
+    
 };
 
 
 //todo : add error handling and proper logging
-
 Object.defineProperty(Idea, 'title', {
     get: function() {
         return this.title;
@@ -64,7 +55,7 @@ Object.defineProperty(Idea, 'body', {
         if (_.isString(str))
             this.body = str;
         else
-            throw ('Colour ' + str.toString() + ' is not a valid string!');
+            throw ('Body ' + str.toString() + ' is not a valid string!');
     }
 });
 

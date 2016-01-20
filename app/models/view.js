@@ -2,11 +2,13 @@
 var idea = require('../models/idea.js');
 
 
-/*
-The view is a particular selection of ideas mapped out together.
-This should be able to loaded and saved.
-When that view is selected, those ideas are mapped to canvas objects.
-*/
+
+/**
+ * [View The view is a particular selection of ideas mapped out together.
+ *     This should be able to loaded and saved.
+ *     When that view is selected, those ideas are mapped to canvas objects.]
+ * @param {[string]} viewName [name of the view]
+ */
 var View = function View(viewName){
     this.ideas = [];
     this.ideasCount = 0;
