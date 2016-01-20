@@ -1,13 +1,13 @@
 'use strict';
 var idea = require('../models/idea.js');
-
+var parseJSON = require('../helpers/parseJSON');
 
 
 /**
- * [View The view is a particular selection of ideas mapped out together.
+ * The view is a particular selection of ideas mapped out together.
  *     This should be able to loaded and saved.
- *     When that view is selected, those ideas are mapped to canvas objects.]
- * @param {[string]} viewName [name of the view]
+ *     When that view is selected, those ideas are mapped to canvas objects.
+ * @param {string} viewName name of the view
  */
 var View = function View(viewName){
     this.ideas = [];
@@ -34,9 +34,30 @@ var View = function View(viewName){
     };
 
     //get name() { return this.name; };
-    this.load = function(view) {
+    //
+    /**
+     * [load load takes a JSON representation of the view and all of it's associated ideas]
+     * @param  {[string]} view [JSON as string - representation of the view and associated ideas]
+     * @return {[type]}      [description]
+     */
+    this.load = function(view, callback) {
         console.log('view.load() has not been implemented yet');
-    }
+
+        try {
+            var j = parseJSON(view);
+            this.name = j.name;
+            this.ideas = j.ideas;
+            this.ideasCount = j.ideasCount;
+            callback(null, this);
+            //return this;
+        }
+        catch(e) {
+            console.log(e);
+            callback(e);
+            //return false;
+        }
+
+    };
 
 };
 

@@ -4,13 +4,13 @@ var _ = require('underscore');
 //Todo: Add proper input checking
 
 /**
- * [Idea The idea is a basic concept in this app. 
+ * Idea The idea is a basic concept in this app. 
  *     When it is placed onto the screen it is added to the current 'view'.
  *     This is then mapped to a labelledOval on a canvas.
- *     An idea can be on multiple views.]
- * @param {[string]} title [The title (label) for the Idea]
- * @param {[string]} id    [The unique identified for the Idea]
- * @return {[object]} [Idea returns a new Idea object. ]
+ *     An idea can be on multiple views.
+ * @param {string} title The title (label) for the Idea
+ * @param {string} id    The unique identified for the Idea
+ * @return {object}      Constructor: returns the Idea object
  */
 var Idea = function Idea(title, id) {
     

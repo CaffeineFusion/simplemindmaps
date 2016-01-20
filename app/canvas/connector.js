@@ -3,8 +3,8 @@ var _ = require('underscore');
 var ParseJSON = require('../helpers/parseJSON');
 
 /**
- * [Connector The Connector object is the basic drawing element to connect two 
- * 		labelled Ovals together]
+ * Connector The Connector object is the basic drawing element to connect two 
+ * 		labelled Ovals together
  */
 var Connector = function Connector() {
 
