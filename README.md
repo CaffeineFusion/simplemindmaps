@@ -7,5 +7,5 @@ I want to use this as the backbone for a large mind mapping project.
 
 Added Handlebars and Express to build a minimal web interface for initial testing, demo and template for use. My intention is for the underlying library to be entirely independent of these.
 
-# note
+# Please Note:
 This is in the very earliest stages of development and is not yet functional.
