@@ -32,11 +32,25 @@ module.exports = function Canvas() {
 	 */
 	this.initialize = function(canvas, viewName) {
 		this.canvas = canvas;
-		this.context = canvas.getContext('2d');
+		
+		/*
+		if(!this.canvas) {
+			console.log('No HTML5 canvas was passed to the Canvas initialize function');
+		}
+		 */
+
+		//temporary try block until I set up proper mocking for the html5 canvas object
+		try {
+			this.context = canvas.getContext('2d');
+			this.width = canvas.width;
+			this.height = canvas.height;
+		}
+		catch(e) {
+			console.log(e);
+		}
+
 		this.activeObjects = [];
 		this.needRedraw = true;
-		this.width = canvas.width;
-		this.height = canvas.height;
 		label.initialize('Black', viewName, {x:0, y:0});
 	};
 
@@ -118,6 +132,10 @@ module.exports = function Canvas() {
 	this.updateDrawObject = function(drawObject) {
 		var ix = this.activeObjects.indexOf(drawObject);
 		this.activeObjects[ix] = drawObject;
+	};
+
+	this.getState = function() {
+		return this.state;
 	};
 };
 
