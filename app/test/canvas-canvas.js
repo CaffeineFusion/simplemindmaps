@@ -25,6 +25,13 @@ describe('Canvas', function() {
             expect(canvas).to.be.a.canvas(Canvas.type);
         });
 
+        it('initialized canvas should start in the stopped state', function (){
+            d = canvas.getDimensions();
+            assert.equal(d.height, 800, 'Default height = 800');
+            assert.equal(d.width, 1200, 'Default width = 1200');
+            //expect(connector).to.be.a.connector(Connector.type);
+        });
+
         /*
 
         it('new connector should have the colour "Blue"', function (){
@@ -45,9 +52,11 @@ describe('Canvas', function() {
         });
 
         it('initialized canvas should start in the stopped state', function (){
-            assert.equal(canvas.getState == 'stop');
+            assert.equal(canvas.getState, 'stop', 'Canvas should be created in a stopped state');
             //expect(connector).to.be.a.connector(Connector.type);
         });
+
+
 		
 	
     });

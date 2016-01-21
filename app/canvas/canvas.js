@@ -14,8 +14,8 @@ module.exports = function Canvas() {
 	this.context = null;
 	this.canvas = null;
 	this.activeObjects = [];
-	this.height = 800; 
-	this.width = 1200;
+	var height = 800; 
+	var width = 1200;
 	this.needRedraw = true;
 	this.state = 'stop';
 	var label = new Label();
@@ -42,8 +42,8 @@ module.exports = function Canvas() {
 		//temporary try block until I set up proper mocking for the html5 canvas object
 		try {
 			this.context = canvas.getContext('2d');
-			this.width = canvas.width;
-			this.height = canvas.height;
+			width = canvas.width;
+			height = canvas.height;
 		}
 		catch(e) {
 			console.log(e);
@@ -136,6 +136,10 @@ module.exports = function Canvas() {
 
 	this.getState = function() {
 		return this.state;
+	};
+
+	this.getDimensions = function() {
+		return {h:height, w:width};
 	};
 };
 
