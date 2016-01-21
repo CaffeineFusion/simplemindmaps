@@ -8,14 +8,20 @@ var ParseJSON = require('../helpers/parseJSON');
  */
 var Connector = function Connector() {
 
-	//this.colour = 'Blue';
-	this.points = {a:{x:0, y:0}, b:{x:10, y:10}};
-	//this.style = {lineWidth:5, strokeStyle:'black'};
+	var points = {a:{x:0, y:0}, b:{x:10, y:10}};
+	this.style = {lineWidth:5, strokeStyle:'black'};
+	this.colour = 'Blue';
 
-	this.initialize = function (clr, points) {
+	/**
+	 * [initialize description]
+	 * @param  {colour} clr takes the Colour for the connector
+	 * @param  {object} pts takes the two points to define the line {a:{x,y}, b:{x,y}}
+	 * @return {null}     	currently no return
+	 */
+	this.initialize = function (clr, pts) {
 
 		this.colour = clr;
-		this.points = points;
+		points = pts;
 		//this.setStyle({lineWidth:5, strokeStyle:'black'});
 	};
 
@@ -36,8 +42,8 @@ var Connector = function Connector() {
 	this.draw = function(context) {
 
 		context.beginPath();
-		context.moveTo(this.points.a.x, this.points.a.y);
-		context.lineTo(this.points.b.x, this.points.b.y);
+		context.moveTo(points.a.x, points.a.y);
+		context.lineTo(points.b.x, points.b.y);
 		this.applyStyle(context);
 		context.stroke();
 
@@ -50,6 +56,10 @@ var Connector = function Connector() {
 	this.setTransparency = function() {
 		throw('transparency has not yet been implemented');
 	};
+
+	this.getPoints = function() {
+		return points;
+	};
 };
 
 //todo : add error handling and proper logging
@@ -59,7 +69,7 @@ Object.defineProperty(Connector, 'colour', {
 
     get: function() {
     	if(!this.colour)
-    		return 'Blue';
+    		this.colour = 'Blue';
         return this.colour;
     },
     set: function(str) {
@@ -71,12 +81,11 @@ Object.defineProperty(Connector, 'colour', {
 });
 
 
-
 Object.defineProperty(Connector, 'style', {
-	
+
     get: function() {
     	if(!this.style)
-    		return {lineWidth:5, strokeStyle:'black'};
+    		this.style = {lineWidth:5, strokeStyle:'black'};
         return this.style;
     },
     set: function(jsonString) {

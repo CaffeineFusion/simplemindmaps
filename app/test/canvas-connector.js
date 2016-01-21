@@ -23,17 +23,15 @@ describe('Connector', function() {
 
         it('new connector should have the colour "Blue"', function (){
             assert.equal(connector.colour, 'Blue', 'New Connector should be Blue');
-            //expect(connector).to.be.a.connector(Connector.type);
         });
 
         //find easy way to match object parameters. Assert does not permit the following tests.
-        it('new connector should have the points {a:{x:1, y:1}, b:{x:1,y:10}}', function (){
-            assert.equal(connector.points, {a:{x:0, y:0}, b:{x:10, y:10}}, 'Connector should have the points {a:{x:1, y:1}, b:{x:1,y:10}}');
-            //expect(connector).to.be.a.connector(Connector.type);
+        it('new connector should have the points {a:{x:0, y:0}, b:{x:10,y:10}}', function (){
+            expect(connector.getPoints()).to.deep.equal({a:{x:0, y:0}, b:{x:10, y:10}});
         });
 
         it('new connector should have the style {lineWidth:5, strokeStyle:"black"}', function (){
-            assert.equal(connector.style, {lineWidth:5, strokeStyle:'black'}, 'Connector should have the style {lineWidth:5, strokeStyle:"black"}');
+            expect(connector.style).to.deep.equal({lineWidth:5, strokeStyle:'black'});
             //expect(connector).to.be.a.connector(Connector.type);
         });
 
@@ -56,7 +54,7 @@ describe('Connector', function() {
         });
 
         it('initialized connector should have the points {a:{x:1, y:1}, b:{x:1,y:10}}', function (){
-            assert.equal(connector.points, {a:{x:1, y:1}, b:{x:1,y:10}}, 'Connector should have the points {a:{x:1, y:1}, b:{x:1,y:10}}');
+            expect(connector.getPoints()).to.deep.equal({a:{x:1, y:1}, b:{x:1,y:10}});
             //expect(connector).to.be.a.connector(Connector.type);
         });
 
