@@ -88,6 +88,7 @@ var View = function View(viewName){
     };
 
     this.toJSON = function() {
+
         var currentIdeas = [];
         for(var i in ideas) {
             currentIdeas.push(i.toJSON());
@@ -95,8 +96,28 @@ var View = function View(viewName){
         return { title:name, ideas:currentIdeas };
     };
 
-    this.loadToCanvas = function(canvas) {
+    this.loadToCanvas = function(canvas, callback) {
 
+        var objects = [];
+        for(var i in ideas) {
+            objects.push(i.toJSON());
+        }
+
+        try {
+            //refactor
+            callback(null, canvas.load(objects, this.name, 
+                function(err, res) { 
+                    if(err) {
+                        console.log(err);
+                    }
+                    else {
+                        console.log(res);
+                    }
+                }));
+        }
+        catch (err) {
+            callback(err);
+        }
     };
 
     /**

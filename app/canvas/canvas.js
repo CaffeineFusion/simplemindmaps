@@ -9,6 +9,7 @@ var ParseJSON = require('../helpers/parseJSON')
  * Canvas The canvas object holds all of the drawing objects which are to be 
  * 		rendered to the HTML5 Canvas. The Canvas correlates to the active "View" model.
  *
+ * Todo: Refactor connectors
  */
 module.exports = function Canvas() { 
 
@@ -168,10 +169,18 @@ module.exports = function Canvas() {
 	 * @param  {JSON} canvasJSON 	JSON representation of a canvas object
 	 * @return {object} this        Return this Canvas object
 	 */
-	this.load = function(canvasJSON) {
+	this.load = function(objects, title, callback) {
 		this.clear();
-		activeObjects = ParseJSON(canvasJSON.activeObjects);
-		label = ParseJSON(canvasJSON.label);
+
+		label.text = title;
+		for(var o in objects) {
+			var l = new labelledOval();
+
+			//need to add ID to labelledOval
+			l.initialize(o.title, o.colour, o.dimensions);
+			//style?
+			this.addDrawObject(l);
+		}
 
 		//this.run();
 

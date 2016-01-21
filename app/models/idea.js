@@ -19,8 +19,13 @@ var Idea = function Idea(title, id) {
     this.title = title;
     this.id = id;
 
+    //Duplication - Refactor with labelledOval
+    this.colour = "Blue";
+    this.dimensions = {x:0, y:0, h:10, w:10};
+
     this.toJSON = function() {
-        return { id:this.id, title:this.title,  tags:this.tags, body:this.body};
+        return { id:this.id, title:this.title,  tags:this.tags, body:this.body, 
+            colour:this.colour, dimensions:this.dimensions};
     }
     
 };

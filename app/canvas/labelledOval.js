@@ -20,6 +20,7 @@ var Label = require('./label');
 module.exports = function LabelledOval() {
 	var LabelledOval = {
 
+		//Add ID.
 		//label:'New Idea',
 		colour:'Blue',
 		//object {x, y, h, w}
