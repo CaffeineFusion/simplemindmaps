@@ -5,9 +5,15 @@ var Canvas = require('../canvas/canvas');
 
 
 /**
+ * Important Note: This View class is *not* to do with the presentation layer.
+ *     Rather, it is the basic container - a "view" of the underlying data.
+ *     Think, instead, of data warehousing and data reports.
+ *     Multiple views of the underlying data structures will allow the same
+ *         concepts to be mapped in different ways for canvas presentation.
+ * 
  * The view is a particular selection of ideas mapped out together.
  *     This should be able to loaded and saved.
- *     When that view is selected, those ideas are mapped to canvas objects.
+ *     When a view is selected, the associated ideas are mapped to canvas objects.
  * @param {string} viewName name of the view
  */
 var View = function View(viewName){
@@ -96,6 +102,19 @@ var View = function View(viewName){
 
     this.loadToCanvas = function(canvas) {
 
+    };
+
+    /**
+     * createConnectors Private function to map out the connections between ideas 
+     *     once all of the ideas are loaded into the view.
+     * Note: relies on the correlation of tags with the names of ideas that are 
+     *     already in the View. If the idea is not yet in the view, then the tag
+     *     will be ignored and no connector drawn.
+     * 
+     * @return {[type]} [description]
+     */
+    var createConnectors = function() {
+        console.log('createConnectors() has not been implemented yet');
     };
 
 };
