@@ -18,6 +18,10 @@ var Idea = function Idea(title, id) {
     this.tags = [];
     this.title = title;
     this.id = id;
+
+    this.toJSON = function() {
+        return { id:this.id, title:this.title,  tags:this.tags, body:this.body};
+    }
     
 };
 

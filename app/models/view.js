@@ -63,6 +63,13 @@ var View = function View(viewName){
         //return ...; 
     };
 
+    this.clear = function() {
+
+        ideas = [];
+        ideasCount = 0;
+
+    };
+
     //get name() { return this.name; };
     //
     /**
@@ -71,33 +78,21 @@ var View = function View(viewName){
      * @return {[type]}      [description]
      */
     this.load = function(view, callback) {
-        console.log('view.load() has not been implemented yet');
 
+        this.clear();
         name = view.title;
-        for(var i in ideas) {
+        for(var i in view.ideas) {
             this.addIdea(i.title, {id:i.id, tags:i.tags, body:i.body});
         }
-
-        //ideasCount needs to be set to the highest id + 1
-
-        /*try {
-            var j = ParseJSON(view);
-            this.name = j.name;
-            this.ideas = j.ideas;
-            this.ideasCount = j.ideasCount;
-            callback(null, this);
-            //return this;
-        }
-        catch(e) {
-            console.log(e);
-            callback(e);
-            //return false;
-        }*/
 
     };
 
     this.toJSON = function() {
-        return {title:name, ideas:[]};
+        var currentIdeas = [];
+        for(var i in ideas) {
+            currentIdeas.push(i.toJSON());
+        }
+        return { title:name, ideas:currentIdeas };
     };
 
     this.loadToCanvas = function(canvas) {
