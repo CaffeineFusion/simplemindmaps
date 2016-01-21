@@ -11,14 +11,37 @@ var Canvas = require('../canvas/canvas');
  * @param {string} viewName name of the view
  */
 var View = function View(viewName){
-    this.ideas = [];
-    this.ideasCount = 0;
-    this.name = viewName;
+    var ideas = [];
+    var ideasCount = 0;
+    var name = viewName;
 
-    this.addIdea = function(title) {
-        console.log('ideas: ' + this.ideas.toString());
-        this.ideas.push(new idea.Idea(title, this.ideasCount));
-        return this.ideasCount++;
+
+    /**
+     * Creates a new Idea or recreates and adds an existing Idea
+     * @param {string} title Basic label for the Idea. This is referenced by tags 
+     *                       (ie. this determines which ideas will be connected on the 
+     *                       canvas)
+     * @param {object} opts  Allows an existing idea to be imported. Updates counter
+     *                       if the id of the added Idea is greater than the current
+     *                       id counter.
+     *                       Currently takes {id,tags:[], body} as the required form
+     *                       of the optional arg.
+     */
+    this.addIdea = function(title, opts) {
+        if(typeof opts !== undefined) {
+            var i = new Idea.Idea(title, opts.id);          //clunky, refactor Idea
+            i.tags = opts.tags;
+            i.body = opts.body;
+            ideas.push(i);
+            ideasCount = (i.id > ideasCount ? i.id : ideasCount);   //Make sure that counter is higher than the highest id.
+            return i.id;
+        }
+        else {
+            console.log('ideas: ' + ideas.toString());
+            ideas.push(new Idea.Idea(title, ideasCount));
+
+            return ideasCount++; //return current id then increment
+        }
     };
 
     this.removeIdea = function(id) { 
@@ -44,7 +67,14 @@ var View = function View(viewName){
     this.load = function(view, callback) {
         console.log('view.load() has not been implemented yet');
 
-        try {
+        name = view.title;
+        for(var i in ideas) {
+            this.addIdea(i.title, {id:i.id, tags:i.tags, body:i.body});
+        }
+
+        //ideasCount needs to be set to the highest id + 1
+
+        /*try {
             var j = ParseJSON(view);
             this.name = j.name;
             this.ideas = j.ideas;
@@ -56,12 +86,16 @@ var View = function View(viewName){
             console.log(e);
             callback(e);
             //return false;
-        }
+        }*/
 
     };
 
+    this.toJSON = function() {
+        return {title:name, ideas:[]};
+    };
+
     this.loadToCanvas = function(canvas) {
-        
+
     };
 
 };
