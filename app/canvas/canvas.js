@@ -182,11 +182,13 @@ module.exports = function Canvas() {
 			this.addDrawObject(l);
 		}
 
+		callback();
 		//this.run();
 
 		return this;
 	};
 
+	//Refactor
 	this.save = function() {
 		return { 
 			label:JSON.stringify(label),
