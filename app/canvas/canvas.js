@@ -11,13 +11,13 @@ var Connector = require('./connector');
  */
 module.exports = function Canvas() { 
 
-	this.context = null;
-	this.canvas = null;
-	this.activeObjects = [];
+	var context = null;
+	var canvas = null;
+	var activeObjects = [];
 	var height = 800; 
 	var width = 1200;
-	this.needRedraw = true;
-	this.state = 'stop';
+	var needRedraw = true;
+	var state = 'stop';
 	var label = new Label();
 
 	/**
@@ -30,8 +30,8 @@ module.exports = function Canvas() {
 	 *
 	 * Todo: implement error handling on canvas load.
 	 */
-	this.initialize = function(canvas, viewName) {
-		this.canvas = canvas;
+	this.initialize = function(c, viewName) {
+		canvas = c;
 		
 		/*
 		if(!this.canvas) {
@@ -41,7 +41,7 @@ module.exports = function Canvas() {
 
 		//temporary try block until I set up proper mocking for the html5 canvas object
 		try {
-			this.context = canvas.getContext('2d');
+			context = canvas.getContext('2d');
 			width = canvas.width;
 			height = canvas.height;
 		}
@@ -49,13 +49,13 @@ module.exports = function Canvas() {
 			console.log(e);
 		}
 
-		this.activeObjects = [];
-		this.needRedraw = true;
+		activeObjects = [];
+		needRedraw = true;
 		label.initialize('Black', viewName, {x:0, y:0});
 	};
 
 	this.addDrawObject = function(obj) {
-		this.activeObjects.push(obj);
+		activeObjects.push(obj);
 	};
 
 	/**
@@ -70,21 +70,21 @@ module.exports = function Canvas() {
 	 */
 	var draw = function(callback) { 
 
-		if(this.state == 'stop') {
+		if(state == 'stop') {
 			callback(null, 'Stop request passed to canvas - draw cycle terminated');
 		}
 
 		//Check to see if image is unmodified before clearing/redrawing
-		if(!this.needRedraw) { 
-			window.requestAnimationFrame(this.draw.bind(this)); 
+		if(!needRedraw) { 
+			window.requestAnimationFrame(draw.bind(this)); 
 		}
 
 
 		//clearRect seems like an ugly implementation, hunt down alt.
-		this.context.clearRect(0, 0, this.width, this.height);
+		context.clearRect(0, 0, width, height);
 
-		for (var o in this.activeObjects) {
-			o.draw(this.context); 
+		for (var o in activeObjects) {
+			o.draw(context); 
 	    }
 
 
@@ -98,25 +98,25 @@ module.exports = function Canvas() {
 			o.draw(this.context);
 		}*/
 
-		this.needRedraw = false;
+		needRedraw = false;
 
-		window.requestAnimationFrame(this.draw.bind(this, callback));	  //recode to pass in callback
+		window.requestAnimationFrame(draw.bind(this, callback));	  //recode to pass in callback
 	};
 
 	this.run = function() {
-		this.state = 'run';	//Need to create an async implementation of this
+		state = 'run';	//Need to create an async implementation of this
 		
 		window.requestAnimationFrame(draw.bind(this));   //recode to pass in callback
 	};
 
 	this.stop = function() {
-		this.state = 'stop';
+		state = 'stop';
 	};
 
 	this.removeDrawObject = function(drawObject) {
-		var ix = this.activeObjects.indexOf(drawObject);
+		var ix = activeObjects.indexOf(drawObject);
 		if(ix > -1) {
-			this.activeObjects.splice(ix, 1);
+			activeObjects.splice(ix, 1);
 		}
 	};
 
@@ -130,12 +130,12 @@ module.exports = function Canvas() {
 	// Update currently functions by replacing the object
 	// 		Alt: call an update on the drawObject
 	this.updateDrawObject = function(drawObject) {
-		var ix = this.activeObjects.indexOf(drawObject);
-		this.activeObjects[ix] = drawObject;
+		var ix = activeObjects.indexOf(drawObject);
+		activeObjects[ix] = drawObject;
 	};
 
 	this.getState = function() {
-		return this.state;
+		return state;
 	};
 
 	this.getDimensions = function() {
