@@ -1,6 +1,7 @@
 'use strict';
-var idea = require('../models/idea.js');
-var parseJSON = require('../helpers/parseJSON');
+var Idea = require('../models/idea.js');
+var ParseJSON = require('../helpers/parseJSON');
+var Canvas = require('../canvas/canvas');
 
 
 /**
@@ -44,7 +45,7 @@ var View = function View(viewName){
         console.log('view.load() has not been implemented yet');
 
         try {
-            var j = parseJSON(view);
+            var j = ParseJSON(view);
             this.name = j.name;
             this.ideas = j.ideas;
             this.ideasCount = j.ideasCount;
@@ -57,6 +58,10 @@ var View = function View(viewName){
             //return false;
         }
 
+    };
+
+    this.loadToCanvas = function(canvas) {
+        
     };
 
 };

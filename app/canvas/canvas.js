@@ -3,6 +3,7 @@
 var Label = require('./label');
 var LabelledOval = require('./labelledOval');
 var Connector = require('./connector');
+var ParseJSON = require('../helpers/parseJSON')
 
 /**
  * Canvas The canvas object holds all of the drawing objects which are to be 
@@ -72,6 +73,11 @@ module.exports = function Canvas() {
 
 		if(state == 'stop') {
 			callback(null, 'Stop request passed to canvas - draw cycle terminated');
+			return;
+		}
+		if(state == 'loading') {
+			console.log("canvas loading. Drawing paused. Checking at next draw cycle");
+			window.requestAnimationFrame(draw.bind(this, callback));	
 		}
 
 		//Check to see if image is unmodified before clearing/redrawing
@@ -141,7 +147,48 @@ module.exports = function Canvas() {
 	this.getDimensions = function() {
 		return {h:height, w:width};
 	};
+
+	//Need to refactor for aSync
+	this.clear = function() {
+		this.stop();
+		context.clearRect(0, 0, width, height);
+		label = new Label();
+		activeObjects = null; 
+	};
+
+	// Note: current load an save work based on each drawing object being JSONified
+	//		a more efficient approach would be to retain only the most relevant info.
+	//		Namely: location, text, colours etc.
+	//		This would then allow the function to load previously undrawn views.
+	//		
+	// Todo: Refactor Load and Save functions
+
+	/**
+	 * Load takes a JSON object containing the definition of all the canvas elements
+	 * @param  {JSON} canvasJSON 	JSON representation of a canvas object
+	 * @return {object} this        Return this Canvas object
+	 */
+	this.load = function(canvasJSON) {
+		this.clear();
+		activeObjects = ParseJSON(canvasJSON.activeObjects);
+		label = ParseJSON(canvasJSON.label);
+
+		//this.run();
+
+		return this;
+	};
+
+	this.save = function() {
+		return { 
+			label:JSON.stringify(label),
+			activeObjects:JSON.stringify(activeObjects)
+		};
+	};
 };
+
+
+
+
 
 
 
