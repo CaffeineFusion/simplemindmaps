@@ -184,6 +184,10 @@ module.exports = function Canvas() {
 			activeObjects:JSON.stringify(activeObjects)
 		};
 	};
+
+	this.export = function() {
+		console.log("Canvas.export() has not yet been implemented");
+	};
 };
 
 
