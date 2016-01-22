@@ -9,21 +9,8 @@ chai.use(chaiModel);
 
 
 var LabelledOval = require('../canvas/labelledOval.js');
-//console.log(new LabelledOval());
-
-
-//LabelledOval.initialize();
-
-//expect(oval).to.be.a.labelledOval(LabelledOval.type);
-
-//console.log(labelledOval.toString());
-
-//v = new view('newView');
-//console.log(v.getIdea());
-
 
 describe('LabelledOval', function() {
-
 
     describe('#new Labelled Oval()', function () {
 

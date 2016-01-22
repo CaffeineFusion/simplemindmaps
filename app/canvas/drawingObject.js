@@ -18,7 +18,6 @@ var DrawingObject = function DrawingObject() {
 	//}
 	//
 	
-
 	/**
 	 * applyStyle uses the currently defined style and applies it to the canvas context.
 	 * 		Child classes then need only worry about the specific shape to be drawn.

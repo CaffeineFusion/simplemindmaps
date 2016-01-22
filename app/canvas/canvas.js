@@ -78,34 +78,23 @@ module.exports = function Canvas() {
 		}
 		if(state == 'loading') {
 			console.log("canvas loading. Drawing paused. Checking at next draw cycle");
-			window.requestAnimationFrame(draw.bind(this, callback));	
+			window.requestAnimationFrame(draw.bind(this, callback));
+			return;	
 		}
 
 		//Check to see if image is unmodified before clearing/redrawing
 		if(!needRedraw) { 
 			window.requestAnimationFrame(draw.bind(this)); 
+			return;
 		}
 
-
-		//clearRect seems like an ugly implementation, hunt down alt.
-		context.clearRect(0, 0, width, height);
+		context.clearRect(0, 0, width, height);   //Clear canvas
 
 		for (var o in activeObjects) {
 			o.draw(context); 
 	    }
 
-
-		/*this.activeObjects.forEach(function (o, index) {
-			o.draw(this.context);  
-		});*/
-
-		/*
-		//"of" not functioning for some reason.
-		for(let o of this.activeObjects) {
-			o.draw(this.context);
-		}*/
-
-		needRedraw = false;
+		needRedraw = false;		//Not really async, fix.
 
 		window.requestAnimationFrame(draw.bind(this, callback));	  //recode to pass in callback
 	};
@@ -157,118 +146,65 @@ module.exports = function Canvas() {
 		activeObjects = null; 
 	};
 
-	// Note: current load an save work based on each drawing object being JSONified
-	//		a more efficient approach would be to retain only the most relevant info.
-	//		Namely: location, text, colours etc.
-	//		This would then allow the function to load previously undrawn views.
-	//		
-	// Todo: Refactor Load and Save functions
 
 	/**
-	 * Load takes a JSON object containing the definition of all the canvas elements
+	 * Import takes a JSON object containing the definition of all the canvas elements
 	 * @param  {JSON} canvasJSON 	JSON representation of a canvas object
 	 * @return {object} this        Return this Canvas object
 	 */
-	this.load = function(objects, title, callback) {
+	this.import = function(json, callback) {
 		this.clear();
 
-		label.text = title;
-		for(var o in objects) {
-			var l = new labelledOval();
+		label.text = json.title;
+		for(var o in json.activeObjects) {
 
-			//need to add ID to labelledOval
-			l.initialize(o.title, o.colour, o.dimensions);
+			switch(o.type) {
+				case LabelledOval.type :
+					var l = new LabelledOval();
+					l.initialize(o.title, o.dimensions);
+					break;
+				case Connector.type :
+					var c = new Connector();
+					c.initialize(o.points);
+					break;
+				case default :
+					console.log('Object ' + obj.type + ' was passed to import, but was not recognised');
+					callback('Bad object was passed to canvas.import()', null);
+					return;
+			}
 			//style?
 			this.addDrawObject(l);
 		}
-
-		callback();
-		//this.run();
-
+		callback(null, this);
 		return this;
 	};
 
-	//Refactor
-	this.save = function() {
-		return { 
-			label:JSON.stringify(label),
-			activeObjects:JSON.stringify(activeObjects)
-		};
-	};
 
-	this.export = function() {
-		console.log("Canvas.export() has not yet been implemented");
+	this.export = function(callback) {
+		var json = {};
+		json.title = label.text;
+		json.activeObjects = [];
+		for(var o in activeObjects) {
+			var obj = {};
+			obj.type = o.type;
+			obj.style = o.style;
+			switch(obj.type) {
+				case LabelledOval.type :
+					obj.title = o.title;
+					obj.dimensions = o.dimensions;
+					//Todo: Do I need to export text styles? 
+					break;
+				case Connector.type :
+					obj.points = o.points;
+					break;
+				case default :
+					console.log('Object ' + obj.type + ' was passed to export, but was not recognised');
+					callback('Bad object was passed to canvas.export()', null);
+					return;
+			}
+			json.activeObjects.push(obj);
+		}
+		callback(null, json);
+		return json;
 	};
 };
-
-
-
-
-
-
-
-//Experimentation with ES6 class implementation
-/*
-
-'use strict';
-
-module.exports = function() {};
-
-class Canvas { 
-
-	constructor() {
-		this.context = null;
-		this.activeObjects = [];
-		this.height = 800; 
-		this.width = 1200;
-		this.needRedraw =true;
-	}
-
-	initialize(ctx, width, height) {
-		this.context = ctx;
-		this.activeObjects = [];
-		this.needRedraw = true;
-		this.width = width;
-		this.height = height;
-	}
-
-	addDrawObject(obj) {
-		this.activeObjects.push(obj);
-	}
-
-	draw() { 
-		if(!this.needRedraw) { return; }
-
-		//This seems like an ugly implementation, hunt down alt.
-		this.context.clearRect(0, 0, this.width, this. height);
-		for(var o of this.activeObjects) {
-			o.draw(this.context);
-		}
-		this.needRedraw = false;
-	}
-
-	removeDrawObject(drawObject) {
-		var ix = this.activeObjects.indexOf(drawObject);
-		if(ix > -1) {
-			this.activeObjects.splice(ix, 1);
-		}
-	}
-
-	//how to track whether a redraw is necessary:
-	// opt1: force  all updates to pass through the canvas draw object, have a simple flag.
-	//	upside - keeps drawing logic segregated from business logic. Simple flag to update and check
-	//	downside - passes all updates through this function. Has the potential to inhibit more complex update functions. 
-	//		seperates view logic too far from controlling entity.
-	// opt2: tie drawing objects to their appropriate
-	// 
-	// Update currently functions by replacing the object
-	// 		Alt: call an update on the drawObject
-	updateDrawObject(drawObject) {
-		var ix = this.activeObjects.indexOf(drawObject);
-		this.activeObjects[ix] = drawObject;
-	}
-}
-
-module.exports.Canvas = Canvas;*/
-
-//alt module.exports default Canvas?
