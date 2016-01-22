@@ -2,6 +2,7 @@
 	object transparency
 	highlight function for mouse over
 	greyed out for transparent mode for dragging
+	links to connectors
 */
 
 'use strict';

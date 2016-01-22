@@ -81,9 +81,9 @@ describe('Canvas', function() {
             json = res;
         });
 
-        console.log(json);
-
-        
+        it('export return should be identical to the testJSON file loaded in', function (){
+            expect(json).to.deep.equal(testJSON);
+        });
     
     });
 
