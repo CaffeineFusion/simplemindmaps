@@ -3,16 +3,33 @@
 
 /**
  * DrawingObject - Abstract class with main drawing functionality inherited by
- * 		all objects to be drawn to the canvas.
+ * 		all objects to be drawn to the canvas. 
+ * Note: DrawingObject works on a basic style definition. If this was to be implemented
+ * 		for a more complexly styled object, the "applyStyle" command would need to be 
+ * 		overriden
  */
 var DrawingObject = function DrawingObject() {
 	
-	var style = {};  //will the get and set functions pick up on the private var?
-	var defaultStyle = {};
+	//var style = {};  //will the get and set functions pick up on the private var?
+	//var defaultStyle = {};
 
 	//var defaultStyle(styleJSON) {
 		//style = 
 	//}
+	//
+	
+
+	/**
+	 * applyStyle uses the currently defined style and applies it to the canvas context.
+	 * 		Child classes then need only worry about the specific shape to be drawn.
+	 * @param  {[type]} context [description]
+	 * @return {[type]}         [description]
+	 */
+	this.applyStyle = function(context) {
+		for(var s in this.style) {
+			context[s] = this.style[s]
+		}
+	}
 
 	this.draw = function(context) {
 		throw('draw is not implemented in DrawingObject');

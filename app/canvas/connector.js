@@ -34,9 +34,7 @@ var Connector = function Connector() {
 	//todo : make apply Style a private function.
 
 	this.applyStyle = function(context) {
-
-	    context.lineWidth = this.style.lineWidth;
-	    context.strokeStyle = this.style.strokeStyle;
+		this.parent.applyStyle();		//Note: parent is added via Extend();
 	};
 
 
