@@ -7,8 +7,15 @@
  */
 module.exports = new function DrawingObject() {
 	
-	this.draw = function(context) {
+	var style = {};  //will the get and set functions pick up on the private var?
+	var defaultStyle = {};
 
+	var defaultStyle(styleJSON) {
+		style = 
+	}
+
+	this.draw = function(context) {
+		throw('draw is not implemented in DrawingObject');
 	};
 
 	this.greyOut = function() {
@@ -19,7 +26,6 @@ module.exports = new function DrawingObject() {
 		throw('transparency has not yet been implemented');
 	};
 }
-
 
 Object.defineProperty(DrawingObject, 'style', {
 
@@ -37,5 +43,6 @@ Object.defineProperty(DrawingObject, 'style', {
             this.style = jsonString;
     }
 });
+
 
 module.exports = DrawingObject;
