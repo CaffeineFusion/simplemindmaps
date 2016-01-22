@@ -1,6 +1,8 @@
 'use strict';
 var _ = require('underscore');
 var ParseJSON = require('../helpers/parseJSON');
+var DrawingObject = require('./drawingObject');
+var Extend = require('../helpers/extend');
 
 /**
  * Connector The Connector object is the basic drawing element to connect two 
@@ -81,7 +83,7 @@ Object.defineProperty(Connector, 'colour', {
 });
 
 
-Object.defineProperty(Connector, 'style', {
+/*Object.defineProperty(Connector, 'style', {
 
     get: function() {
     	if(!this.style)
@@ -96,6 +98,9 @@ Object.defineProperty(Connector, 'style', {
         else
             this.style = jsonString;
     }
-});
+});*/
+
+//Set up DrawingObject as parent on prototype chain.
+Connector = Extend(DrawingObject, Connector, null);
 
 module.exports = Connector;

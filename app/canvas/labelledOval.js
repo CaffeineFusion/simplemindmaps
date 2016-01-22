@@ -7,8 +7,9 @@
 */
 
 'use strict';
-
 var Label = require('./label');
+var DrawingObject = require('./drawingObject');
+var Extend = require('../helpers/extend');
 
 /**
  * LabelledOval The LabelledOval is the basic drawing object which visually represents 
@@ -17,7 +18,7 @@ var Label = require('./label');
  *      implementation is slightly different to the connector object and one needs
  *      to be updated to align with the other.
  */
-module.exports = function LabelledOval() {
+var LabelledOval = function LabelledOval() {
 	var LabelledOval = {
 
 		//Add ID.
@@ -34,7 +35,7 @@ module.exports = function LabelledOval() {
 			this.style({fillStyle:'#8ED6FF', lineWidth:5, strokeStyle:'black'});
 		},
 
-		set style(style) {
+		/*set style(style) {
 			this.style = style;
 		},
 
@@ -42,7 +43,7 @@ module.exports = function LabelledOval() {
 			if(!this.style)
 				return {fillStyle:'#8ED6FF', lineWidth:5, strokeStyle:'black'};
 			return this.style;
-		},
+		},*/
 
 		set label(title) {
 			if(!this.label) {
@@ -85,6 +86,9 @@ module.exports = function LabelledOval() {
 	return LabelledOval;
 };
 
+Extend(DrawingObject, LabelledOval, null);
+
+module.exports = LabelledOval;
 
 
 /*function LabelledOval() {

@@ -8,17 +8,20 @@
  *                             			 the child prototype
  * @return {constructor}      passes the new constructor for the child object
  */
-modules.export = function Extend(parent, child, overrides) {
-  child.prototype = Object.create(parent.prototype);
-  child.prototype.constructor = child;
-  child.parent = parent.prototype;
- 
-  // Copy the methods passed in to the prototype
-  for (var name in methods) {
-    child.prototype[name] = methods[name];
-  }
-  // so we can define the constructor inline
-  return child;
+module.exports = function Extend(parent, child, overrides) {
+
+	child.prototype = Object.create(parent.prototype);
+	child.prototype.constructor = child;
+	child.parent = parent.prototype;
+
+	//if(typeof overrides !== 'undefined') {
+	// Copy the methods passed in to the prototype
+	for (var name in overrides) {
+		child.prototype[name] = overrides[name];
+	}
+	//}
+	// so we can define the constructor inline
+	return child;
 }
 
 

@@ -5,14 +5,14 @@
  * DrawingObject - Abstract class with main drawing functionality inherited by
  * 		all objects to be drawn to the canvas.
  */
-module.exports = new function DrawingObject() {
+var DrawingObject = function DrawingObject() {
 	
 	var style = {};  //will the get and set functions pick up on the private var?
 	var defaultStyle = {};
 
-	var defaultStyle(styleJSON) {
-		style = 
-	}
+	//var defaultStyle(styleJSON) {
+		//style = 
+	//}
 
 	this.draw = function(context) {
 		throw('draw is not implemented in DrawingObject');
