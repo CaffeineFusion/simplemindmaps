@@ -1,0 +1,15 @@
+{
+	"title":"exampleCanvas",
+	"activeObjects":[
+		{"type":"LabelledOval", "title": "myNewIdea", 
+		"style":{"fillStyle":"#8ED6AA", "lineWidth":4, "strokeStyle":"blue"}, 
+		"dimensions":{"x":1, "y":0, "h":10, "w":11}},
+
+		{"type":"LabelledOval", "title": "myExtraNewIdea", 
+		"style":{"fillStyle":"#BBBBBB", "lineWidth":6, "strokeStyle":"orange"}, 
+		"dimensions":{"x":10, "y":20, "h":5, "w":10}},
+
+		{"type":"Connector", "style":{"lineWidth":5, "strokeStyle":"black"},
+		"points":{"a":{"x":11, "y":11}, "b":{"x":10, "y":20}}}
+	]
+}

@@ -77,6 +77,17 @@ var initialize = function (lbl, dimensions) {
 };
 
 
-Extend(DrawingObject, LabelledOval, {applyStyle:applyStyle, initialize:initialize});
+var toJSON = function(callback) {
+	var res = {};//this.parent.toJSON(callback(err, res){});
+	res.type = this.constructor.name;
+	res.style = this.style;
+	res.title = this.title.text;
+	res.dimensions = this.dimensions;
+	callback(null, res);
+	return res;
+}
+
+Extend(DrawingObject, LabelledOval, {applyStyle:applyStyle, initialize:initialize, 
+	toJSON:toJSON});
 
 module.exports = LabelledOval;

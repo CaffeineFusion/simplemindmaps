@@ -1,6 +1,0 @@
-{
-	title:'exampleView',
-	ideas:[	{id: 0, title: 'myIdea', tags:['myOtherIdea'], body:'I have this really cool idea'}, 
-			{id: 1, title: 'myOtherIdea', tags:[], body:'My other really awesome idea'}
-	]
-}

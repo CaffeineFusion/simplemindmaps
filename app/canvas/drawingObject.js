@@ -17,7 +17,7 @@ var DrawingObject = function DrawingObject() {
 		//style = 
 	//}
 	//
-	
+
 	/**
 	 * applyStyle uses the currently defined style and applies it to the canvas context.
 	 * 		Child classes then need only worry about the specific shape to be drawn.
@@ -30,8 +30,15 @@ var DrawingObject = function DrawingObject() {
 		}
 	}
 
+	this.toJSON = function(callback) {
+		var res = {};
+		res.type = this.constructor.name;
+		callback(null, res);
+		return res;
+	}
+
 	this.draw = function(context) {
-		throw('draw is not implemented in DrawingObject');
+		throw('draw() was called in the abstract DrawingObject');
 	};
 
 	this.greyOut = function() {

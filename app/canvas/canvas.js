@@ -11,7 +11,7 @@ var ParseJSON = require('../helpers/parseJSON')
  *
  * Todo: Refactor connectors
  */
-module.exports = function Canvas() { 
+var Canvas = function Canvas() { 
 
 	var context = null;
 	var canvas = null;
@@ -20,7 +20,7 @@ module.exports = function Canvas() {
 	var width = 1200;
 	var needRedraw = true;
 	var state = 'stop';
-	var label = new Label();
+	var label = new Label(); 
 
 	/**
 	 * initialize 	Configures the canvas representation using the html canvas element.
@@ -35,11 +35,9 @@ module.exports = function Canvas() {
 	this.initialize = function(c, viewName) {
 		canvas = c;
 		
-		/*
 		if(!this.canvas) {
 			console.log('No HTML5 canvas was passed to the Canvas initialize function');
 		}
-		 */
 
 		//temporary try block until I set up proper mocking for the html5 canvas object
 		try {
@@ -53,7 +51,7 @@ module.exports = function Canvas() {
 
 		activeObjects = [];
 		needRedraw = true;
-		label.initialize('Black', viewName, {x:0, y:0});
+		label.initialize('Black', viewName, {x:0, y:0}); //will this be broken by adding a getter and setter?
 	};
 
 	this.addDrawObject = function(obj) {
@@ -130,6 +128,10 @@ module.exports = function Canvas() {
 		activeObjects[ix] = drawObject;
 	};
 
+	this.getActiveObjects = function(callback) {
+		callback(null, activeObjects);
+	}
+
 	this.getState = function() {
 		return state;
 	};
@@ -146,65 +148,71 @@ module.exports = function Canvas() {
 		activeObjects = null; 
 	};
 
-
 	/**
 	 * Import takes a JSON object containing the definition of all the canvas elements
 	 * @param  {JSON} canvasJSON 	JSON representation of a canvas object
 	 * @return {object} this        Return this Canvas object
 	 */
 	this.import = function(json, callback) {
-		this.clear();
+		//this.clear();			//need to clear the canvas before we import. Disabled temporarily
 
 		label.text = json.title;
-		for(var o in json.activeObjects) {
 
+		var self = this;
+		json.activeObjects.forEach(function(o) {
+			var obj = {};
 			switch(o.type) {
-				case LabelledOval.type :
-					var l = new LabelledOval();
-					l.initialize(o.title, o.dimensions);
+				case 'LabelledOval' :
+					obj = new LabelledOval();
+					obj.initialize(o.title, o.dimensions);
 					break;
-				case Connector.type :
-					var c = new Connector();
-					c.initialize(o.points);
+				case 'Connector' :
+					obj = new Connector();
+					obj.initialize(o.points);
 					break;
-				case default :
+				default :
 					console.log('Object ' + obj.type + ' was passed to import, but was not recognised');
 					callback('Bad object was passed to canvas.import()', null);
 					return;
 			}
-			//style?
-			this.addDrawObject(l);
-		}
+			obj.style = o.style;
+			self.addDrawObject(obj);
+		});
 		callback(null, this);
 		return this;
 	};
 
 
 	this.export = function(callback) {
+		//todo : pause the canvas cycle?
 		var json = {};
 		json.title = label.text;
 		json.activeObjects = [];
 		for(var o in activeObjects) {
-			var obj = {};
-			obj.type = o.type;
-			obj.style = o.style;
-			switch(obj.type) {
-				case LabelledOval.type :
-					obj.title = o.title;
-					obj.dimensions = o.dimensions;
-					//Todo: Do I need to export text styles? 
-					break;
-				case Connector.type :
-					obj.points = o.points;
-					break;
-				case default :
-					console.log('Object ' + obj.type + ' was passed to export, but was not recognised');
-					callback('Bad object was passed to canvas.export()', null);
-					return;
-			}
-			json.activeObjects.push(obj);
+			o.toJSON( function(err, res) {json.activeObjects.push(res) });
 		}
 		callback(null, json);
 		return json;
 	};
 };
+
+
+//Getters and Setters
+Object.defineProperty(Canvas, 'title', {
+	get: function() {
+		if(!this.title) {
+			return null;
+		}
+		return this.title.text;
+	},
+	set: function(title) {
+		if(!this.title) {
+			this.title = new Label();
+			console.log('todo: add initialization logic for label');
+		}
+		this.title.text = title;
+	}
+});
+
+
+module.exports = Canvas;
