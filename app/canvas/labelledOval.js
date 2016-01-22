@@ -103,7 +103,7 @@ var applyStyle = function(context) {
     context.fill();
 };
 
-Extend(DrawingObject, LabelledOval, {applyStyle:applyStyle}});
+Extend(DrawingObject, LabelledOval, {applyStyle:applyStyle});
 
 module.exports = LabelledOval;
 
