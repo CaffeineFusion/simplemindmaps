@@ -17,17 +17,6 @@ var Connector = function Connector() {
 		this.parent.applyStyle();		//Note: parent is added via Extend()
 	};
 
-	//How will the context passing function when async?
-	this.draw = function(context) {
-
-		context.beginPath();
-		context.moveTo(points.a.x, points.a.y);
-		context.lineTo(points.b.x, points.b.y);
-		applyStyle(context);
-		context.stroke();
-
-	};
-		
 	this.greyOut = function() {
 		throw('grey out has not yet been implemented');
 	};
@@ -55,10 +44,18 @@ var getPoints = function() {
 	return this.points;
 };
 
+//How will the context passing function when async?
+var draw = function(context) {
+	context.beginPath();
+	context.moveTo(this.points.a.x, this.points.a.y);
+	context.lineTo(this.points.b.x, this.points.b.y);
+	applyStyle(context);
+	context.stroke();
+};
 
 //Set up DrawingObject as parent on prototype chain.
 //	note: Extend takes the passed functions and adds them to the prototype.
 Connector = Extend(DrawingObject, Connector, {initialize:initialize, 
-	getPoints:getPoints});
+	getPoints:getPoints, draw:draw});
 
 module.exports = Connector;

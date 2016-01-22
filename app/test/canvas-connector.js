@@ -16,7 +16,9 @@ describe('Connector', function() {
 
     //Test Connector Creation
     describe('#new Connector()', function () {
+
         var connector = new Connector();
+
         it('new connector should be of the Connector class', function (){
             expect(connector).to.be.a.connector(Connector.type);
         });
@@ -54,7 +56,7 @@ describe('Connector', function() {
     });
 
      //Test Connector Style set and get
-    describe('#style()', function () {
+    describe('#style', function () {
 
         var connector = new Connector();
 
