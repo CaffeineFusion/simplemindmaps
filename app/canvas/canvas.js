@@ -158,7 +158,6 @@ var Canvas = function Canvas() {
 
 		label.text = json.title;
 
-		var self = this;
 		json.activeObjects.forEach(function(o) {
 			var obj = {};
 			switch(o.type) {
@@ -176,8 +175,8 @@ var Canvas = function Canvas() {
 					return;
 			}
 			obj.style = o.style;
-			self.addDrawObject(obj);
-		});
+			this.addDrawObject(obj);
+		}, this);
 		callback(null, this);
 		return this;
 	};
@@ -188,9 +187,9 @@ var Canvas = function Canvas() {
 		var json = {};
 		json.title = label.text;
 		json.activeObjects = [];
-		for(var o in activeObjects) {
+		activeObjects.forEach(function(o) {
 			o.toJSON( function(err, res) {json.activeObjects.push(res) });
-		}
+		});
 		callback(null, json);
 		return json;
 	};

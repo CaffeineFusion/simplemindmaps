@@ -56,14 +56,7 @@ describe('Canvas', function() {
     describe('#import()', function () {
         var canvas = new Canvas();
         //console.log(testJSON);
-        canvas.import(testJSON, function(err,res){
-            /*if(err) {
-                console.log(err)
-            } else {
-                console.log(res);
-                canvas.getActiveObjects(function (err, res){console.log(res)});
-            };*/
-        });
+        canvas.import(testJSON, function(err,res){});
         it('canvas should be of the Canvas class after import', function (){
             expect(canvas).to.be.a.canvas(Canvas.type);
         });
@@ -80,6 +73,15 @@ describe('Canvas', function() {
 
     describe('#export()', function () {
         var canvas = new Canvas();
+        //console.log(testJSON);
+        canvas.import(testJSON, function(err,res){});
+
+        var json = {};
+        canvas.export(function(err,res){
+            json = res;
+        });
+
+        console.log(json);
 
         
     

@@ -30,11 +30,8 @@ var DrawingObject = function DrawingObject() {
 		}
 	}
 
-	this.toJSON = function(callback) {
-		var res = {};
-		res.type = this.constructor.name;
-		callback(null, res);
-		return res;
+	var toJSON = function(callback) {
+		throw('export() was called in the abstract DrawingObject');
 	}
 
 	this.draw = function(context) {

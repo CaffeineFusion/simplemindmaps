@@ -81,7 +81,7 @@ var toJSON = function(callback) {
 	var res = {};//this.parent.toJSON(callback(err, res){});
 	res.type = this.constructor.name;
 	res.style = this.style;
-	res.title = this.title.text;
+	res.title = this.title;
 	res.dimensions = this.dimensions;
 	callback(null, res);
 	return res;
