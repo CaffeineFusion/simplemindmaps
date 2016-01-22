@@ -103,9 +103,11 @@ describe('LabelledOval', function() {
             assert.equal(true,false, 'not implemented yet');
             console.log("todo: write tests for labels on LabelledOval");
         });
-
-
     });
+
+    describe('#applyStyle()', function(){});
+
+    describe('#draw()', function(){});
 });
 
 

@@ -18,12 +18,9 @@ var Extend = require('../helpers/extend');
  */
 var LabelledOval = function LabelledOval() {
 
-	//Add ID.
-	//label:'New Idea',
-	//object {x, y, h, w}
+	//todo: Add ID.
 	this.dimensions = {x:0, y:0, h:10, w:10};
 	this.style = {fillStyle:'#8ED6FF', lineWidth:5, strokeStyle:'black'};
-
 
 	this.draw = function(context) {
 		context.beginPath();
@@ -47,8 +44,6 @@ var LabelledOval = function LabelledOval() {
 	};
 
 };
-
-
 
 //Getters and Setters
 Object.defineProperty(LabelledOval, 'title', {
