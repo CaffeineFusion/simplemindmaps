@@ -12,7 +12,6 @@ var Connector = function Connector() {
 
 	var points = {a:{x:0, y:0}, b:{x:10, y:10}};
 	this.style = {lineWidth:5, strokeStyle:'black'};
-	this.colour = 'Blue';
 
 	/**
 	 * [initialize description]
@@ -20,9 +19,8 @@ var Connector = function Connector() {
 	 * @param  {object} pts takes the two points to define the line {a:{x,y}, b:{x,y}}
 	 * @return {null}     	currently no return
 	 */
-	this.initialize = function (clr, pts) {
+	this.initialize = function (pts) {
 
-		this.colour = clr;
 		points = pts;
 		//this.setStyle({lineWidth:5, strokeStyle:'black'});
 	};
@@ -34,7 +32,7 @@ var Connector = function Connector() {
 	//todo : make apply Style a private function.
 
 	this.applyStyle = function(context) {
-		this.parent.applyStyle();		//Note: parent is added via Extend();
+		this.parent.applyStyle();		//Note: parent is added via Extend()
 	};
 
 
@@ -61,24 +59,6 @@ var Connector = function Connector() {
 		return points;
 	};
 };
-
-//todo : add error handling and proper logging
-//		 default is currently hardbaked for colour and style. Seperate to external style doc
-
-Object.defineProperty(Connector, 'colour', {
-
-    get: function() {
-    	if(!this.colour)
-    		this.colour = 'Blue';
-        return this.colour;
-    },
-    set: function(str) {
-        if (_.isString(str))
-            this.colour = str;
-        else
-            console.log('Colour ' + str.toString() + ' is not a valid string!');
-    }
-});
 
 
 /*Object.defineProperty(Connector, 'style', {

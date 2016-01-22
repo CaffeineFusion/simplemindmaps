@@ -27,7 +27,7 @@ var LabelledOval = function LabelledOval() {
 	var dimensions = {x:0, y:0, h:10, w:10};
 	//console.log(this);
 	//initialize(str, hex, {x,y,h,w})
-	this.initialize: function (lbl, clr, dimensions) {
+	this.initialize = function (lbl, clr, dimensions) {
 		this.label = lbl; 
 		this.colour = clr;
 		this.dimensions = dimensions;
@@ -43,6 +43,8 @@ var LabelledOval = function LabelledOval() {
 			return {fillStyle:'#8ED6FF', lineWidth:5, strokeStyle:'black'};
 		return this.style;
 	},*/
+
+
 
 	
 
@@ -82,12 +84,6 @@ var LabelledOval = function LabelledOval() {
 
 };
 
-//Add to prototype
-LabelledOval.protoype.applyStyle = function(context) {
-	
-	this.parent.applyStyle(context);		//Note: parent is added via Extend();
-    context.fill();
-};
 
 
 //Getters and Setters
@@ -100,9 +96,14 @@ Object.defineProperty(LabelledOval, 'label', {
 		}
 });
 
+//Functions to add to prototype.
+var applyStyle = function(context) {
+	
+	this.parent.applyStyle(context);		//Note: parent is added via Extend();
+    context.fill();
+};
 
-
-Extend(DrawingObject, LabelledOval, null);
+Extend(DrawingObject, LabelledOval, {applyStyle:applyStyle}});
 
 module.exports = LabelledOval;
 
