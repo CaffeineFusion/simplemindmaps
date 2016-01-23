@@ -3,9 +3,21 @@
 
 
 <script type="text/javascript">
+	//Load example file
+	var example;
+
 	var c = new Canvas();
 	var htmlCanvas = document.getElementById("intro"); 
 	c.initialize(htmlCanvas, 'myNewMindMap');
+
+	ParseJSON.loadJSON('examples/importCanvas.json', function(err, res) {
+		if(err) { console.log(err); return; }
+		c.import(res, function(err, res) { 
+			if(err) { console.log(err); return; }
+			c.run();
+		});
+	});
+	
 </script>
 
 <!--Set up CSS to auto-size canvas in simplemindmaps-->

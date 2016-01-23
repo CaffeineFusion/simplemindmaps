@@ -6,7 +6,7 @@
  * @param  {string} jsonString      the string format of some JSON object
  * @return {JSON or false}        returns either the parsed JSON string, or false if it is not valid JSON
  */
-module.exports = function parseJSON (jsonString) {
+module.exports = function ParseJSON (jsonString) {
 
     try {
         var j = JSON.parse(jsonString);
@@ -27,15 +27,15 @@ module.exports = function parseJSON (jsonString) {
  * @param  {Function} callback [description]
  * @return {null}            [description]
  */
-module.exports.loadJSON = function loadJSON(callback) {   
+module.exports.LoadJSON = function LoadJSON(filePath, callback) {   
 
 	var xobj = new XMLHttpRequest();
 	    xobj.overrideMimeType("application/json");
-	xobj.open('GET', 'my_data.json', true); // Replace 'my_data' with the path to your file
+	xobj.open('GET', filePath, true); 
 	xobj.onreadystatechange = function () {
 		if (xobj.readyState == 4 && xobj.status == "200") {
 		// Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
-			callback(xobj.responseText);
+			callback(null, xobj.responseText);
 		}
 	};
 	xobj.send(null);  
