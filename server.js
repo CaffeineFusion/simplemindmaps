@@ -27,4 +27,7 @@ app.use(express.static('app'));
 
 
 app.listen(3000, function() {
-	console.log('express web server listening on port %d on localhost in %s mode', 3000, app.settings.env);});
+	console.log('express web server listening on port %d on localhost in %s mode', 3000, app.settings.env);
+	var now = new Date();
+	console.log('=== server started at ' + now.getHours() + ':' + now.getMinutes() + ' ' + now.getDate() + '/' + now.getMonth()+1);
+});

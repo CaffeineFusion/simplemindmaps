@@ -1,26 +1,12 @@
 <h1>Basic HTML5 Canvas</h1>
 <canvas id="mindmapCanvas" width="1000" height="800">Sorry! Your browser doesn't support canvas - please upgrade your browser to use simplemindmaps!</canvas>
 
-
-<script type="text/javascript">
-	//Load example file
-	var example;
-
-	var c = new Canvas();
-	var htmlCanvas = document.getElementById("intro"); 
-	c.initialize(htmlCanvas, 'myNewMindMap');
-
-	ParseJSON.loadJSON('examples/importCanvas.json', function(err, res) {
-		if(err) { console.log(err); return; }
-		c.import(res, function(err, res) { 
-			if(err) { console.log(err); return; }
-			c.run();
-		});
-	});
-	
-</script>
-
 <!--Set up CSS to auto-size canvas in simplemindmaps-->
 
 
+<script>
+	//var MindMap = require('mindmap');
+    var htmlCanvas = document.getElementById('mindmapCanvas'); 
+    console.log(htmlCanvas);
+</script>
 

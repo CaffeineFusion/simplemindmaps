@@ -1,4 +1,6 @@
 'use strict';
+var ParseJSON = require('../helpers/parseJSON');
+
 
 
 /**

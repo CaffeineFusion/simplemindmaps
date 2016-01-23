@@ -12,7 +12,7 @@ module.exports = function Extend(parent, child, overrides) {
 
 	child.prototype = Object.create(parent.prototype);
 	child.prototype.constructor = child;
-	child.parent = parent.prototype;
+	child.prototype.parent = parent.prototype;
 
 	//if(typeof overrides !== 'undefined') {
 	// Copy the methods passed in to the prototype

@@ -1,6 +1,7 @@
 // Gulp Dependencies
 var gulp = require('gulp');
 var rename = require('gulp-rename');
+var transform = require('vinyl-transform');
 
 // Build Dependencies
 var browserify = require('gulp-browserify');
@@ -33,13 +34,15 @@ gulp.task('lint-test', function() {
 
 
 gulp.task('browserify-app', ['lint-app'], function() {
-  return gulp.src('app/index.js')
-    .pipe(browserify({
-		insertGlobals: true
-    }))
-    .pipe(rename('simplemindmaps.js'))
-    .pipe(gulp.dest('build'))
-    .pipe(gulp.dest('public/javascripts'));
+
+  	return gulp.src('app/index.js')
+	    .pipe(browserify('app/index.js', {
+			insertGlobals: true,
+			standalone: 'mindmaps'
+	    }))
+	    .pipe(rename('simplemindmaps.js'))
+	    .pipe(gulp.dest('build'))
+	    .pipe(gulp.dest('public/javascripts'));
 });
 
 

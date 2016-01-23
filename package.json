@@ -4,7 +4,9 @@
   "description": "\"Simple mindmapping tool using HTML5 canvas\"",
   "main": "server.js",
   "scripts": {
-    "test": "mocha app/test && mocha app/test/model-idea.js && mocha app/test/model-view.js && mocha app/test/model-user.js && mocha app/test/canvas-canvas.js && mocha app/test/canvas-connector.js && mocha app/test/canvas-labelledOval.js"
+    "clean": "rm -rf node_modules build; mkdir build; npm install",
+    "lint": "jshint **.js",
+    "test": "mocha test/"
   },
   "dependencies": {
     "express": "4.13.3",
@@ -26,7 +28,8 @@
     "gulp-uglify": "^1.5.1",
     "mocha": "^2.3.4",
     "nodemon": "^1.8.1",
-    "sinon": "^1.17.2"
+    "sinon": "^1.17.2",
+    "vinyl-transform": "^1.0.0"
   },
   "repository": {
     "type": "git",
