@@ -30,4 +30,5 @@ public
 node_modules
 
 # JSHint Config
-.gitignore
+.jshintrc
+

@@ -2,7 +2,7 @@ var Canvas = require('./canvas/canvas.js');
 var ExampleJSON = require('../test/resources/importCanvas.json');
 //var view = require('../server/models/view.js');
 
-var initialize = function (htmlCanvas) {
+function Initialize (htmlCanvas) {
     var example;
 
     var c = new Canvas();
@@ -14,6 +14,8 @@ var initialize = function (htmlCanvas) {
         c.run();
     });
 
+    console.log(c);
+
     /*ParseJSON.loadJSON('localhost', 'examples/importCanvas.json', function(err, res) {
         if(err) { console.log(err); return; }
         c.import(res, function(err, res) { 
@@ -21,8 +23,8 @@ var initialize = function (htmlCanvas) {
             c.run();
         });
     });*/
+
 };
 
-initialize();
+Initialize(document.getElementById('mindmapCanvas'));
 
-  

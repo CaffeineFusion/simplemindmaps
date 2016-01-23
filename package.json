@@ -4,9 +4,12 @@
   "description": "\"Simple mindmapping tool using HTML5 canvas\"",
   "main": "server.js",
   "scripts": {
+    "build": "browserify app/index.js --standalone MindMaps > build/simplemindmaps.js; browserify app/index.js --standalone MindMaps > public/javascripts/simplemindmaps.js",
     "clean": "rm -rf node_modules build; mkdir build; npm install",
     "lint": "jshint **.js",
-    "test": "mocha test/"
+    "test": "mocha test/",
+    "build-loop": "watchify app/index.js --standalone MindMaps -o build/simplemindmaps.js -dv & watchify app/index.js --standalone MindMaps -o public/javascripts/simplemindmaps.js -dv",
+    "dev-loop": "npm run build-loop & nodemon server.js"
   },
   "dependencies": {
     "express": "4.13.3",
@@ -15,21 +18,12 @@
     "underscore": "1.8.3"
   },
   "devDependencies": {
+    "browserify": "latest",
     "browserify-shim": "^3.8.12",
     "chai": "^3.4.1",
-    "gulp": "^3.9.0",
-    "gulp-autoprefixer": "^3.1.0",
-    "gulp-browserify": "^0.5.1",
-    "gulp-cssnano": "^2.1.0",
-    "gulp-jshint": "^2.0.0",
-    "gulp-less": "^3.0.5",
-    "gulp-mocha-phantomjs": "^0.10.1",
-    "gulp-rename": "^1.2.2",
-    "gulp-uglify": "^1.5.1",
     "mocha": "^2.3.4",
     "nodemon": "^1.8.1",
-    "sinon": "^1.17.2",
-    "vinyl-transform": "^1.0.0"
+    "sinon": "^1.17.2"
   },
   "repository": {
     "type": "git",
