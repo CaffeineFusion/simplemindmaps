@@ -9,7 +9,8 @@
     "lint": "jshint **.js",
     "test": "mocha test/",
     "build-loop": "watchify app/index.js --standalone MindMaps -o build/simplemindmaps.js -dv & watchify app/index.js --standalone MindMaps -o public/javascripts/simplemindmaps.js -dv",
-    "dev-loop": "npm run build-loop & nodemon server.js"
+    "dev-loop": "npm run build-loop & nodemon server.js",
+    "test-loop": "supervisor -q -n exit -x mocha -- -b"
   },
   "dependencies": {
     "express": "4.13.3",
@@ -23,7 +24,10 @@
     "chai": "^3.4.1",
     "mocha": "^2.3.4",
     "nodemon": "^1.8.1",
-    "sinon": "^1.17.2"
+    "phantomjs": "^1.9.19",
+    "sinon": "^1.17.2",
+    "supervisor": "^0.9.1",
+    "watchify": "^3.7.0"
   },
   "repository": {
     "type": "git",
