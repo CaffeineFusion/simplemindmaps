@@ -10,7 +10,7 @@ var ParseJSON = require('../helpers/parseJSON');
  * 		for a more complexly styled object, the "applyStyle" command would need to be 
  * 		overriden
  */
-var DrawingObject = function DrawingObject() {
+function DrawingObject() {
 	
 	//var style = {};  //will the get and set functions pick up on the private var?
 	//var defaultStyle = {};

@@ -30,10 +30,16 @@ var LabelledOval = function LabelledOval() {
 	};
 
 	this.draw = function(context) {
+		context.save();
+		context.translate(500, 400); //todo: un-hardbake
+		context.scale(2,1);
 		context.beginPath();
-		context.arc(this.dimensions.x, this.dimensions.y, 0 , degreesToRadians(360), false);
+		context.arc(this.dimensions.x, this.dimensions.y, 50 , degreesToRadians(360), false);
+		context.restore();
 		this.applyStyle(context);
+		context.fill();
 		context.stroke();
+		//context.stroke();
 	};
 	
 	this.greyOut = function() {
@@ -64,9 +70,9 @@ Object.defineProperty(LabelledOval, 'title', {
 
 //Functions to add to prototype.
 
-var applyStyle = function(context) {
-	this.parent.applyStyle(context);		//Note: parent is added via Extend();
-    context.fill();
+var applyStyle = function(context ) {
+	
+	this.parent.applyStyle.call(this, context);
 };
 
 //initialize(str, {x,y,h,w})
@@ -87,7 +93,7 @@ var toJSON = function(callback) {
 	return res;
 };
 
-Extend(DrawingObject, LabelledOval, {applyStyle:applyStyle, initialize:initialize, 
+LabelledOval = Extend(DrawingObject, LabelledOval, {applyStyle:applyStyle, initialize:initialize, 
 	toJSON:toJSON});
 
 module.exports = LabelledOval;

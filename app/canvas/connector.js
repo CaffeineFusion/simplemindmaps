@@ -41,7 +41,7 @@ var getPoints = function() {
 
 
 var applyStyle = function(context) {
-	this.parent.applyStyle();		//Note: parent is added via Extend()
+	this.parent.applyStyle.call(this, context);		//Note: parent is added via Extend();
 };
 
 //How will the context passing function when async?

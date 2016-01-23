@@ -35,7 +35,7 @@ var Canvas = function Canvas() {
 	this.initialize = function(c, viewName) {
 		canvas = c;
 		
-		if(!this.canvas) {
+		if(!canvas) {
 			console.log('No HTML5 canvas was passed to the Canvas initialize function');
 		}
 
@@ -76,31 +76,36 @@ var Canvas = function Canvas() {
 		}
 		if(state === 'loading') {
 			console.log('canvas loading. Drawing paused. Checking at next draw cycle');
-			window.requestAnimationFrame(draw.bind(this, callback));
+			window.requestAnimationFrame(draw(callback).bind(this));
 			return;	
 		}
 
 		//Check to see if image is unmodified before clearing/redrawing
 		if(!needRedraw) { 
-			window.requestAnimationFrame(draw.bind(this)); 
+			window.requestAnimationFrame(draw(callback).bind(this)); 
 			return;
 		}
 
 		context.clearRect(0, 0, width, height);   //Clear canvas
 
 		activeObjects.forEach(function (o) {
-			o.draw(context);
+			o.draw(context, function(err, res){
+				if(err) {
+					console.log(err);
+				}
+			});
 		});
 
 		needRedraw = false;		//Not really async, fix.
 
-		window.requestAnimationFrame(draw.bind(this, callback));	  //recode to pass in callback
+		window.requestAnimationFrame(draw(callback).bind(this));	 
 	};
 
 	this.run = function() {
 		state = 'run';	//Need to create an async implementation of this
 		
-		window.requestAnimationFrame(draw.bind(this));   //recode to pass in callback
+		window.requestAnimationFrame(draw(function (err, res) { 
+			if(err) {console.log(err);}}).bind(this));   //recode to pass in callback
 	};
 
 	this.stop = function() {

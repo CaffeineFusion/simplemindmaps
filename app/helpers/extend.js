@@ -10,9 +10,10 @@
  */
 module.exports = function Extend(parent, child, overrides) {
 
+	//console.log(parent.prototype);
 	child.prototype = Object.create(parent.prototype);
 	child.prototype.constructor = child;
-	child.prototype.parent = parent.prototype;
+	child.prototype.parent = new parent();  //was child.parent = parent.prototype; but this was returning null
 
 	//if(typeof overrides !== 'undefined') {
 	// Copy the methods passed in to the prototype
@@ -21,6 +22,7 @@ module.exports = function Extend(parent, child, overrides) {
 			child.prototype[name] = overrides[name];
 		}
 	}
+	//console.log(child);
 	//}
 	// so we can define the constructor inline
 	return child;
