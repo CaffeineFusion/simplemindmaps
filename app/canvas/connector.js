@@ -1,5 +1,4 @@
 'use strict';
-var _ = require('underscore');
 var ParseJSON = require('../helpers/parseJSON');
 var DrawingObject = require('./drawingObject');
 var Extend = require('../helpers/extend');
@@ -12,10 +11,6 @@ var Connector = function Connector() {
 
 	this.points = {a:{x:0, y:0}, b:{x:10, y:10}};
 	this.style = {lineWidth:5, strokeStyle:'black'};
-
-	var applyStyle = function(context) {
-		this.parent.applyStyle();		//Note: parent is added via Extend()
-	};
 
 	this.greyOut = function() {
 		throw('grey out has not yet been implemented');
@@ -44,12 +39,17 @@ var getPoints = function() {
 	return this.points;
 };
 
+
+var applyStyle = function(context) {
+	this.parent.applyStyle();		//Note: parent is added via Extend()
+};
+
 //How will the context passing function when async?
 var draw = function(context) {
 	context.beginPath();
 	context.moveTo(this.points.a.x, this.points.a.y);
 	context.lineTo(this.points.b.x, this.points.b.y);
-	applyStyle(context);
+	this.applyStyle(context);    
 	context.stroke();
 };
 
@@ -61,11 +61,11 @@ var toJSON = function(callback) {
 	res.points = this.points;		
 	callback(null, res);
 	return res;
-}
+};
 
 //Set up DrawingObject as parent on prototype chain.
 //	note: Extend takes the passed functions and adds them to the prototype.
 Connector = Extend(DrawingObject, Connector, {initialize:initialize, 
-	getPoints:getPoints, draw:draw, toJSON:toJSON});
+	getPoints:getPoints, draw:draw, toJSON:toJSON, applyStyle:applyStyle});
 
 module.exports = Connector;

@@ -3,11 +3,11 @@
 var Label = require('./label');
 var LabelledOval = require('./labelledOval');
 var Connector = require('./connector');
-var ParseJSON = require('../helpers/parseJSON')
+var ParseJSON = require('../helpers/parseJSON');
 
 /**
  * Canvas The canvas object holds all of the drawing objects which are to be 
- * 		rendered to the HTML5 Canvas. The Canvas correlates to the active "View" model.
+ * 		rendered to the HTML5 Canvas. The Canvas correlates to the active 'View' model.
  *
  * Todo: Refactor connectors
  */
@@ -70,12 +70,12 @@ var Canvas = function Canvas() {
 	 */
 	var draw = function(callback) { 
 
-		if(state == 'stop') {
+		if(state === 'stop') {
 			callback(null, 'Stop request passed to canvas - draw cycle terminated');
 			return;
 		}
-		if(state == 'loading') {
-			console.log("canvas loading. Drawing paused. Checking at next draw cycle");
+		if(state === 'loading') {
+			console.log('canvas loading. Drawing paused. Checking at next draw cycle');
 			window.requestAnimationFrame(draw.bind(this, callback));
 			return;	
 		}
@@ -88,9 +88,9 @@ var Canvas = function Canvas() {
 
 		context.clearRect(0, 0, width, height);   //Clear canvas
 
-		for (var o in activeObjects) {
-			o.draw(context); 
-	    }
+		activeObjects.forEach(function (o) {
+			o.draw(context);
+		});
 
 		needRedraw = false;		//Not really async, fix.
 
@@ -130,7 +130,7 @@ var Canvas = function Canvas() {
 
 	this.getActiveObjects = function(callback) {
 		callback(null, activeObjects);
-	}
+	};
 
 	this.getState = function() {
 		return state;
@@ -188,7 +188,7 @@ var Canvas = function Canvas() {
 		json.title = label.text;
 		json.activeObjects = [];
 		activeObjects.forEach(function(o) {
-			o.toJSON( function(err, res) {json.activeObjects.push(res) });
+			o.toJSON( function(err, res) {json.activeObjects.push(res); });
 		});
 		callback(null, json);
 		return json;

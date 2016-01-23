@@ -53,29 +53,35 @@ var Label = function Label() {
 //		move out default text type - currently hardbaked
 Object.defineProperty(Label, 'text', {
     get: function() {
-    	if(!this.text)
+    	if(!this.text) {
     		return '30px Arial';
+        }
         return this.text;
     },
     set: function(str) {
-        if (_.isString(str))
+        if (_.isString(str)) {
             this.text = str;
-        else
+        }
+        else {
             console.log('Label ' + str.toString() + ' is not a valid string!');
+        }
     }
 });
 
 Object.defineProperty(Label, 'font', {
     get: function() {
-    	if(!this.font)
+    	if(!this.font) {
     		return '';
+        }
         return this.font;
     },
     set: function(str) {
-        if (_.isString(str))
+        if (_.isString(str)) {
             this.font = str;
-        else
+        }
+        else {
             console.log('Label ' + str.toString() + ' is not a valid string!');
+        }
     }
 });
 
@@ -84,15 +90,18 @@ Object.defineProperty(Label, 'font', {
 //		 default is currently hardbaked for colour and style. Seperate to external style doc
 Object.defineProperty(Label, 'colour', {
     get: function() {
-    	if(!this.colour)
+    	if(!this.colour) {
     		return 'Blue';
+        }
         return this.colour;
     },
     set: function(str) {
-        if (_.isString(str))
+        if (_.isString(str)) {
             this.colour = str;
-        else
+        }
+        else {
             console.log('Colour ' + str.toString() + ' is not a valid string!');
+        }
     }
 });
 
@@ -100,17 +109,20 @@ Object.defineProperty(Label, 'colour', {
 
 Object.defineProperty(Label, 'style', {
     get: function() {
-    	if(!this.style)
+    	if(!this.style) {
     		return {lineWidth:5, strokeStyle:'black'};
+        }
         return this.style;
     },
     set: function(jsonString) {
     	var j = ParseJSON(jsonString);
     	//ParseJSON returns false if the string is not valid JSON
-        if (!j)
+        if (!j) {
             console.log('Style ' + jsonString.toString() + ' is not valid JSON!');
-        else
+        }
+        else {
             this.style = jsonString;
+        }
     }
 });
 
@@ -118,8 +130,9 @@ Object.defineProperty(Label, 'style', {
 
 Object.defineProperty(Label, 'point', {
     get: function() {
-    	if(!this.point)
+    	if(!this.point) {
     		return {x:0, y:0};
+        }
         return this.point;
     },
     //No error handling!
@@ -132,8 +145,9 @@ Object.defineProperty(Label, 'point', {
 
 Object.defineProperty(Label, 'align', {
     get: function() {
-    	if(!this.align)
-    		return "center";
+    	if(!this.align) {
+    		return 'center';
+        }
         return this.align;
     },
     //No error handling!

@@ -2,7 +2,11 @@
 <canvas id="mindmapCanvas" width="1000" height="800">Sorry! Your browser doesn't support canvas - please upgrade your browser to use simplemindmaps!</canvas>
 
 
-<script type="text/javascript"></script>
+<script type="text/javascript">
+	var c = new Canvas();
+	var htmlCanvas = document.getElementById("intro"); 
+	c.initialize(htmlCanvas, 'myNewMindMap');
+</script>
 
 <!--Set up CSS to auto-size canvas in simplemindmaps-->
 

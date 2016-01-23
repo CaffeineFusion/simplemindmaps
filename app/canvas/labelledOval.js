@@ -23,6 +23,12 @@ var LabelledOval = function LabelledOval() {
 	this.dimensions = {x:0, y:0, h:10, w:10};
 	this.style = {fillStyle:'#8ED6FF', lineWidth:5, strokeStyle:'black'};
 
+	//Because everyone *loves* Radians
+	//todo: how does the return value handle the decimal?
+	var degreesToRadians = function(degrees) {
+		return degrees * (Math.PI / 180);
+	};
+
 	this.draw = function(context) {
 		context.beginPath();
 		context.arc(this.dimensions.x, this.dimensions.y, 0 , degreesToRadians(360), false);
@@ -37,13 +43,6 @@ var LabelledOval = function LabelledOval() {
 	this.setTransparency = function() {
 		throw('transparency has not yet been implemented');
 	};
-
-	//Because everyone *loves* Radians
-	//todo: how does the return value handle the decimal?
-	var degreesToRadians = function(degrees) {
-		return degrees * (Math.PI / 180);
-	};
-
 };
 
 //Getters and Setters
@@ -86,7 +85,7 @@ var toJSON = function(callback) {
 	res.dimensions = this.dimensions;
 	callback(null, res);
 	return res;
-}
+};
 
 Extend(DrawingObject, LabelledOval, {applyStyle:applyStyle, initialize:initialize, 
 	toJSON:toJSON});

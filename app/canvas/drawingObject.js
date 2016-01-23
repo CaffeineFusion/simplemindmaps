@@ -26,13 +26,15 @@ var DrawingObject = function DrawingObject() {
 	 */
 	this.applyStyle = function(context) {
 		for(var s in this.style) {
-			context[s] = this.style[s]
+			if(this.style.hasOwnProperty(s)) {
+				context[s] = this.style[s];
+			}
 		}
-	}
+	};
 
-	var toJSON = function(callback) {
-		throw('export() was called in the abstract DrawingObject');
-	}
+	this.toJSON = function(callback) {
+		throw('toJSON() was called in the abstract DrawingObject');
+	};
 
 	this.draw = function(context) {
 		throw('draw() was called in the abstract DrawingObject');
@@ -45,22 +47,25 @@ var DrawingObject = function DrawingObject() {
 	this.setTransparency = function() {
 		throw('transparency has not yet been implemented');
 	};
-}
+};
 
 Object.defineProperty(DrawingObject, 'style', {
 
     get: function() {
-    	if(!this.style)
+    	if(!this.style) {
     		this.style = {lineWidth:5, strokeStyle:'black'};
+    	}
         return this.style;
     },
     set: function(jsonString) {
     	var j = ParseJSON(jsonString);
     	//ParseJSON returns false if the string is not valid JSON
-        if (!j)
+        if (!j) {
             console.log('Style ' + jsonString.toString() + ' is not valid JSON!');
-        else
+        }
+        else {
             this.style = jsonString;
+        }
     }
 });
 

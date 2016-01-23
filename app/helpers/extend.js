@@ -17,12 +17,14 @@ module.exports = function Extend(parent, child, overrides) {
 	//if(typeof overrides !== 'undefined') {
 	// Copy the methods passed in to the prototype
 	for (var name in overrides) {
-		child.prototype[name] = overrides[name];
+		if(overrides.hasOwnProperty(name)) {
+			child.prototype[name] = overrides[name];
+		}
 	}
 	//}
 	// so we can define the constructor inline
 	return child;
-}
+};
 
 
 //Kudos to Juan Mendes
