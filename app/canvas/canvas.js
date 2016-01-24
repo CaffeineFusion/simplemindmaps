@@ -21,6 +21,8 @@ var Canvas = function Canvas() {
 	var needRedraw = true;
 	var state = 'stop';
 	var label = new Label(); 
+	var focussedObject = null;
+	var selectedObject = null;
 
 	/**
 	 * initialize 	Configures the canvas representation using the html canvas element.
@@ -204,13 +206,47 @@ var Canvas = function Canvas() {
 	};
 
 	this.onClick = function (e, inputState, callback) {
-		console.log('you clicked on the canvas');
+		this.passToObject({x:e.clientX + inputState.offSet.x, y: e.clientY + inputState.offSet.y}, 
+			function(err, obj){
+
+			if(obj === false) {
+				selectedObject = null;
+				console.log('clicked on canvas. Todo: add new drawingObject');
+			}
+			else if(obj) {
+				obj.onClick(function(err, res) { this.selectedObject = obj; }.bind(this));
+			}
+			//todo: initiate callback
+		});
 	};
 
 	this.onMouseMove = function(e, inputState, callback) {
+		this.passToObject({x:e.clientX + inputState.offSet.x, y: e.clientY + inputState.offSet.y}, 
+			function(err, obj){
+			if(obj) {
+				obj.onMouseOver(function(err, res) { this.focussedObject = obj; }.bind(this));
+			}
+			else if(this.focussedObject) {
+				this.focussedObject = null;
+			}
+		});
 		console.log('you moved the mouse over the canvas');
+		//todo: callback
 	};
 
+	//todo: inefficient, refactor
+	this.passToObject = function(point, callback) {
+
+		this.activeObjects.forEach(function(o) {
+
+			if(o.contain(point)) {
+				callback(null, o);
+				return;
+			}
+
+		});
+		callback(null,false);
+	};
 };
 
 
@@ -228,6 +264,31 @@ Object.defineProperty(Canvas.prototype, 'title', {
 			console.log('todo: add initialization logic for label');
 		}
 		this._title.text = title;
+	}
+});
+
+Object.defineProperty(Canvas.prototype, 'focussedObject', {
+	get: function() {
+		return this._focussedObject;
+	},
+	set: function(obj) {
+		if(this._focussedObject) {
+			this._focussedObject.onMouseOut();
+		}
+		this._focussedObject = obj;
+	}
+});
+
+
+Object.defineProperty(Canvas.prototype, 'selectedObject', {
+	get: function() {
+		return this._selectedObject;
+	},
+	set: function(obj) {
+		if(this._selectedObject) {
+			this._selectedObject.onDeselect();
+		}
+		this._selectedObject = obj;
 	}
 });
 

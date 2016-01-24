@@ -92,11 +92,29 @@ var contains = function(point, callback) {
 		this.dimensions.w, this.dimensions.h)); 
 };
 
+var onMouseOver = function(callback) {
+	console.log(title + " mouseOver");
+};
+
+var onClick = function(callback) {
+	console.log(title + " mouseClick");
+};
+
+
+var onDeselect = function(callback) {
+	console.log(title + " deselect");
+};
+
+
+var onMouseOut = function(callback) {
+	console.log(title + " mouseOut");
+};
+
 
 
 //Create Inheritance and Add Functions to Prototype
 LabelledOval = Extend(DrawingObject, LabelledOval, {applyStyle:applyStyle, initialize:initialize, 
-	toObj:toObj, contains:contains});
+	toObj:toObj, contains:contains, onMouseOver:onMouseOver, onClick:onClick});
 
 
 
