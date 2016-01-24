@@ -6,11 +6,15 @@
   "scripts": {
     "build": "browserify app/index.js --standalone MindMaps > build/simplemindmaps.js; browserify app/index.js --standalone MindMaps > public/javascripts/simplemindmaps.js",
     "clean": "rm -rf node_modules build; mkdir build; npm install",
+    "win-clean": "rmdir node_modules /S /Q & rmdir build /S /Q & rmdir public /S /Q & mkdir build & mkdir public & mkdir public\\javascripts & npm install",
     "lint": "jshint app || true",
     "test": "mocha test/",
     "build-loop": "watchify app/index.js --standalone MindMaps -o build/simplemindmaps.js -dv & watchify app/index.js --standalone MindMaps -o public/javascripts/simplemindmaps.js -dv",
+    "win-build-loop": "start /b watchify app/index.js --standalone MindMaps -o build/simplemindmaps.js -dv & start /b watchify app/index.js --standalone MindMaps -o public/javascripts/simplemindmaps.js -dv",
     "dev-loop": "npm run build-loop & nodemon server.js",
-    "test-loop": "supervisor -q -n exit -x mocha -- -b"
+    "win-dev-loop": "npm run win-build-loop & start /b nodemon server.js",
+    "test-loop": "supervisor -q -n exit -x mocha -- -b",
+    "install-globals": "npm install browserify watchify nodemon jshint mocha supervisor -g"
   },
   "dependencies": {
     "express": "4.13.3",
