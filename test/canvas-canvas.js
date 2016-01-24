@@ -71,16 +71,16 @@ describe('Canvas', function() {
     });
 
 
-    describe('#toJSON()', function () {
+    describe('#toObj()', function () {
         var canvas = new Canvas();
         //console.log(testJSON);
         canvas.import(testJSON, function(err,res){});
-
+        console.log(testJSON);
         var json = {};
-        canvas.toJSON(function(err,res){
+        canvas.toObj(function(err,res){
             json = res;
         });
-
+        console.log(json);
         it('export return should be identical to the testJSON file loaded in', function (){
             expect(json).to.deep.equal(testJSON);
         });
