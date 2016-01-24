@@ -95,9 +95,7 @@ var Canvas = function Canvas() {
 
 		context.clearRect(0, 0, width, height);   //Clear canvas
 
-		console.log(activeObjects);
 		activeObjects.forEach(function (o) {
-			console.log(o);
 			o.draw(context, function(err, res){
 				if(err) {
 					console.log(err);
@@ -188,6 +186,8 @@ var Canvas = function Canvas() {
 					callback('Bad object was passed to canvas.import()', null);
 					return;
 			}
+			console.log(obj);
+			console.log(obj.style);
 			obj.style = o.style;
 			this.addDrawObject(obj);
 		}, this);
@@ -196,7 +196,7 @@ var Canvas = function Canvas() {
 	};
 
 
-	this.export = function(callback) {
+	this.toJSON = function(callback) {
 		//todo : pause the canvas cycle?
 		var json = {};
 		json.title = label.text;
@@ -204,8 +204,8 @@ var Canvas = function Canvas() {
 		activeObjects.forEach(function(o) {
 			o.toJSON( function(err, res) {json.activeObjects.push(res); });
 		});
-		callback(null, json);
-		return json;
+		callback(null, JSON.stringify(json));
+		return JSON.stringify(json);
 	};
 
 	this.onClick = function (e, inputState, callback) {

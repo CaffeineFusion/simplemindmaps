@@ -54,7 +54,7 @@ var draw = function(context) {
 };
 
 
-var toJSON = function(callback) {
+var toObj = function(callback) {
 	var res = {};// this.parent.toJSON(callback(err, res){});
 	res.type = this.constructor.name;
 	res.style = this.style;
@@ -66,6 +66,6 @@ var toJSON = function(callback) {
 //Set up DrawingObject as parent on prototype chain.
 //	note: Extend takes the passed functions and adds them to the prototype.
 Connector = Extend(DrawingObject, Connector, {initialize:initialize, 
-	getPoints:getPoints, draw:draw, toJSON:toJSON, applyStyle:applyStyle});
+	getPoints:getPoints, draw:draw, toObj:toObj, applyStyle:applyStyle});
 
 module.exports = Connector;

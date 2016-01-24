@@ -110,7 +110,7 @@ var initialize = function (lbl, dimensions) {
 };
 
 
-var toJSON = function(callback) {
+var toObj = function(callback) {
 	var res = {};//this.parent.toJSON(callback(err, res){});
 	res.type = this.constructor.name;
 	res.style = this.style;
@@ -129,7 +129,7 @@ var contains = function(point, callback) {
 
 //Create Inheritance and Add Functions to Prototype
 LabelledOval = Extend(DrawingObject, LabelledOval, {applyStyle:applyStyle, initialize:initialize, 
-	toJSON:toJSON, contains:contains});
+	toObj:toObj, contains:contains});
 
 
 

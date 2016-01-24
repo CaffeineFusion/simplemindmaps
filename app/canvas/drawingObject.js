@@ -12,14 +12,6 @@ var ParseJSON = require('../helpers/parseJSON');
  */
 function DrawingObject() {
 	
-	//var style = {};  //will the get and set functions pick up on the private var?
-	//var defaultStyle = {};
-
-	//var defaultStyle(styleJSON) {
-		//style = 
-	//}
-	//
-
 	/**
 	 * applyStyle uses the currently defined style and applies it to the canvas context.
 	 * 		Child classes then need only worry about the specific shape to be drawn.
@@ -59,15 +51,8 @@ Object.defineProperty(DrawingObject.prototype, 'style', {
     	}
         return this._style;
     },
-    set: function(jsonString) {
-    	var j = ParseJSON(jsonString);
-    	//ParseJSON returns false if the string is not valid JSON
-        if (!j) {
-            console.log('Style ' + jsonString.toString() + ' is not valid JSON!');
-        }
-        else {
-            this._style = jsonString;
-        }
+    set: function(styleObj) {
+        this._style = styleObj;
     }
 });
 
