@@ -51,7 +51,10 @@ var Canvas = function Canvas() {
 
 		activeObjects = [];
 		needRedraw = true;
+		console.log('create label');
+		console.log(label);
 		label.initialize('Black', viewName, {x:0, y:0}); //will this be broken by adding a getter and setter?
+		console.log(viewName);
 	};
 
 	this.addDrawObject = function(obj) {
@@ -92,7 +95,9 @@ var Canvas = function Canvas() {
 
 		context.clearRect(0, 0, width, height);   //Clear canvas
 
+		console.log(activeObjects);
 		activeObjects.forEach(function (o) {
+			console.log(o);
 			o.draw(context, function(err, res){
 				if(err) {
 					console.log(err);
@@ -215,19 +220,19 @@ var Canvas = function Canvas() {
 
 
 //Getters and Setters
-Object.defineProperty(Canvas, 'title', {
+Object.defineProperty(Canvas.prototype, 'title', {
 	get: function() {
-		if(!this.title) {
-			return null;
+		if(!this._title) {
+			this._title = new Label();
 		}
-		return this.title.text;
+		return this._title.text;
 	},
 	set: function(title) {
-		if(!this.title) {
-			this.title = new Label();
+		if(!this._title) {
+			this._title = new Label();
 			console.log('todo: add initialization logic for label');
 		}
-		this.title.text = title;
+		this._title.text = title;
 	}
 });
 

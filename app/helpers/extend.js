@@ -11,7 +11,7 @@
 module.exports = function Extend(parent, child, overrides) {
 
 	//console.log(parent.prototype);
-	child.prototype = Object.create(parent.prototype);
+	child.prototype = new parent();  //was  Object.create(parent.prototype)
 	child.prototype.constructor = child;
 	child.prototype.parent = new parent();  //was child.parent = parent.prototype; but this was returning null
 	//todo: fix up inheritance chain.

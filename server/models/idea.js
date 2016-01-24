@@ -34,11 +34,11 @@ var Idea = function Idea(title, id) {
 //todo : add error handling and proper logging
 Object.defineProperty(Idea, 'title', {
     get: function() {
-        return this.title;
+        return this._title;
     },
     set: function(str) {
         if (_.isString(str))
-            this.title = str;
+            this._title = str;
         else
             throw ('Title ' + str.toString() + ' is not a valid string!');
     }
@@ -46,11 +46,11 @@ Object.defineProperty(Idea, 'title', {
 
 Object.defineProperty(Idea, 'colour', {
     get: function() {
-        return this.colour;
+        return this._colour;
     },
     set: function(str) {
         if (_.isString(str))
-            this.colour = str;
+            this._colour = str;
         else
             throw ('Colour ' + str.toString() + ' is not a valid string!');
     }
@@ -58,11 +58,11 @@ Object.defineProperty(Idea, 'colour', {
 
 Object.defineProperty(Idea, 'body', {
     get: function() {
-        return this.body;
+        return this._body;
     },
     set: function(str) {
         if (_.isString(str))
-            this.body = str;
+            this._body = str;
         else
             throw ('Body ' + str.toString() + ' is not a valid string!');
     }
@@ -71,7 +71,7 @@ Object.defineProperty(Idea, 'body', {
 
 Object.defineProperty(Idea, 'id', {
     get: function() {
-        return this.index;
+        return this._index;
     }
 });
 

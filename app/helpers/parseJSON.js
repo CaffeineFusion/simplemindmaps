@@ -16,7 +16,7 @@ var http = require('http');
             return j;
         }
     }
-    catch (e) { }
+    catch (e) { console.log (e); }
 
     return false;
 

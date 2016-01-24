@@ -40,4 +40,4 @@ function Bind(obj, controller, callback) {
 
 };
 
-module.exports.bind = Bind;
+module.exports.Bind = Bind;

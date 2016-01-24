@@ -51,13 +51,13 @@ function DrawingObject() {
 	};
 };
 
-Object.defineProperty(DrawingObject, 'style', {
+Object.defineProperty(DrawingObject.prototype, 'style', {
 
     get: function() {
-    	if(!this.style) {
-    		this.style = {lineWidth:5, strokeStyle:'black'};
+    	if(!this._style) {
+    		this._style = {lineWidth:5, strokeStyle:'black'};
     	}
-        return this.style;
+        return this._style;
     },
     set: function(jsonString) {
     	var j = ParseJSON(jsonString);
@@ -66,7 +66,7 @@ Object.defineProperty(DrawingObject, 'style', {
             console.log('Style ' + jsonString.toString() + ' is not valid JSON!');
         }
         else {
-            this.style = jsonString;
+            this._style = jsonString;
         }
     }
 });

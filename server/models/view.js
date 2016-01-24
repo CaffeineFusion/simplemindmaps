@@ -138,11 +138,11 @@ var View = function View(viewName){
 
 /*Object.defineProperty(View, 'name', {
     get: function() {
-        return this.name;
+        return this._name;
     },
     set: function(str) {
         if(_.isString(str))
-            this.name = str;
+            this._name = str;
         else
             throw('Name ' + str.toString() + ' is not a valid string!'); 
     }

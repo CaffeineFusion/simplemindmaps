@@ -51,16 +51,16 @@ var Label = function Label() {
 
 //Todo: cleaning text input
 //		move out default text type - currently hardbaked
-Object.defineProperty(Label, 'text', {
+Object.defineProperty(Label.prototype, 'text', {
     get: function() {
-    	if(!this.text) {
+    	if(!this._text) {
     		return '30px Arial';
         }
-        return this.text;
+        return this._text;
     },
     set: function(str) {
         if (_.isString(str)) {
-            this.text = str;
+            this._text = str;
         }
         else {
             console.log('Label ' + str.toString() + ' is not a valid string!');
@@ -68,16 +68,16 @@ Object.defineProperty(Label, 'text', {
     }
 });
 
-Object.defineProperty(Label, 'font', {
+Object.defineProperty(Label.prototype, 'font', {
     get: function() {
-    	if(!this.font) {
+    	if(!this._font) {
     		return '';
         }
-        return this.font;
+        return this._font;
     },
     set: function(str) {
         if (_.isString(str)) {
-            this.font = str;
+            this._font = str;
         }
         else {
             console.log('Label ' + str.toString() + ' is not a valid string!');
@@ -88,16 +88,16 @@ Object.defineProperty(Label, 'font', {
 
 //todo : add error handling and proper logging
 //		 default is currently hardbaked for colour and style. Seperate to external style doc
-Object.defineProperty(Label, 'colour', {
+Object.defineProperty(Label.prototype, 'colour', {
     get: function() {
-    	if(!this.colour) {
+    	if(!this._colour) {
     		return 'Blue';
         }
-        return this.colour;
+        return this._colour;
     },
     set: function(str) {
         if (_.isString(str)) {
-            this.colour = str;
+            this._colour = str;
         }
         else {
             console.log('Colour ' + str.toString() + ' is not a valid string!');
@@ -107,12 +107,12 @@ Object.defineProperty(Label, 'colour', {
 
 
 
-Object.defineProperty(Label, 'style', {
+Object.defineProperty(Label.prototype, 'style', {
     get: function() {
-    	if(!this.style) {
+    	if(!this._style) {
     		return {lineWidth:5, strokeStyle:'black'};
         }
-        return this.style;
+        return this._style;
     },
     set: function(jsonString) {
     	var j = ParseJSON(jsonString);
@@ -121,38 +121,38 @@ Object.defineProperty(Label, 'style', {
             console.log('Style ' + jsonString.toString() + ' is not valid JSON!');
         }
         else {
-            this.style = jsonString;
+            this._style = jsonString;
         }
     }
 });
 
 
 
-Object.defineProperty(Label, 'point', {
+Object.defineProperty(Label.prototype, 'point', {
     get: function() {
-    	if(!this.point) {
+    	if(!this._point) {
     		return {x:0, y:0};
         }
-        return this.point;
+        return this._point;
     },
     //No error handling!
     set: function(position) {
-    	this.point = position;
+    	this._point = position;
     }
 });
 
 
 
-Object.defineProperty(Label, 'align', {
+Object.defineProperty(Label.prototype, 'align', {
     get: function() {
-    	if(!this.align) {
+    	if(!this._align) {
     		return 'center';
         }
-        return this.align;
+        return this._align;
     },
     //No error handling!
     set: function(alignment) {
-    	this.align = alignment;
+    	this._align = alignment;
     }
 });
 

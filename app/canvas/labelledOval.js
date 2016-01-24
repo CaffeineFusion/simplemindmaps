@@ -9,6 +9,7 @@
 var Label = require('./label');
 var DrawingObject = require('./drawingObject');
 var Extend = require('../helpers/extend');
+var Contains = require('../helpers/contains');
 
 /**
  * LabelledOval The LabelledOval is the basic drawing object which visually represents 
@@ -20,26 +21,14 @@ var Extend = require('../helpers/extend');
 var LabelledOval = function LabelledOval() {
 
 	//todo: Add ID.
-	this.dimensions = {x:0, y:0, h:10, w:10};
-	this.style = {fillStyle:'#8ED6FF', lineWidth:5, strokeStyle:'black'};
+	//		Make Private. Provide facade. Track changes to dimensions
+	this.dimensions = {x:0, y:0, h:10, w:10};  
+	this._style = {fillStyle:'#8ED6FF', lineWidth:5, strokeStyle:'black'};
 
 	//Because everyone *loves* Radians
 	//todo: how does the return value handle the decimal?
 	var degreesToRadians = function(degrees) {
 		return degrees * (Math.PI / 180);
-	};
-
-	this.draw = function(context) {
-		context.save();
-		context.translate(500, 400); //todo: un-hardbake
-		context.scale(2,1);
-		context.beginPath();
-		context.arc(this.dimensions.x, this.dimensions.y, 50 , degreesToRadians(360), false);
-		context.restore();
-		this.applyStyle(context);
-		context.fill();
-		context.stroke();
-		//context.stroke();
 	};
 	
 	this.greyOut = function() {
@@ -49,24 +38,60 @@ var LabelledOval = function LabelledOval() {
 	this.setTransparency = function() {
 		throw('transparency has not yet been implemented');
 	};
+
+
+	this.draw = function(context) {
+		context.save();
+		context.translate(50, 40); //todo: un-hardbake
+		//this.scaleRatio = {h:this.dimensions.h, w:this.dimensions.w};
+		var ratio = this.scaleRatio;
+		console.log(ratio);
+		context.scale(2, 1);
+		context.beginPath();
+		context.arc(this.dimensions.x, this.dimensions.y, 50 , degreesToRadians(360), false);
+		context.restore();
+		this.applyStyle(context);
+		context.fill();
+		context.stroke();
+		//context.stroke();
+	};
 };
 
-//Getters and Setters
-Object.defineProperty(LabelledOval, 'title', {
+
+
+//Define Getters and Setters
+Object.defineProperty(LabelledOval.prototype, 'title', {
 	get: function() {
-		if(!this.title) {
+		if(!this._title) {
 			return null;
 		}
-		return this.title.text;
+		return this._title.text;
 	},
 	set: function(title) {
-		if(!this.title) {
-			this.title = new Label();
+		if(!this._title) {
+			this._title = new Label();
 			console.log('todo: add initialization logic for label');
 		}
-		this.title.text = title;
+		this._title.text = title;
 	}
 });
+
+
+//todo: caching result
+Object.defineProperty(LabelledOval.prototype, 'scaleRatio', {
+
+	get: function() {
+		if(!this._scaleRatio){
+			return null;
+		}
+		return this._scaleRatio;
+	},
+	set: function(d) {
+		var base = 2/(d.h + d.w);
+		this._scaleRatio = {h:(base*d.h), w:(base*d.w)};
+	}
+});
+
 
 //Functions to add to prototype.
 
@@ -80,6 +105,8 @@ var applyStyle = function(context ) {
 var initialize = function (lbl, dimensions) {
 	this.title = lbl; 
 	this.dimensions = dimensions;
+	this.scaleRatio = {h:dimensions.h, w:dimensions.w};
+	console.log(this.scaleRatio);
 };
 
 
@@ -93,7 +120,17 @@ var toJSON = function(callback) {
 	return res;
 };
 
+var contains = function(point, callback) {
+	callback(null, Contains.EllipseContains(point, {x:this.dimensions.x, y:this.dimensions.y}, 
+		this.dimensions.w, this.dimensions.h)); 
+}
+
+
+
+//Create Inheritance and Add Functions to Prototype
 LabelledOval = Extend(DrawingObject, LabelledOval, {applyStyle:applyStyle, initialize:initialize, 
-	toJSON:toJSON});
+	toJSON:toJSON, contains:contains});
+
+
 
 module.exports = LabelledOval;

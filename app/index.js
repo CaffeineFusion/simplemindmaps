@@ -7,14 +7,18 @@ function Initialize (htmlCanvas) {
     var example;
 
     var c = new Canvas();
+    console.log('initializing');
     c.initialize(htmlCanvas, 'myNewMindMap');
 
-    Input.bind(htmlCanvas, c, function (err, res) {
+    console.log('binding');
+    Input.Bind(htmlCanvas, c, function (err, res) {
         console.log(err); console.log(res); //For current debugging
     });
 
+    console.log('importing');
     c.import(ExampleJSON, function(err, res) { 
         if(err) { console.log(err); return; }
+        console.log(res);
         c.run();
     });
 
