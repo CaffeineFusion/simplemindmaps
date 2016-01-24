@@ -26,7 +26,7 @@ function DrawingObject() {
 		}
 	};
 
-	this.toJSON = function(callback) {
+	this.toObj = function(callback) {
 		throw('toJSON() was called in the abstract DrawingObject');
 	};
 

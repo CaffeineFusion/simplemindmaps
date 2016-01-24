@@ -9,7 +9,7 @@ var chai = require('chai'),
 
 chai.use(chaiModel);
 
-var Canvas = require('../canvas/canvas.js');
+var Canvas = require('../app/canvas/canvas.js');
 var testJSON = require('./resources/importCanvas.json');
 
 describe('Canvas', function() { 
@@ -71,13 +71,13 @@ describe('Canvas', function() {
     });
 
 
-    describe('#export()', function () {
+    describe('#toJSON()', function () {
         var canvas = new Canvas();
         //console.log(testJSON);
         canvas.import(testJSON, function(err,res){});
 
         var json = {};
-        canvas.export(function(err,res){
+        canvas.toJSON(function(err,res){
             json = res;
         });
 

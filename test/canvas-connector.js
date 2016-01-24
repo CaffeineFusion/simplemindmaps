@@ -9,7 +9,7 @@ var chai = require('chai'),
 	expect = require('chai').expect;
 chai.use(chaiModel);
 
-var Connector = require('../canvas/connector.js');
+var Connector = require('../app/canvas/connector.js');
 
 describe('Connector', function() { 
 

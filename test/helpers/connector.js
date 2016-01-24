@@ -1,5 +1,5 @@
 'use strict';
-var Connector = require('../../canvas/connector.js');
+var Connector = require('../../app/canvas/connector.js');
 
 module.exports = function (chai, utils) {
 	var Assertion = chai.Assertion;

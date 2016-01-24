@@ -1,5 +1,5 @@
 'use strict';
-var Canvas = require('../../canvas/canvas.js');
+var Canvas = require('../../app/canvas/canvas.js');
 
 module.exports = function (chai, utils) {
 	var Assertion = chai.Assertion;

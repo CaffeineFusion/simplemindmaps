@@ -197,7 +197,7 @@ var Canvas = function Canvas() {
 		json.title = label.text;
 		json.activeObjects = [];
 		activeObjects.forEach(function(o) {
-			o.toJSON( function(err, res) {json.activeObjects.push(res); });
+			o.toObj( function(err, res) {json.activeObjects.push(res); });
 		});
 		callback(null, JSON.stringify(json));
 		return JSON.stringify(json);
