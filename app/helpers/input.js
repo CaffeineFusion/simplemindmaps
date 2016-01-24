@@ -1,34 +1,43 @@
 'use strict';
 
-var inputState = function inputState() {
-	this.mouseOver = null;
-	this.offSet = {x:0, y:0};
+var inputState =  {
+	mouseOver:null,
+	offSet:{x:0, y:0}
 };
 
-function Bind(obj) {
+function Bind(obj, controller, callback) {
 
-	obj.onclick = OnClick;
-	obj.onmousemove = OnMouseMove;
-	obj.onmouseover = OnMouseOver;
-	obj.onmouseout = OnMouseOut;
+	this.controller = controller;
 
+	function onClick(e) {
+		//console.log('mouse has clicked on x:%s y:%s', e.pageX, e.pageY);
+		controller.onClick(e, inputState, function(err, res) {
+			callback(err, res);
+		});
+	};
 
-};
+	function onMouseMove(e) {
+		//console.log('mouse has moved to x:%s y:%s', e.pageX, e.pageY);
+		controller.onMouseMove(e, inputState, function(err, res) {
+			callback(err, res);
+		});
+	};
 
-function OnClick(e) {
+	function onMouseOver(e) {
+		inputState.mouseOver = true;
+	};
 
-};
+	function onMouseOut(e) {
+		inputState.mouseOver = false;
+	};
 
-function OnMouseMove(e) {
+	inputState.offSet.x = obj.offsetLeft;
+	inputState.offSet.y = obj.offsetTop; 
+	obj.onclick = onClick;
+	obj.onmousemove = onMouseMove;
+	obj.onmouseover = onMouseOver;
+	obj.onmouseout = onMouseOut;
 
-};
-
-function OnMouseOver(e) {
-	inputState.mouseOver = true;
-};
-
-function OnMouseOut(e) {
-	inputState.mouseOver = false;
 };
 
 module.exports.bind = Bind;

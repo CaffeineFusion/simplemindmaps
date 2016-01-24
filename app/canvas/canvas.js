@@ -202,6 +202,15 @@ var Canvas = function Canvas() {
 		callback(null, json);
 		return json;
 	};
+
+	this.onClick = function (e, inputState, callback) {
+		console.log('you clicked on the canvas');
+	};
+
+	this.onMouseMove = function(e, inputState, callback) {
+		console.log('you moved the mouse over the canvas');
+	};
+
 };
 
 
