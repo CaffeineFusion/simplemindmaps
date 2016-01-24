@@ -65,6 +65,9 @@ var Canvas = function Canvas() {
 	 * 		it will clear the context (clearRect) and then call the draw function on
 	 * 		each drawingObject (in activeObjects)
 	 * At the moment it is coded to only call the callback on termination.
+	 *
+	 * Todo: current implementation runs once every animation frame. This is ugly, refactor to
+	 * 		 call requestAnimationFrame only on update. 
 	 * @param  {Function} 		callback 
 	 * @return {null}           no return at this stage.
 	 */
