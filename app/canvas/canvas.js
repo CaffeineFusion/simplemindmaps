@@ -79,6 +79,7 @@ var Canvas = function Canvas() {
 		}
 		if(state === 'loading') {
 			console.log('canvas loading. Drawing paused. Checking at next draw cycle');
+
 			window.requestAnimationFrame(draw(callback).bind(this));
 			return;	
 		}
