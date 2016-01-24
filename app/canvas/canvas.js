@@ -209,19 +209,22 @@ var Canvas = function Canvas() {
 		this.passToObject({x:e.clientX + inputState.offSet.x, y: e.clientY + inputState.offSet.y}, 
 			function(err, obj){
 
+			var that = this;
+
 			if(obj === false) {
 				selectedObject = null;
 				console.log('clicked on canvas. Todo: add new drawingObject');
 			}
 			else if(obj) {
-				obj.onClick(function(err, res) { this.selectedObject = obj; }.bind(this));
+				obj.onClick(function(err, res) { that.selectedObject = obj; });
+				console.log(that.selectedObject);
 			}
 			//todo: initiate callback
-		});
+		}.bind(this))
 	};
 
 	this.onMouseMove = function(e, inputState, callback) {
-		this.passToObject({x:e.clientX + inputState.offSet.x, y: e.clientY + inputState.offSet.y}, 
+		/*this.passToObject({x:e.clientX + inputState.offSet.x, y: e.clientY + inputState.offSet.y}, 
 			function(err, obj){
 			if(obj) {
 				obj.onMouseOver(function(err, res) { this.focussedObject = obj; }.bind(this));
@@ -231,27 +234,30 @@ var Canvas = function Canvas() {
 			}
 		});
 		console.log('you moved the mouse over the canvas');
-		//todo: callback
+		//todo: callback*/
 	};
 
 	//todo: inefficient, refactor
 	this.passToObject = function(point, callback) {
 
-		this.activeObjects.forEach(function(o) {
-
-			if(o.contain(point)) {
+		var found = false;
+		activeObjects.forEach(function(o) {
+			if(o.contains(point) && !found) {
 				callback(null, o);
+				found = true;
 				return;
 			}
 
 		});
-		callback(null,false);
+		if(!found) {
+			callback(null,false);
+		}
 	};
 };
 
 
 //Getters and Setters
-Object.defineProperty(Canvas.prototype, 'title', {
+Object.defineProperty(Canvas, 'title', {
 	get: function() {
 		if(!this._title) {
 			this._title = new Label();
@@ -267,7 +273,7 @@ Object.defineProperty(Canvas.prototype, 'title', {
 	}
 });
 
-Object.defineProperty(Canvas.prototype, 'focussedObject', {
+Object.defineProperty(Canvas, 'focussedObject', {
 	get: function() {
 		return this._focussedObject;
 	},
@@ -280,7 +286,7 @@ Object.defineProperty(Canvas.prototype, 'focussedObject', {
 });
 
 
-Object.defineProperty(Canvas.prototype, 'selectedObject', {
+Object.defineProperty(Canvas, 'selectedObject', {
 	get: function() {
 		return this._selectedObject;
 	},
@@ -289,6 +295,8 @@ Object.defineProperty(Canvas.prototype, 'selectedObject', {
 			this._selectedObject.onDeselect();
 		}
 		this._selectedObject = obj;
+		console.log(this);
+		console.log(this._selectedObject);
 	}
 });
 

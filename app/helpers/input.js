@@ -10,16 +10,17 @@ function Bind(obj, controller, callback) {
 	this.controller = controller;
 
 	function onClick(e) {
+		console.log('click!');
 		//console.log('mouse has clicked on x:%s y:%s', e.pageX, e.pageY);
 		controller.onClick(e, inputState, function(err, res) {
-			callback(err, res);
+			//callback(err, res);
 		});
 	}
 
 	function onMouseMove(e) {
 		//console.log('mouse has moved to x:%s y:%s', e.pageX, e.pageY);
 		controller.onMouseMove(e, inputState, function(err, res) {
-			callback(err, res);
+			//callback(err, res);
 		});
 	}
 

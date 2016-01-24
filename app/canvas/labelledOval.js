@@ -88,26 +88,28 @@ var toObj = function(callback) {
 };
 
 var contains = function(point, callback) {
-	callback(null, Contains.EllipseContains(point, {x:this.dimensions.x, y:this.dimensions.y}, 
-		this.dimensions.w, this.dimensions.h)); 
+	var res = Contains.EllipseContains(point, {x:this.dimensions.x, y:this.dimensions.y}, 
+		this.dimensions.w, this.dimensions.h)
+	//callback(null, res); 
+	return res;
 };
 
 var onMouseOver = function(callback) {
-	console.log(title + " mouseOver");
+	console.log(this.title + " mouseOver");
 };
 
 var onClick = function(callback) {
-	console.log(title + " mouseClick");
+	console.log(this.title + " mouseClick");
 };
 
 
 var onDeselect = function(callback) {
-	console.log(title + " deselect");
+	console.log(this.title + " deselect");
 };
 
 
 var onMouseOut = function(callback) {
-	console.log(title + " mouseOut");
+	console.log(this.title + " mouseOut");
 };
 
 

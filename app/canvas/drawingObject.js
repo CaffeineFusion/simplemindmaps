@@ -41,6 +41,10 @@ function DrawingObject() {
 	this.setTransparency = function() {
 		throw('transparency has not yet been implemented');
 	};
+
+	this.contains = function(point) {
+		return false;
+	};
 }
 
 Object.defineProperty(DrawingObject.prototype, 'style', {
