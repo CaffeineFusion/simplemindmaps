@@ -10,10 +10,10 @@ function Initialize (htmlCanvas) {
     console.log('initializing');
     c.initialize(htmlCanvas, 'myNewMindMap');
 
-    console.log('binding');
-    Input.Bind(htmlCanvas, c, function (err, res) {
+    console.log('binding - not yet implemented');
+    /*Input.Bind(htmlCanvas, c, function (err, res) {
         console.log(err); console.log(res); //For current debugging
-    });
+    });*/
 
     console.log('importing');
     c.import(ExampleJSON, function(err, res) { 
