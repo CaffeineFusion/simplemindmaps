@@ -1,5 +1,5 @@
 'use strict';
-var ParseJSON = require('../helpers/parseJSON');
+//var ParseJSON = require('../helpers/parseJSON');
 var DrawingObject = require('./drawingObject');
 var Extend = require('../helpers/extend');
 

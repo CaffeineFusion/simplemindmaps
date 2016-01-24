@@ -4,16 +4,15 @@ var Input = require('./helpers/input.js');
 //var view = require('../server/models/view.js');
 
 function Initialize (htmlCanvas) {
-    var example;
 
     var c = new Canvas();
     console.log('initializing');
     c.initialize(htmlCanvas, 'myNewMindMap');
 
     console.log('binding - not yet implemented');
-    /*Input.Bind(htmlCanvas, c, function (err, res) {
+    Input.Bind(htmlCanvas, c, function (err, res) {
         console.log(err); console.log(res); //For current debugging
-    });*/
+    });
 
     console.log('importing');
     c.import(ExampleJSON, function(err, res) { 
@@ -30,7 +29,7 @@ function Initialize (htmlCanvas) {
         });
     });*/
 
-};
+}
 
 Initialize(document.getElementById('mindmapCanvas'));
 

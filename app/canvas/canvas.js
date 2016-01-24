@@ -3,7 +3,7 @@
 var Label = require('./label');
 var LabelledOval = require('./labelledOval');
 var Connector = require('./connector');
-var ParseJSON = require('../helpers/parseJSON');
+//var ParseJSON = require('../helpers/parseJSON');
 
 /**
  * Canvas The canvas object holds all of the drawing objects which are to be 

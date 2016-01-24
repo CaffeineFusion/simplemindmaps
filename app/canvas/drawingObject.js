@@ -1,5 +1,5 @@
 'use strict';
-var ParseJSON = require('../helpers/parseJSON');
+//var ParseJSON = require('../helpers/parseJSON');
 
 
 
@@ -41,7 +41,7 @@ function DrawingObject() {
 	this.setTransparency = function() {
 		throw('transparency has not yet been implemented');
 	};
-};
+}
 
 Object.defineProperty(DrawingObject.prototype, 'style', {
 

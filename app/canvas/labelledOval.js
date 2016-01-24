@@ -90,7 +90,7 @@ var toObj = function(callback) {
 var contains = function(point, callback) {
 	callback(null, Contains.EllipseContains(point, {x:this.dimensions.x, y:this.dimensions.y}, 
 		this.dimensions.w, this.dimensions.h)); 
-}
+};
 
 
 
