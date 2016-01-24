@@ -18,7 +18,6 @@ function Initialize (htmlCanvas) {
     console.log('importing');
     c.import(ExampleJSON, function(err, res) { 
         if(err) { console.log(err); return; }
-        console.log(res);
         c.run();
     });
 

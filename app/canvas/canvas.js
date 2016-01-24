@@ -51,10 +51,7 @@ var Canvas = function Canvas() {
 
 		activeObjects = [];
 		needRedraw = true;
-		console.log('create label');
-		console.log(label);
 		label.initialize('Black', viewName, {x:0, y:0}); //will this be broken by adding a getter and setter?
-		console.log(viewName);
 	};
 
 	this.addDrawObject = function(obj) {
@@ -186,8 +183,6 @@ var Canvas = function Canvas() {
 					callback('Bad object was passed to canvas.import()', null);
 					return;
 			}
-			console.log(obj);
-			console.log(obj.style);
 			obj.style = o.style;
 			this.addDrawObject(obj);
 		}, this);

@@ -42,13 +42,13 @@ var LabelledOval = function LabelledOval() {
 
 	this.draw = function(context) {
 		context.save();
-		context.translate(50, 40); //todo: un-hardbake
+		//context.translate(50, 40); //todo: un-hardbake
 		//this.scaleRatio = {h:this.dimensions.h, w:this.dimensions.w};
-		var ratio = this.scaleRatio;
-		console.log(ratio);
-		context.scale(2, 1);
+		context.scale(this.scaleRatio.w, this.scaleRatio.h);
 		context.beginPath();
-		context.arc(this.dimensions.x, this.dimensions.y, 50 , degreesToRadians(360), false);
+		//todo: fix the scaleRatio setting of x and y
+		context.arc(this.dimensions.x/this.scaleRatio.w, this.dimensions.y/this.scaleRatio.h, 
+			(this.dimensions.h + this.dimensions.w)/4, degreesToRadians(360), false);
 		context.restore();
 		this.applyStyle(context);
 		context.fill();
@@ -59,7 +59,50 @@ var LabelledOval = function LabelledOval() {
 
 
 
+
+
+//Functions to add to prototype.
+
+var applyStyle = function(context ) {
+	
+	this.parent.applyStyle.call(this, context);
+};
+
+//initialize(str, {x,y,h,w})
+//
+var initialize = function (lbl, dimensions) {
+	this.title = lbl; 
+	this.dimensions = dimensions;
+	this.scaleRatio = {h:dimensions.h, w:dimensions.w};
+};
+
+
+var toObj = function(callback) {
+	var res = {};//this.parent.toJSON(callback(err, res){});
+	res.type = this.constructor.name;
+	res.style = this.style;
+	res.title = this.title;
+	res.dimensions = this.dimensions;
+	callback(null, res);
+	return res;
+};
+
+var contains = function(point, callback) {
+	callback(null, Contains.EllipseContains(point, {x:this.dimensions.x, y:this.dimensions.y}, 
+		this.dimensions.w, this.dimensions.h)); 
+}
+
+
+
+//Create Inheritance and Add Functions to Prototype
+LabelledOval = Extend(DrawingObject, LabelledOval, {applyStyle:applyStyle, initialize:initialize, 
+	toObj:toObj, contains:contains});
+
+
+
+
 //Define Getters and Setters
+//Note: would be overriden by Extend.
 Object.defineProperty(LabelledOval.prototype, 'title', {
 	get: function() {
 		if(!this._title) {
@@ -88,48 +131,9 @@ Object.defineProperty(LabelledOval.prototype, 'scaleRatio', {
 	},
 	set: function(d) {
 		var base = 2/(d.h + d.w);
-		this._scaleRatio = {h:(base*d.h), w:(base*d.w)};
+		this._scaleRatio = {h:base*d.h, w:base*d.w};
 	}
 });
-
-
-//Functions to add to prototype.
-
-var applyStyle = function(context ) {
-	
-	this.parent.applyStyle.call(this, context);
-};
-
-//initialize(str, {x,y,h,w})
-//
-var initialize = function (lbl, dimensions) {
-	this.title = lbl; 
-	this.dimensions = dimensions;
-	this.scaleRatio = {h:dimensions.h, w:dimensions.w};
-	console.log(this.scaleRatio);
-};
-
-
-var toObj = function(callback) {
-	var res = {};//this.parent.toJSON(callback(err, res){});
-	res.type = this.constructor.name;
-	res.style = this.style;
-	res.title = this.title;
-	res.dimensions = this.dimensions;
-	callback(null, res);
-	return res;
-};
-
-var contains = function(point, callback) {
-	callback(null, Contains.EllipseContains(point, {x:this.dimensions.x, y:this.dimensions.y}, 
-		this.dimensions.w, this.dimensions.h)); 
-}
-
-
-
-//Create Inheritance and Add Functions to Prototype
-LabelledOval = Extend(DrawingObject, LabelledOval, {applyStyle:applyStyle, initialize:initialize, 
-	toObj:toObj, contains:contains});
 
 
 

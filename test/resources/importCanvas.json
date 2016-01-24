@@ -3,11 +3,11 @@
 	"activeObjects":[
 		{"type":"LabelledOval", "title": "myNewIdea", 
 		"style":{"fillStyle":"#8ED6AA", "lineWidth":4, "strokeStyle":"blue"}, 
-		"dimensions":{"x":15, "y":25, "h":100, "w":110}},
+		"dimensions":{"x":100, "y":100, "h":100, "w":200}},
 
 		{"type":"LabelledOval", "title": "myExtraNewIdea", 
 		"style":{"fillStyle":"#BBBBBB", "lineWidth":6, "strokeStyle":"orange"}, 
-		"dimensions":{"x":200, "y":200, "h":200, "w":250}},
+		"dimensions":{"x":500, "y":400, "h":150, "w":250}},
 
 		{"type":"Connector", "style":{"lineWidth":5, "strokeStyle":"black"},
 		"points":{"a":{"x":110, "y":1}, "b":{"x":10, "y":200}}}
