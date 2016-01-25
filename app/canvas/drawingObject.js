@@ -27,10 +27,10 @@ function DrawingObject() {
 	 * @return {[type]}         [description]
 	 */
 	this.applyStyle = function(context) {
-		if(isSelected) {
+		if(this.isSelected) {
 			useStyle(context, this.style.selected);
 		}
-		else if(isMouseOver) {
+		else if(this.isMouseOver) {
 			useStyle(context, this.style.hasFocus);
 		}
 		else {
@@ -73,7 +73,7 @@ Object.defineProperty(DrawingObject.prototype, 'style', {
     }
 });
 
-Object.defineProperty(LabelledOval.prototype, 'isMouseOver', {
+Object.defineProperty(DrawingObject.prototype, 'isMouseOver', {
 
 	get: function() {
 		if(this._isMouseOver === undefined){
@@ -87,7 +87,7 @@ Object.defineProperty(LabelledOval.prototype, 'isMouseOver', {
 });
 
 
-Object.defineProperty(LabelledOval.prototype, 'isSelected', {
+Object.defineProperty(DrawingObject.prototype, 'isSelected', {
 
 	get: function() {
 		if(this._isSelected === undefined){

@@ -18,11 +18,8 @@ var Canvas = function Canvas() {
 	var activeObjects = [];
 	var height = 800; 
 	var width = 1200;
-	var needRedraw = true;
 	var state = 'stop';
 	var label = new Label(); 
-	var focussedObject = null;
-	var selectedObject = null;
 
 	/**
 	 * initialize 	Configures the canvas representation using the html canvas element.
@@ -52,7 +49,7 @@ var Canvas = function Canvas() {
 		}
 
 		activeObjects = [];
-		needRedraw = true;
+		this.needRedraw = true;
 		label.initialize('Black', viewName, {x:0, y:0}); //will this be broken by adding a getter and setter?
 	};
 
@@ -73,25 +70,24 @@ var Canvas = function Canvas() {
 	 * @param  {Function} 		callback 
 	 * @return {null}           no return at this stage.
 	 */
-	var draw = function(callback) { 
+	this.draw = function() { 
 
 		if(state === 'stop') {
 			callback(null, 'Stop request passed to canvas - draw cycle terminated');
 			return;
 		}
 		if(state === 'loading') {
-			console.log('canvas loading. Drawing paused. Checking at next draw cycle');
-
-			window.requestAnimationFrame(draw(callback).bind(this));
+			//window.requestAnimationFrame(draw(callback).bind(this));
 			return;	
 		}
 
 		//Check to see if image is unmodified before clearing/redrawing
-		if(!needRedraw) { 
-			window.requestAnimationFrame(draw(callback).bind(this)); 
+		if(!this.needRedraw) { 
+			//window.requestAnimationFrame(draw(callback).bind(this)); 
 			return;
 		}
 
+		console.log('screenRefreshed');
 		context.clearRect(0, 0, width, height);   //Clear canvas
 
 		activeObjects.forEach(function (o) {
@@ -102,16 +98,15 @@ var Canvas = function Canvas() {
 			});
 		});
 
-		needRedraw = false;		//Not really async, fix.
+		this.needRedraw = false;		//Not really async, fix.
 
-		window.requestAnimationFrame(draw(callback).bind(this));	 
+		//window.requestAnimationFrame(draw(callback).bind(this));	 
 	};
 
 	this.run = function() {
 		state = 'run';	//Need to create an async implementation of this
-		
-		window.requestAnimationFrame(draw(function (err, res) { 
-			if(err) {console.log(err);}}).bind(this));   //recode to pass in callback
+		console.log('called draw from run');
+		window.requestAnimationFrame(this.draw.bind(this));   //recode to pass in callback
 	};
 
 	this.stop = function() {
@@ -216,49 +211,19 @@ var Canvas = function Canvas() {
 		return obj;
 	};
 
-	this.onClick = function (e, inputState, callback) {
-		this.passToObject({x:e.clientX + inputState.offSet.x, y: e.clientY + inputState.offSet.y}, 
-			function(err, obj){
 
-			var that = this;
 
-			if(obj === false) {
-				selectedObject = null;
-				console.log('clicked on canvas. Todo: add new drawingObject');
-			}
-			else if(obj) {
-				obj.onClick(function(err, res) { that.selectedObject = obj; });
-				console.log(that.selectedObject);
-			}
-			//todo: initiate callback
-		}.bind(this))
-	};
-
-	this.onMouseMove = function(e, inputState, callback) {
-		/*this.passToObject({x:e.clientX + inputState.offSet.x, y: e.clientY + inputState.offSet.y}, 
-			function(err, obj){
-			if(obj) {
-				obj.onMouseOver(function(err, res) { this.focussedObject = obj; }.bind(this));
-			}
-			else if(this.focussedObject) {
-				this.focussedObject = null;
-			}
-		});
-		console.log('you moved the mouse over the canvas');
-		//todo: callback*/
-	};
 
 	//todo: inefficient, refactor
-	this.passToObject = function(point, callback) {
+	this.getObject = function(point, callback) {
 
 		var found = false;
 		activeObjects.forEach(function(o) {
-			if(o.contains(point) && !found) {
+			if(!found && o.contains(point)) {
 				callback(null, o);
 				found = true;
 				return;
 			}
-
 		});
 		if(!found) {
 			callback(null,false);
@@ -266,6 +231,48 @@ var Canvas = function Canvas() {
 	};
 };
 
+Canvas.prototype.onMouseMove = function(e, inputState, callback) {
+
+	var point = {x:e.clientX + inputState.offSet.x, y: e.clientY + inputState.offSet.y};
+	var that = this;
+	this.getObject(point, function(err, obj){
+		if(!obj) {
+			console.log(that);
+			that.unfocus();
+		}
+		else if(obj) {
+			obj.onMouseOver(function(err, res) { that.focus(obj); console.log('onMouseMove'); console.log(that);});
+		}
+	});
+	//todo: callback*/
+};
+
+Canvas.prototype.onClick = function (e, inputState, callback) {
+	//this = canvas
+	var that = this;
+	var point = {x:e.clientX + inputState.offSet.x, y: e.clientY + inputState.offSet.y};
+	this.getObject(point, function(err, obj) {
+		if(!obj) {
+			this.selectedObject = null;
+		}
+		else if(obj) {
+			obj.onClick(function(err, res) { that.selectedObject = obj; });
+		}
+		//todo: initiate callback
+	});
+};
+
+Canvas.prototype.redraw = function () {
+	this.needRedraw = true;
+};
+
+Canvas.prototype.unfocus = function () {
+	this.focussedObject = null;
+};
+
+Canvas.prototype.focus = function (obj) {
+	this.focussedObject = obj;
+};
 
 //Getters and Setters
 Object.defineProperty(Canvas, 'title', {
@@ -284,32 +291,54 @@ Object.defineProperty(Canvas, 'title', {
 	}
 });
 
-Object.defineProperty(Canvas, 'focussedObject', {
-	get: function() {
-		return this._focussedObject;
-	},
-	set: function(obj) {
-		if(this._focussedObject) {
-			this._focussedObject.onMouseOut();
+
+Object.defineProperties(Canvas.prototype, {
+	'needRedraw': {
+		get: function() {
+			return this._needRedraw;
+		},
+		set: function(bool) {
+			if(bool) {
+				this._needRedraw = bool;
+				window.requestAnimationFrame(this.draw.bind(this));	
+				return;
+			}
+			this._needRedraw = bool;
 		}
-		this._focussedObject = obj;
+	},
+	'focussedObject': {
+		get: function() {
+			return this._focussedObject;
+		},
+		set: function(obj) {
+			if(this._focussedObject === obj) {
+				return;
+			}
+			if(this._focussedObject && this._focussedObject !== obj) {
+				this._focussedObject.onMouseOut();
+			}
+
+			this._focussedObject = obj;
+			this.redraw();
+		}
+	},
+	'selectedObject': {
+		get: function() {
+			return this._selectedObject;
+		},
+		set: function(obj) {
+
+			if(this._selectedObject === obj) {
+				return;
+			}
+			if(this._selectedObject) {
+				this._selectedObject.onDeselect();
+			}
+
+			this._selectedObject = obj;
+			this.redraw();
+		}
 	}
 });
-
-
-Object.defineProperty(Canvas, 'selectedObject', {
-	get: function() {
-		return this._selectedObject;
-	},
-	set: function(obj) {
-		if(this._selectedObject) {
-			this._selectedObject.onDeselect();
-		}
-		this._selectedObject = obj;
-		console.log(this);
-		console.log(this._selectedObject);
-	}
-});
-
 
 module.exports = Canvas;

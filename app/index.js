@@ -10,7 +10,7 @@ function Initialize (htmlCanvas) {
     c.initialize(htmlCanvas, 'myNewMindMap');
 
     console.log('binding - not yet implemented');
-    Input.Bind(htmlCanvas, c, function (err, res) {
+    var input = new Input.Bind(htmlCanvas, c, function (err, res) {
         console.log(err); console.log(res); //For current debugging
     });
 
