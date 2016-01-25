@@ -12,6 +12,14 @@
  */
 function DrawingObject() {
 	
+	var useStyle = function(context, style) {
+		for(var s in style) {
+			if(style.hasOwnProperty(s)) {
+				context[s] = style[s];
+			}
+		}
+	};
+
 	/**
 	 * applyStyle uses the currently defined style and applies it to the canvas context.
 	 * 		Child classes then need only worry about the specific shape to be drawn.
@@ -19,11 +27,16 @@ function DrawingObject() {
 	 * @return {[type]}         [description]
 	 */
 	this.applyStyle = function(context) {
-		for(var s in this.style) {
-			if(this.style.hasOwnProperty(s)) {
-				context[s] = this.style[s];
-			}
+		if(isSelected) {
+			useStyle(context, this.style.selected);
 		}
+		else if(isMouseOver) {
+			useStyle(context, this.style.hasFocus);
+		}
+		else {
+			useStyle(context, this.style.deselected);
+		}
+
 	};
 
 	this.toObj = function(callback) {
