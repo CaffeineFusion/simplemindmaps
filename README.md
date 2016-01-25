@@ -27,6 +27,7 @@ Todo:
 - Data models and database facade
 - UI wrapper for server implementation
 - UI testing + testing for drawing cycle
+- Move to ES6 class notation
 
 Future Optimizations:
 - More efficient drawing cycle (rerun on environment change rather than animationFrame)
