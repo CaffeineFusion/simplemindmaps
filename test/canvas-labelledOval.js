@@ -8,7 +8,7 @@ var chai = require('chai'),
 chai.use(chaiModel);
 
 
-var LabelledOval = require('../canvas/labelledOval.js');
+var LabelledOval = require('../app/canvas/labelledOval.js');
 
 describe('LabelledOval', function() {
 

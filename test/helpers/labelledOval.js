@@ -1,5 +1,5 @@
 'use strict';
-var LabelledOval = require('../../canvas/labelledOval.js');
+var LabelledOval = require('../../app/canvas/labelledOval.js');
 
 module.exports = function (chai, utils) {
 	var Assertion = chai.Assertion;

@@ -194,15 +194,26 @@ var Canvas = function Canvas() {
 
 
 	this.toJSON = function(callback) {
-		//todo : pause the canvas cycle?
-		var json = {};
-		json.title = label.text;
-		json.activeObjects = [];
-		activeObjects.forEach(function(o) {
-			o.toJSON( function(err, res) {json.activeObjects.push(res); });
+		return this.toObj(function (err, res) {
+			if(!err) {
+				callback(null, JSON.stringify(res));
+			}
+			else {
+				callback(err, null);
+			}
 		});
-		callback(null, JSON.stringify(json));
-		return JSON.stringify(json);
+	};
+
+	this.toObj = function(callback) {
+		//todo : pause the canvas cycle?
+		var obj = {};
+		obj.title = label.text;
+		obj.activeObjects = [];
+		activeObjects.forEach(function(o) {
+			o.toObj( function(err, res) {obj.activeObjects.push(res); });
+		});
+		callback(null, obj);
+		return obj;
 	};
 
 	this.onClick = function (e, inputState, callback) {

@@ -1,7 +1,5 @@
 'use strict';
 
-//Initial few tests, need to expand.
-
 var chai = require('chai'),
 	chaiModel = require('./helpers/canvas.js'),
 	assert = require('chai').assert,
@@ -9,7 +7,7 @@ var chai = require('chai'),
 
 chai.use(chaiModel);
 
-var Canvas = require('../canvas/canvas.js');
+var Canvas = require('../app/canvas/canvas.js');
 var testJSON = require('./resources/importCanvas.json');
 
 describe('Canvas', function() { 
@@ -71,20 +69,19 @@ describe('Canvas', function() {
     });
 
 
-    describe('#export()', function () {
+    describe('#toObj()', function () {
         var canvas = new Canvas();
         //console.log(testJSON);
         canvas.import(testJSON, function(err,res){});
-
         var json = {};
-        canvas.export(function(err,res){
+        canvas.toObj(function(err,res){
             json = res;
         });
-
         it('export return should be identical to the testJSON file loaded in', function (){
             expect(json).to.deep.equal(testJSON);
         });
     
     });
+
 
 });
