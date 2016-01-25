@@ -60,5 +60,31 @@ Object.defineProperty(DrawingObject.prototype, 'style', {
     }
 });
 
+Object.defineProperty(LabelledOval.prototype, 'isMouseOver', {
+
+	get: function() {
+		if(this._isMouseOver === undefined){
+			this._isMouseOver = false;
+		}
+		return this._isMouseOver;
+	},
+	set: function(bool) {
+		this._isMouseOver = bool;
+	}
+});
+
+
+Object.defineProperty(LabelledOval.prototype, 'isSelected', {
+
+	get: function() {
+		if(this._isSelected === undefined){
+			this._isSelected = false;
+		}
+		return this._isSelected;
+	},
+	set: function(bool) {
+		this._isSelected = bool;
+	}
+});
 
 module.exports = DrawingObject;

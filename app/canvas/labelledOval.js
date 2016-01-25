@@ -95,28 +95,34 @@ var contains = function(point, callback) {
 };
 
 var onMouseOver = function(callback) {
+	this.isMouseOver = true;
 	console.log(this.title + " mouseOver");
 };
 
 var onClick = function(callback) {
-	console.log(this.title + " mouseClick");
+	this.isSelected = true;
+	console.log(this.title + " clicked");
 };
 
 
 var onDeselect = function(callback) {
-	console.log(this.title + " deselect");
+	this.isSelected = false;
+	console.log(this.title + " deselected");
 };
 
 
 var onMouseOut = function(callback) {
+	this.isMouseOver = false;
 	console.log(this.title + " mouseOut");
 };
 
 
 
+
 //Create Inheritance and Add Functions to Prototype
 LabelledOval = Extend(DrawingObject, LabelledOval, {applyStyle:applyStyle, initialize:initialize, 
-	toObj:toObj, contains:contains, onMouseOver:onMouseOver, onClick:onClick});
+	toObj:toObj, contains:contains, onMouseOver:onMouseOver, onClick:onClick, onDeselect:onDeselect,
+	onMouseOut:onMouseOut});
 
 
 
@@ -154,6 +160,7 @@ Object.defineProperty(LabelledOval.prototype, 'scaleRatio', {
 		this._scaleRatio = {h:base*d.h, w:base*d.w};
 	}
 });
+
 
 
 
