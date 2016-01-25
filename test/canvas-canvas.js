@@ -1,7 +1,5 @@
 'use strict';
 
-//Initial few tests, need to expand.
-
 var chai = require('chai'),
 	chaiModel = require('./helpers/canvas.js'),
 	assert = require('chai').assert,
@@ -75,16 +73,15 @@ describe('Canvas', function() {
         var canvas = new Canvas();
         //console.log(testJSON);
         canvas.import(testJSON, function(err,res){});
-        console.log(testJSON);
         var json = {};
         canvas.toObj(function(err,res){
             json = res;
         });
-        console.log(json);
         it('export return should be identical to the testJSON file loaded in', function (){
             expect(json).to.deep.equal(testJSON);
         });
     
     });
+
 
 });
