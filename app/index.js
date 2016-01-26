@@ -5,7 +5,7 @@ var Input = require('./helpers/input.js');
 
 function Initialize (htmlCanvas) {
 
-    var c = new Canvas();
+    var c = Canvas;//new Canvas();
     console.log('initializing');
     c.initialize(htmlCanvas, 'myNewMindMap');
 
@@ -15,7 +15,7 @@ function Initialize (htmlCanvas) {
     });
 
     console.log('importing');
-    c.import(ExampleJSON, function(err, res) { 
+    c.load(ExampleJSON, function(err, res) { 
         if(err) { console.log(err); return; }
         c.run();
     });
