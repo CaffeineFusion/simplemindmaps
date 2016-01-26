@@ -19,6 +19,8 @@ var Canvas = (function Canvas() {
 	var activeObjects = [];
 	var context = null;
 	var canvas = null;
+	var self = null; 	//Added to counteract an unknown bug which was causing the binding of "this" to break in canvas internal callback passing 
+						//(would hit the 2nd or 3rd layer and then the 'this' (or equivs) would not pass or bind)
 
 	/**
 	 * initialize 	Configures the canvas representation using the html canvas element.
@@ -33,6 +35,8 @@ var Canvas = (function Canvas() {
 	var initialize = function(c, viewName) {
 		canvas = c;
 		
+		self = this;
+
 		if(!canvas) {
 			console.log('No HTML5 canvas was passed to the Canvas initialize function');
 		}
@@ -48,7 +52,7 @@ var Canvas = (function Canvas() {
 		}
 
 		activeObjects = [];
-		this.title = viewName;
+		self.title = viewName;
 	};
 
 	var addDrawObject = function(obj) {
@@ -94,11 +98,11 @@ var Canvas = (function Canvas() {
 	};
 
 	var unfocus = function () {
-		this.focussedObject = null;
+		self.focussedObject = null;
 	};
 
 	var focus = function (obj) {
-		this.focussedObject = obj;
+		self.focussedObject = obj;
 	};
 
 
@@ -214,15 +218,14 @@ var Canvas = (function Canvas() {
 	var onMouseMove = function(e, inputState, callback) {
 
 		var point = {x:e.clientX + inputState.offSet.x, y: e.clientY + inputState.offSet.y};
-		var that = this;
 		getObject(point, function(err, obj){
 			if(!obj) {
-				unfocus().bind(that);
+				unfocus();
 			}
 			else if(obj) {
 				//var that = this;
 				obj.onMouseOver(function(err, res) { 
-					focus(obj).bind(that);//that.focus(obj); 
+					focus(obj);//that.focus(obj); 
 				});
 			}
 		});
@@ -234,10 +237,10 @@ var Canvas = (function Canvas() {
 		var point = {x:e.clientX + inputState.offSet.x, y: e.clientY + inputState.offSet.y};
 		getObject(point, function(err, obj) {
 			if(!obj) {
-				this.selectedObject = null;
+				self.selectedObject = null;
 			}
 			else if(obj) {
-				obj.onClick(function(err, res) { this.selectedObject = obj; });
+				obj.onClick(function(err, res) { self.selectedObject = obj; });
 			}
 			//todo: initiate callback
 		});
@@ -297,7 +300,6 @@ Object.defineProperties(Canvas, {
 			return _title.text;
 		},
 		set: function(title) {
-			console.log('title set: %s', title)
 			if(!_title) {
 				var _title = new Label();
 			}
@@ -314,6 +316,9 @@ Object.defineProperties(Canvas, {
 			return _focussedObject;
 		},
 		set: function(obj) {
+			if(!_focussedObject) {
+				var _focussedObject = null;
+			}
 			if(_focussedObject === obj) {
 				return;
 			}
@@ -322,7 +327,7 @@ Object.defineProperties(Canvas, {
 			}
 
 			_focussedObject = obj;
-			redraw();
+			this.redraw();
 		}
 	},
 
@@ -343,7 +348,7 @@ Object.defineProperties(Canvas, {
 			}
 
 			_selectedObject = obj;
-			redraw();
+			this.redraw();
 		}
 	}
 
