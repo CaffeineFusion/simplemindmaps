@@ -72,21 +72,6 @@ var Canvas = function Canvas() {
 	 */
 	this.draw = function() { 
 
-		if(state === 'stop') {
-			callback(null, 'Stop request passed to canvas - draw cycle terminated');
-			return;
-		}
-		if(state === 'loading') {
-			//window.requestAnimationFrame(draw(callback).bind(this));
-			return;	
-		}
-
-		//Check to see if image is unmodified before clearing/redrawing
-		if(!this.needRedraw) { 
-			//window.requestAnimationFrame(draw(callback).bind(this)); 
-			return;
-		}
-
 		console.log('screenRefreshed');
 		context.clearRect(0, 0, width, height);   //Clear canvas
 
@@ -97,10 +82,6 @@ var Canvas = function Canvas() {
 				}
 			});
 		});
-
-		this.needRedraw = false;		//Not really async, fix.
-
-		//window.requestAnimationFrame(draw(callback).bind(this));	 
 	};
 
 	this.run = function() {
@@ -231,6 +212,8 @@ var Canvas = function Canvas() {
 	};
 };
 
+
+
 Canvas.prototype.onMouseMove = function(e, inputState, callback) {
 
 	var point = {x:e.clientX + inputState.offSet.x, y: e.clientY + inputState.offSet.y};
@@ -263,7 +246,14 @@ Canvas.prototype.onClick = function (e, inputState, callback) {
 };
 
 Canvas.prototype.redraw = function () {
-	this.needRedraw = true;
+
+	switch(this.state) {
+		case 'stop' || 'loading':
+			return;
+		default:
+			window.requestAnimationFrame(this.draw.bind(this));	
+			return;
+	}
 };
 
 Canvas.prototype.unfocus = function () {
