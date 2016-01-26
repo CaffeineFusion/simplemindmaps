@@ -2,14 +2,23 @@
 	"title":"exampleCanvas",
 	"activeObjects":[
 		{"type":"LabelledOval", "title": "myNewIdea", 
-		"style":{"fillStyle":"#8ED6AA", "lineWidth":4, "strokeStyle":"blue"}, 
+		"style":{"selected":{"fillStyle":"#FF726B", "lineWidth":4, "strokeStyle":"#FC3025"},
+			"deselected":{"fillStyle":"#56C1CB", "lineWidth":4, "strokeStyle":"#188F9A"},
+			"hasFocus":{"fillStyle":"#56C1CB", "lineWidth":4, "strokeStyle":"#A3EA22"}
+			}, 
 		"dimensions":{"x":100, "y":100, "h":100, "w":200}},
 
 		{"type":"LabelledOval", "title": "myExtraNewIdea", 
-		"style":{"fillStyle":"#BBBBBB", "lineWidth":6, "strokeStyle":"orange"}, 
+		"style":{"selected":{"fillStyle":"#FF726B", "lineWidth":4, "strokeStyle":"#FC3025"},
+			"deselected":{"fillStyle":"#56C1CB", "lineWidth":4, "strokeStyle":"#188F9A"},
+			"hasFocus":{"fillStyle":"#56C1CB", "lineWidth":4, "strokeStyle":"#A3EA22"}
+			},
 		"dimensions":{"x":500, "y":400, "h":150, "w":250}},
 
-		{"type":"Connector", "style":{"lineWidth":5, "strokeStyle":"black"},
+		{"type":"Connector", "style":{"selected":{"lineWidth":5, "strokeStyle":"#FC3025"},
+			"deselected":{"lineWidth":5, "strokeStyle":"black"},
+			"hasFocus":{"lineWidth":5, "strokeStyle":"#A3EA22"}
+			},
 		"points":{"a":{"x":110, "y":1}, "b":{"x":10, "y":200}}}
 	]
 }

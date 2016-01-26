@@ -12,6 +12,14 @@
  */
 function DrawingObject() {
 	
+	var useStyle = function(context, style) {
+		for(var s in style) {
+			if(style.hasOwnProperty(s)) {
+				context[s] = style[s];
+			}
+		}
+	};
+
 	/**
 	 * applyStyle uses the currently defined style and applies it to the canvas context.
 	 * 		Child classes then need only worry about the specific shape to be drawn.
@@ -19,11 +27,16 @@ function DrawingObject() {
 	 * @return {[type]}         [description]
 	 */
 	this.applyStyle = function(context) {
-		for(var s in this.style) {
-			if(this.style.hasOwnProperty(s)) {
-				context[s] = this.style[s];
-			}
+		if(this.isSelected) {
+			useStyle(context, this.style.selected);
 		}
+		else if(this.isMouseOver) {
+			useStyle(context, this.style.hasFocus);
+		}
+		else {
+			useStyle(context, this.style.deselected);
+		}
+
 	};
 
 	this.toObj = function(callback) {
@@ -41,6 +54,10 @@ function DrawingObject() {
 	this.setTransparency = function() {
 		throw('transparency has not yet been implemented');
 	};
+
+	this.contains = function(point) {
+		return false;
+	};
 }
 
 Object.defineProperty(DrawingObject.prototype, 'style', {
@@ -56,5 +73,31 @@ Object.defineProperty(DrawingObject.prototype, 'style', {
     }
 });
 
+Object.defineProperty(DrawingObject.prototype, 'isMouseOver', {
+
+	get: function() {
+		if(this._isMouseOver === undefined){
+			this._isMouseOver = false;
+		}
+		return this._isMouseOver;
+	},
+	set: function(bool) {
+		this._isMouseOver = bool;
+	}
+});
+
+
+Object.defineProperty(DrawingObject.prototype, 'isSelected', {
+
+	get: function() {
+		if(this._isSelected === undefined){
+			this._isSelected = false;
+		}
+		return this._isSelected;
+	},
+	set: function(bool) {
+		this._isSelected = bool;
+	}
+});
 
 module.exports = DrawingObject;

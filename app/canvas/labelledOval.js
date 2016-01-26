@@ -88,15 +88,47 @@ var toObj = function(callback) {
 };
 
 var contains = function(point, callback) {
-	callback(null, Contains.EllipseContains(point, {x:this.dimensions.x, y:this.dimensions.y}, 
-		this.dimensions.w, this.dimensions.h)); 
+	var res = Contains.EllipseContains(point, {x:this.dimensions.x, y:this.dimensions.y}, 
+		this.dimensions.w, this.dimensions.h);
+	//callback(null, res); 
+	return res;
 };
+
+var onMouseOver = function(callback) {
+	if(!this.isMouseOver) {
+		console.log(this.title + " mouseOver");
+		this.isMouseOver = true;
+		callback(null, this);
+	}
+};
+
+var onClick = function(callback) {
+	//console.log(this.title + " clicked");
+	this.isSelected = true;
+	callback(null, this);
+};
+
+
+var onDeselect = function(callback) {
+	//console.log(this.title + " deselected");
+	this.isSelected = false;
+	callback(null, this);
+};
+
+
+var onMouseOut = function(callback) {
+	//console.log(this.title + " mouseOut");
+	this.isMouseOver = false;
+	callback(null, this);
+};
+
 
 
 
 //Create Inheritance and Add Functions to Prototype
 LabelledOval = Extend(DrawingObject, LabelledOval, {applyStyle:applyStyle, initialize:initialize, 
-	toObj:toObj, contains:contains});
+	toObj:toObj, contains:contains, onMouseOver:onMouseOver, onClick:onClick, onDeselect:onDeselect,
+	onMouseOut:onMouseOut});
 
 
 
@@ -134,6 +166,7 @@ Object.defineProperty(LabelledOval.prototype, 'scaleRatio', {
 		this._scaleRatio = {h:base*d.h, w:base*d.w};
 	}
 });
+
 
 
 

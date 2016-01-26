@@ -5,17 +5,17 @@ var Input = require('./helpers/input.js');
 
 function Initialize (htmlCanvas) {
 
-    var c = new Canvas();
+    var c = Canvas;//new Canvas();
     console.log('initializing');
     c.initialize(htmlCanvas, 'myNewMindMap');
 
     console.log('binding - not yet implemented');
-    Input.Bind(htmlCanvas, c, function (err, res) {
+    var input = new Input.Bind(htmlCanvas, c, function (err, res) {
         console.log(err); console.log(res); //For current debugging
     });
 
     console.log('importing');
-    c.import(ExampleJSON, function(err, res) { 
+    c.load(ExampleJSON, function(err, res) { 
         if(err) { console.log(err); return; }
         c.run();
     });
