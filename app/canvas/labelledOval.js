@@ -44,11 +44,13 @@ var LabelledOval = function LabelledOval() {
 		context.save();
 		//context.translate(50, 40); //todo: un-hardbake
 		//this.scaleRatio = {h:this.dimensions.h, w:this.dimensions.w};
-		context.scale(this.scaleRatio.w, this.scaleRatio.h);
+		context.scale(1, (this.dimensions.h/2)/(this.dimensions.w/2));//this.scaleRatio.w, this.scaleRatio.h);
 		context.beginPath();
 		//todo: fix the scaleRatio setting of x and y
-		context.arc(this.dimensions.x/this.scaleRatio.w, this.dimensions.y/this.scaleRatio.h, 
-			(this.dimensions.h + this.dimensions.w)/4, degreesToRadians(360), false);
+		//context.arc(this.dimensions.x/this.scaleRatio.w, this.dimensions.y/this.scaleRatio.h, 
+		//	(this.dimensions.h + this.dimensions.w)/4, degreesToRadians(360), false);
+		context.arc(this.dimensions.x, this.dimensions.y, 
+			this.dimensions.w/2, 0, degreesToRadians(360));
 		context.restore();
 		this.applyStyle(context);
 		context.fill();
@@ -135,35 +137,34 @@ LabelledOval = Extend(DrawingObject, LabelledOval, {applyStyle:applyStyle, initi
 
 //Define Getters and Setters
 //Note: would be overriden by Extend.
-Object.defineProperty(LabelledOval.prototype, 'title', {
-	get: function() {
-		if(!this._title) {
-			return null;
+Object.defineProperties(LabelledOval.prototype, {
+	'title': {
+		get: function() {
+			if(!this._title) {
+				return null;
+			}
+			return this._title.text;
+		},
+		set: function(title) {
+			if(!this._title) {
+				this._title = new Label();
+				console.log('todo: add initialization logic for label');
+			}
+			this._title.text = title;
 		}
-		return this._title.text;
 	},
-	set: function(title) {
-		if(!this._title) {
-			this._title = new Label();
-			console.log('todo: add initialization logic for label');
+	'scaleRatio': {
+
+		get: function() {
+			if(!this._scaleRatio){
+				return null;
+			}
+			return this._scaleRatio;
+		},
+		set: function(d) {
+			var base = 2/(d.h + d.w);
+			this._scaleRatio = {h:base*d.h, w:base*d.w};
 		}
-		this._title.text = title;
-	}
-});
-
-
-//todo: caching result
-Object.defineProperty(LabelledOval.prototype, 'scaleRatio', {
-
-	get: function() {
-		if(!this._scaleRatio){
-			return null;
-		}
-		return this._scaleRatio;
-	},
-	set: function(d) {
-		var base = 2/(d.h + d.w);
-		this._scaleRatio = {h:base*d.h, w:base*d.w};
 	}
 });
 
