@@ -3,6 +3,7 @@
 var Label = require('./label');
 var LabelledOval = require('./labelledOval');
 var Connector = require('./connector');
+var DefaultStyle = require('./defaultStyle.json');
 //var ParseJSON = require('../helpers/parseJSON');
 
 /**
@@ -58,6 +59,15 @@ var Canvas = (function Canvas() {
 
 	var addDrawObject = function(obj) {
 		activeObjects.push(obj);
+	};
+
+	var createLabelledOval = function(point) {
+		var l = new LabelledOval();
+		var config = DefaultStyle.LabelledOval;
+		l.initialize(config.name, {x:point.x, y:point.y, h:config.height, w:config.width});
+		l.style = config.style;
+		addDrawObject(l);
+		console.log(toObj(function(){}));
 	};
 
 	/**
@@ -239,13 +249,11 @@ var Canvas = (function Canvas() {
 	var onClick = function (e, inputState, callback) {
 		//this = canvas
 		var point = {x:e.clientX + inputState.offSet.x, y: e.clientY + inputState.offSet.y};
-		console.log(getObject);
 		getObject(point, function(err, obj) {
-			console.log(obj);
-			console.log(self);
-			console.log(self.selectedObject);
 			if(!obj) {
 				self.selectedObject = null;
+				createLabelledOval(point);
+				redraw();
 			}
 			else if(obj) {
 				obj.onClick(function(err, res) { self.selectedObject = obj; });
