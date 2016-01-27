@@ -1,0 +1,21 @@
+{
+	"LabelledOval":{
+		"style":{
+			"selected":{"fillStyle":"#FF726B", "lineWidth":4, "strokeStyle":"#FC3025"},
+			"deselected":{"fillStyle":"#56C1CB", "lineWidth":4, "strokeStyle":"#188F9A"},
+			"hasFocus":{"fillStyle":"#56C1CB", "lineWidth":4, "strokeStyle":"#A3EA22"}
+		}, 
+		"name":"New Idea",
+		"height":100, 
+		"width":200
+	},
+
+
+	"Connector": {
+		"style":{
+			"selected":{"lineWidth":5, "strokeStyle":"#FC3025"},
+			"deselected":{"lineWidth":5, "strokeStyle":"black"},
+			"hasFocus":{"lineWidth":5, "strokeStyle":"#A3EA22"}
+		}
+	}
+}
