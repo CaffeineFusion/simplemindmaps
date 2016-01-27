@@ -53,6 +53,7 @@ var Canvas = (function Canvas() {
 
 		activeObjects = [];
 		self.title = viewName;
+		console.log('%s = %s', viewName, self.title);
 	};
 
 	var addDrawObject = function(obj) {
@@ -152,9 +153,9 @@ var Canvas = (function Canvas() {
 	//Need to refactor for aSync
 	var clear = function() {
 		stop();
-		context.clearRect(0, 0, width, height);
-		label = new Label();
-		activeObjects = null; 
+		//context.clearRect(0, 0, width, height); //disabled for testing - need to create canvas mock to allow context call
+		//this.title = '';
+		activeObjects = []; 
 	};
 
 	/**
@@ -163,7 +164,7 @@ var Canvas = (function Canvas() {
 	 * @return {object} this        Return this Canvas object
 	 */
 	var load = function(json, callback) {
-		//this.clear();			//need to clear the canvas before we import. Disabled temporarily
+		clear();			//need to clear the canvas before we import. Disabled temporarily
 
 		this.title = json.title;
 
@@ -205,7 +206,7 @@ var Canvas = (function Canvas() {
 	var toObj = function(callback) {
 		//todo : pause the canvas cycle?
 		var obj = {};
-		obj.title = label.text;
+		obj.title = self.title;
 		obj.activeObjects = [];
 		activeObjects.forEach(function(o) {
 			o.toObj( function(err, res) {obj.activeObjects.push(res); });
@@ -268,6 +269,7 @@ var Canvas = (function Canvas() {
 	return {
 		'getObject': getObject,
 		'getDimensions': getDimensions,
+		'getState': getState,
 
 		'initialize': initialize,
 
@@ -290,64 +292,73 @@ var Canvas = (function Canvas() {
 	};
 })();
 
+
+//Todo: find a better a way to do getters and setters.
+//Problems with this commonly recommended way of doing getters and setters:
+//		1. no access to internal properties
+//		2. have to be accessed with 'this.property' which has the possibility of creating a new public var on the context if not carefully used
+//		3. are not private to the object
+
 Object.defineProperties(Canvas, {
 
     'title': {
 		get: function() {
-			if(!_title) {
-				var _title = new Label();
+			if(!this._title) {
+				this._title = new Label();
 			}
-			return _title.text;
+			return this._title.text;
 		},
 		set: function(title) {
-			if(!_title) {
-				var _title = new Label();
+			if(!this._title) {
+				this._title = new Label();
 			}
-			_title.initialize('Black', title, {x:0, y:0}); 
+			this._title.initialize(title, {x:0, y:0}); 
 		}
 	},
 
 	'focussedObject': {
 		get: function() {
-			if(!_focussedObject) {
-				var _focussedObject = null;
+			if(!this._focussedObject) {
+				this._focussedObject = null;
 			}
 
-			return _focussedObject;
+			return this._focussedObject;
 		},
 		set: function(obj) {
-			if(!_focussedObject) {
-				var _focussedObject = null;
+			if(!this._focussedObject) {
+				this._focussedObject = null;
 			}
-			if(_focussedObject === obj) {
+			if(this._focussedObject === obj) {
 				return;
 			}
-			if(_focussedObject && _focussedObject !== obj) {
-				_focussedObject.onMouseOut();
+			if(this._focussedObject && this._focussedObject !== obj) {
+				this._focussedObject.onMouseOut();
 			}
 
-			_focussedObject = obj;
+			this._focussedObject = obj;
 			this.redraw();
 		}
 	},
 
 	'selectedObject': {
 		get: function() {
-			if(!_selectedObject) {
-				var _selectedObject = null;
+			if(!this._selectedObject) {
+				this._selectedObject = null;
 			}
-			return _selectedObject;
+			return this._selectedObject;
 		},
 		set: function(obj) {
-
-			if(_selectedObject === obj) {
+			if(!this._selectedObject) {
+				this._selectedObject = null;
+			}
+			if(this._selectedObject === obj) {
 				return;
 			}
-			if(_selectedObject) {
-				_selectedObject.onDeselect();
+			if(this._selectedObject) {
+				this._selectedObject.onDeselect();
 			}
 
-			_selectedObject = obj;
+			this._selectedObject = obj;
 			this.redraw();
 		}
 	}

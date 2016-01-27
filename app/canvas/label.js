@@ -9,8 +9,7 @@ var Label = function Label() {
 
 	//Todo : What should the initial params be for Label?
 	//		Need to include boundary
-	this.initialize = function (clr, text, point) {
-		this.colour = clr;
+	this.initialize = function (text, point) {
 		this.text = text;
 		this.point = point;
 		//this.points = points;
@@ -54,7 +53,7 @@ var Label = function Label() {
 Object.defineProperty(Label.prototype, 'text', {
     get: function() {
     	if(!this._text) {
-    		return '30px Arial';
+    		return 'no text has been set';
         }
         return this._text;
     },
@@ -84,27 +83,6 @@ Object.defineProperty(Label.prototype, 'font', {
         }
     }
 });
-
-
-//todo : add error handling and proper logging
-//		 default is currently hardbaked for colour and style. Seperate to external style doc
-Object.defineProperty(Label.prototype, 'colour', {
-    get: function() {
-    	if(!this._colour) {
-    		return 'Blue';
-        }
-        return this._colour;
-    },
-    set: function(str) {
-        if (_.isString(str)) {
-            this._colour = str;
-        }
-        else {
-            console.log('Colour ' + str.toString() + ' is not a valid string!');
-        }
-    }
-});
-
 
 
 Object.defineProperty(Label.prototype, 'style', {
