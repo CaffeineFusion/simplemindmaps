@@ -220,12 +220,15 @@ var Canvas = (function Canvas() {
 
 		var point = {x:e.clientX + inputState.offSet.x, y: e.clientY + inputState.offSet.y};
 		getObject(point, function(err, obj){
+			//console.log('passToObject');
 			if(!obj) {
+				('unfocussed');
 				unfocus();
 			}
 			else if(obj) {
 				//var that = this;
 				obj.onMouseOver(function(err, res) { 
+					('focus on object');
 					focus(obj);//that.focus(obj); 
 				});
 			}
@@ -236,7 +239,11 @@ var Canvas = (function Canvas() {
 	var onClick = function (e, inputState, callback) {
 		//this = canvas
 		var point = {x:e.clientX + inputState.offSet.x, y: e.clientY + inputState.offSet.y};
+		console.log(getObject);
 		getObject(point, function(err, obj) {
+			console.log(obj);
+			console.log(self);
+			console.log(self.selectedObject);
 			if(!obj) {
 				self.selectedObject = null;
 			}
@@ -332,7 +339,7 @@ Object.defineProperties(Canvas, {
 				return;
 			}
 			if(this._focussedObject && this._focussedObject !== obj) {
-				this._focussedObject.onMouseOut();
+				this._focussedObject.onMouseOut(function(err, res) {if(err){console.log(err);}});
 			}
 
 			this._focussedObject = obj;
@@ -355,7 +362,7 @@ Object.defineProperties(Canvas, {
 				return;
 			}
 			if(this._selectedObject) {
-				this._selectedObject.onDeselect();
+				this._selectedObject.onDeselect(function(err, res) {if(err){console.log(err);}});
 			}
 
 			this._selectedObject = obj;
